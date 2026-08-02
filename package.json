@@ -1,0 +1,24 @@
+{
+  "name": "ammamma",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Voice practice for Telugu heritage speakers who understand but can't speak.",
+  "workspaces": [
+    "spike",
+    "app",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "spike": "npm run -w spike start --",
+    "content:validate": "npm run -w @ammamma/content validate",
+    "content:seed": "npm run -w @ammamma/content seed --",
+    "test": "npm run -w @ammamma/core test && npm run -w @ammamma/content test && npm run -w spike test",
+    "typecheck": "tsc -b --pretty",
+    "ios": "npm run -w app ios",
+    "ios:device": "npm run -w app ios:device",
+    "ios:rebuild": "npm run -w app ios:rebuild"
+  }
+}

@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# Blocks committing live credentials in tracked files.
+#
+# Real keys keep landing in .env.example (the template, which IS committed) instead of
+# .env (which is gitignored). The template looking exactly like the real file is the
+# trap. This hook makes the mistake harmless rather than relying on remembering.
+#
+# Enable once per clone:  git config core.hooksPath .githooks
+
+set -uo pipefail
+
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$staged" ] && exit 0
+
+fail=0
+
+# Patterns for credentials that must never reach a commit.
+# Each is <label>|<regex>.
+patterns=(
+  "OpenAI key|sk-proj-[A-Za-z0-9_-]{20,}"
+  "OpenAI key|sk-[A-Za-z0-9]{40,}"
+  "ElevenLabs key|sk_[a-f0-9]{40,}"
+  "Supabase JWT (anon or service_role)|eyJhbGciOi[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{20,}\\.[A-Za-z0-9_-]{10,}"
+  "AWS access key|AKIA[0-9A-Z]{16}"
+  "Private key block|-----BEGIN [A-Z ]*PRIVATE KEY-----"
+)
+
+for file in $staged; do
+  # Skip binaries and the lockfile.
+  [ -f "$file" ] || continue
+  case "$file" in
+    package-lock.json|*.mp3|*.wav|*.m4a|*.png|*.jpg) continue ;;
+  esac
+
+  for entry in "${patterns[@]}"; do
+    label="${entry%%|*}"
+    regex="${entry#*|}"
+    # -e is required: some patterns begin with "-" and would parse as flags otherwise.
+    if git show ":$file" 2>/dev/null | grep -Eq -e "$regex"; then
+      echo "BLOCKED: $label found in $file"
+      fail=1
+    fi
+  done
+done
+
+if [ "$fail" -ne 0 ]; then
+  cat <<'EOF'
+
+A live credential is staged for commit.
+
+  Secrets belong in .env  (gitignored)
+  Placeholders belong in .env.example  (committed)
+
+Fix: move the real value into .env, restore the placeholder in the tracked file,
+then unstage it:
+
+  git restore --staged <file>
+
+Override only if you are certain it is not a real secret:
+
+  git commit --no-verify
+
+EOF
+  exit 1
+fi
+
+exit 0

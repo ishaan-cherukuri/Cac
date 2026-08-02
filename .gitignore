@@ -1,0 +1,23 @@
+node_modules/
+.env
+.env.local
+*.log
+.DS_Store
+
+# Expo
+.expo/
+dist/
+web-build/
+ios/
+android/
+
+# Spike artifacts — generated audio, not source
+spike/out/
+spike/samples/*.mp3
+spike/samples/*.wav
+spike/samples/*.m4a
+!spike/samples/.gitkeep
+
+# Supabase local
+supabase/.branches/
+supabase/.temp/

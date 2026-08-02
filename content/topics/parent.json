@@ -1,0 +1,542 @@
+[
+  {
+    "id": "33303e86-f8e1-45dc-b07c-367597a9a6fc",
+    "target_language": "te",
+    "title": "Practice calling Amma",
+    "scenario_description": "Ammamma knows you have not called your mother in weeks. She offers to be her, so you can practice first.",
+    "emotional_anchor": "parent",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, మీ అమ్మకి ఫోన్ చేశావా ఈమధ్య?",
+        "ai_prompt_translit": "Kanna, mee ammaki phone chesaavaa eemadhya?",
+        "ai_prompt_english": "Dear, have you called your mother lately?",
+        "model_answer_native": "లేదు అమ్మమ్మా. కొంచెం భయంగా ఉంది.",
+        "model_answer_translit": "Ledu Ammammaa. Konchem bhayangaa undi.",
+        "model_answer_english": "No, Ammamma. I'm a little scared.",
+        "key_vocab": ["ఈమధ్య (eemadhya) — lately", "భయంగా (bhayangaa) — scared"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "భయమెందుకు? సరే, నేను మీ అమ్మలాగా అడుగుతాను. నువ్వు ప్రాక్టీస్ చెయ్యి. సరేనా?",
+        "ai_prompt_translit": "Bhayamenduku? Sare, nenu mee ammalaagaa adugutaanu. Nuvvu practice cheyyi. Sarenaa?",
+        "ai_prompt_english": "Why be scared? Alright, I'll ask like your mother. You practice. Okay?",
+        "model_answer_native": "సరే అమ్మమ్మా. మొదలుపెట్టు.",
+        "model_answer_translit": "Sare Ammammaa. Modalupettu.",
+        "model_answer_english": "Okay, Ammamma. Start.",
+        "key_vocab": ["ప్రాక్టీస్ (practice) — practice", "మొదలుపెట్టు (modalupettu) — start"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "\"ఒరేయ్! ఇన్ని రోజులు ఫోన్ చేయలేదేంటి?\" — ఇలా అడుగుతుంది. ఏం చెప్తావు?",
+        "ai_prompt_translit": "\"Orey! Inni rojulu phone cheyaledenti?\" — ilaa adugutundi. Em cheptaavu?",
+        "ai_prompt_english": "\"Hey! Why haven't you called all these days?\" — she'll ask like this. What will you say?",
+        "model_answer_native": "సారీ అమ్మా. పనిలో బిజీగా ఉన్నాను.",
+        "model_answer_translit": "Sorry ammaa. Panilo busy gaa unnaanu.",
+        "model_answer_english": "Sorry, Amma. I've been busy with work.",
+        "key_vocab": ["ఇన్ని రోజులు (inni rojulu) — all these days", "బిజీగా (busy gaa) — busy"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "మంచిది! ఇప్పుడు ఆమె అడుగుతుంది — \"సరిగ్గా తింటున్నావా?\" ఏం చెప్తావు?",
+        "ai_prompt_translit": "Manchidi! Ippudu aame adugutundi — \"sariggaa tintunnaavaa?\" Em cheptaavu?",
+        "ai_prompt_english": "Good! Now she'll ask — \"Are you eating properly?\" What will you say?",
+        "model_answer_native": "తింటున్నాను అమ్మా. బాధపడకు.",
+        "model_answer_translit": "Tintunnaanu ammaa. Baadhapadaku.",
+        "model_answer_english": "I'm eating, Amma. Don't worry.",
+        "key_vocab": ["సరిగ్గా (sariggaa) — properly", "బాధపడకు (baadhapadaku) — don't worry"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "చూశావా? నువ్వు చేయగలవు. ఇప్పుడు నిజంగా ఫోన్ చెయ్యి. ఆమె ఎదురు చూస్తోంది.",
+        "ai_prompt_translit": "Chooshaavaa? Nuvvu cheyagalavu. Ippudu nijangaa phone cheyyi. Aame eduru choostondi.",
+        "ai_prompt_english": "See? You can do it. Now really call her. She's waiting.",
+        "model_answer_native": "సరే అమ్మమ్మా. ఇప్పుడే చేస్తాను.",
+        "model_answer_translit": "Sare Ammammaa. Ippude chestaanu.",
+        "model_answer_english": "Okay, Ammamma. I'll call right now.",
+        "key_vocab": ["చేయగలవు (cheyagalavu) — you can do it", "ఇప్పుడే (ippude) — right now"]
+      }
+    ]
+  },
+  {
+    "id": "8d06318a-3e71-4dd8-9a10-d225fa966812",
+    "target_language": "te",
+    "title": "Tell Ammamma what Amma cooked",
+    "scenario_description": "Your mother sent food. Ammamma wants a full report, and she has opinions.",
+    "emotional_anchor": "parent",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, మీ అమ్మ ఏమైనా వండి పంపిందా?",
+        "ai_prompt_translit": "Kanna, mee amma emainaa vandi pampindaa?",
+        "ai_prompt_english": "Dear, did your mother cook and send anything?",
+        "model_answer_native": "పంపింది అమ్మమ్మా. చాలా వండి పంపింది.",
+        "model_answer_translit": "Pampindi Ammammaa. Chaalaa vandi pampindi.",
+        "model_answer_english": "She did, Ammamma. She cooked and sent a lot.",
+        "key_vocab": ["వండి (vandi) — cooked", "పంపింది (pampindi) — she sent"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "ఏం పంపింది? చెప్పు చెప్పు.",
+        "ai_prompt_translit": "Em pampindi? Cheppu cheppu.",
+        "ai_prompt_english": "What did she send? Tell me, tell me.",
+        "model_answer_native": "పులిహోర, ఆవకాయ, ఇంకా లడ్డు.",
+        "model_answer_translit": "Pulihora, aavakaaya, inkaa laddu.",
+        "model_answer_english": "Pulihora, avakaya pickle, and laddu.",
+        "key_vocab": ["పులిహోర (pulihora) — tamarind rice", "ఆవకాయ (aavakaaya) — mango pickle"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "ఆవకాయ కూడానా! ఆమెకి నేనే నేర్పించాను, తెలుసా? రుచి ఎలా ఉంది?",
+        "ai_prompt_translit": "Aavakaaya koodaanaa! Aameki nene nerpinchaanu, telusaa? Ruchi elaa undi?",
+        "ai_prompt_english": "Avakaya too! I taught her that myself, did you know? How does it taste?",
+        "model_answer_native": "చాలా బాగుంది. కొంచెం కారంగా ఉంది.",
+        "model_answer_translit": "Chaalaa baagundi. Konchem kaarangaa undi.",
+        "model_answer_english": "It's very good. A little spicy.",
+        "key_vocab": ["రుచి (ruchi) — taste", "కారం (kaaram) — spicy"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "కారంగానా? మీ అమ్మ ఎప్పుడూ ఎక్కువ కారం వేస్తుంది. నేను చెప్తూనే ఉన్నాను ఆమెకి.",
+        "ai_prompt_translit": "Kaarangaanaa? Mee amma eppudoo ekkuva kaaram vestundi. Nenu cheptoone unnaanu aameki.",
+        "ai_prompt_english": "Spicy? Your mother always adds too much chili. I keep telling her.",
+        "model_answer_native": "నాకు కారం ఇష్టం అమ్మమ్మా.",
+        "model_answer_translit": "Naaku kaaram ishtam Ammammaa.",
+        "model_answer_english": "I like spicy, Ammamma.",
+        "key_vocab": ["ఇష్టం (ishtam) — like", "ఎక్కువ (ekkuva) — too much"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "అయితే సరే! మీ అమ్మకి చెప్పు — బాగుంది అని. ఆమెకి సంతోషం అవుతుంది.",
+        "ai_prompt_translit": "Ayite sare! Mee ammaki cheppu — baagundi ani. Aameki santosham avutundi.",
+        "ai_prompt_english": "Then fine! Tell your mother it was good. It will make her happy.",
+        "model_answer_native": "చెప్తాను అమ్మమ్మా. తప్పకుండా చెప్తాను.",
+        "model_answer_translit": "Cheptaanu Ammammaa. Tappakundaa cheptaanu.",
+        "model_answer_english": "I'll tell her, Ammamma. I'll definitely tell her.",
+        "key_vocab": ["సంతోషం (santosham) — happiness", "తప్పకుండా (tappakundaa) — definitely"]
+      }
+    ]
+  },
+  {
+    "id": "d91c59bb-6946-4c46-9c69-8cc8f66b4882",
+    "target_language": "te",
+    "title": "Tell Ammamma about your father",
+    "scenario_description": "Ammamma asks after your father. You realize you do not talk to him much either.",
+    "emotional_anchor": "parent",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "మీ నాన్న ఎలా ఉన్నారు కన్నా?",
+        "ai_prompt_translit": "Mee naanna elaa unnaaru kanna?",
+        "ai_prompt_english": "How is your father, dear?",
+        "model_answer_native": "బాగున్నారు అమ్మమ్మా. ఇంకా పని చేస్తున్నారు.",
+        "model_answer_translit": "Baagunnaaru Ammammaa. Inkaa pani chestunnaaru.",
+        "model_answer_english": "He's well, Ammamma. He's still working.",
+        "key_vocab": ["నాన్న (naanna) — father", "ఇంకా (inkaa) — still"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "ఇంకా పని చేస్తున్నారా? ఆయనకి విశ్రాంతి తీసుకోమని చెప్పు.",
+        "ai_prompt_translit": "Inkaa pani chestunnaaraa? Aayanaki vishraanti teesukomani cheppu.",
+        "ai_prompt_english": "Still working? Tell him to take some rest.",
+        "model_answer_native": "చెప్పాను. కానీ ఆయన వినరు.",
+        "model_answer_translit": "Cheppaanu. Kaanee aayana vinaru.",
+        "model_answer_english": "I told him. But he doesn't listen.",
+        "key_vocab": ["విశ్రాంతి (vishraanti) — rest", "వినరు (vinaru) — he doesn't listen"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "అవును, ఆయన అలాంటివారే. మీరిద్దరూ ఎక్కువ మాట్లాడుకుంటారా?",
+        "ai_prompt_translit": "Avunu, aayana alaantivaare. Meeriddaroo ekkuva maatlaadukuntaaraa?",
+        "ai_prompt_english": "Yes, he's like that. Do the two of you talk much?",
+        "model_answer_native": "ఎక్కువ మాట్లాడము అమ్మమ్మా.",
+        "model_answer_translit": "Ekkuva maatlaadamu Ammammaa.",
+        "model_answer_english": "We don't talk much, Ammamma.",
+        "key_vocab": ["మాట్లాడము (maatlaadamu) — we don't talk", "ఇద్దరూ (iddaroo) — both"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "మగవాళ్ళు అంతే. కానీ ఆయనకి నువ్వంటే చాలా ఇష్టం. ఆయన నాతో నీ గురించే చెప్తారు.",
+        "ai_prompt_translit": "Magavaallu ante. Kaanee aayanaki nuvvante chaalaa ishtam. Aayana naatho nee gurinche cheptaaru.",
+        "ai_prompt_english": "Men are like that. But he loves you very much. He only talks to me about you.",
+        "model_answer_native": "నిజమా? ఆయన నాతో చెప్పరు.",
+        "model_answer_translit": "Nijamaa? Aayana naatho cheppaharu.",
+        "model_answer_english": "Really? He doesn't tell me.",
+        "key_vocab": ["నువ్వంటే ఇష్టం (nuvvante ishtam) — loves you", "నిజమా (nijamaa) — really"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "అయితే నువ్వే మొదలుపెట్టు. ఆయనకి ఫోన్ చేసి తెలుగులో మాట్లాడు. ఆయన ఆశ్చర్యపోతారు.",
+        "ai_prompt_translit": "Ayite nuvve modalupettu. Aayanaki phone chesi telugulo maatlaadu. Aayana aashcharyapotaaru.",
+        "ai_prompt_english": "Then you start. Call him and speak in Telugu. He'll be amazed.",
+        "model_answer_native": "సరే అమ్మమ్మా. ప్రయత్నిస్తాను.",
+        "model_answer_translit": "Sare Ammammaa. Prayatnistaanu.",
+        "model_answer_english": "Okay, Ammamma. I'll try.",
+        "key_vocab": ["ఆశ్చర్యపోతారు (aashcharyapotaaru) — he'll be amazed", "మొదలుపెట్టు (modalupettu) — start"]
+      }
+    ]
+  },
+  {
+    "id": "679b74df-c3b5-4484-821e-7c85871e2281",
+    "target_language": "te",
+    "title": "Tell Ammamma you got a new job",
+    "scenario_description": "Good news. She will want to tell the entire village, so get the words right.",
+    "emotional_anchor": "parent",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, నీ గొంతు సంతోషంగా ఉంది. ఏంటి విషయం?",
+        "ai_prompt_translit": "Kanna, nee gontu santoshangaa undi. Enti vishayam?",
+        "ai_prompt_english": "Dear, your voice sounds happy. What's the news?",
+        "model_answer_native": "నాకు కొత్త ఉద్యోగం వచ్చింది అమ్మమ్మా!",
+        "model_answer_translit": "Naaku kotta udyogam vachchindi Ammammaa!",
+        "model_answer_english": "I got a new job, Ammamma!",
+        "key_vocab": ["కొత్త (kotta) — new", "వచ్చింది (vachchindi) — I got"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "అమ్మో! ఎంత మంచి వార్త! మీ అమ్మకి చెప్పావా?",
+        "ai_prompt_translit": "Ammo! Enta manchi vaarta! Mee ammaki cheppaavaa?",
+        "ai_prompt_english": "Oh my! What good news! Did you tell your mother?",
+        "model_answer_native": "చెప్పాను. ముందు నీకే చెప్పాలి అనుకున్నాను.",
+        "model_answer_translit": "Cheppaanu. Mundu neeke cheppaali anukunnaanu.",
+        "model_answer_english": "I told her. I wanted to tell you first though.",
+        "key_vocab": ["వార్త (vaarta) — news", "ముందు (mundu) — first"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "నా బంగారం! ఎప్పుడు మొదలు?",
+        "ai_prompt_translit": "Naa bangaaram! Eppudu modalu?",
+        "ai_prompt_english": "My gold! When do you start?",
+        "model_answer_native": "వచ్చే నెల మొదటి తారీఖున.",
+        "model_answer_translit": "Vachche nela modati taareekhuna.",
+        "model_answer_english": "On the first of next month.",
+        "key_vocab": ["మొదలు (modalu) — start", "తారీఖు (taareekhu) — date"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "నేను గుడికి వెళ్ళి పూజ చేయిస్తాను. నీకు మంచి జరగాలి.",
+        "ai_prompt_translit": "Nenu gudiki velli pooja cheyistaanu. Neeku manchi jaragaali.",
+        "ai_prompt_english": "I'll go to the temple and have a pooja done. Good things must happen for you.",
+        "model_answer_native": "థాంక్స్ అమ్మమ్మా. నీ దీవెనలు కావాలి.",
+        "model_answer_translit": "Thanks Ammammaa. Nee deevenalu kaavaali.",
+        "model_answer_english": "Thank you, Ammamma. I want your blessings.",
+        "key_vocab": ["గుడి (gudi) — temple", "దీవెనలు (deevenalu) — blessings"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "నా దీవెనలు ఎప్పుడూ నీతోనే ఉంటాయి కన్నా. ఎప్పుడూ.",
+        "ai_prompt_translit": "Naa deevenalu eppudoo neetoone untaayi kanna. Eppudoo.",
+        "ai_prompt_english": "My blessings are always with you, dear. Always.",
+        "model_answer_native": "తెలుసు అమ్మమ్మా. థాంక్స్.",
+        "model_answer_translit": "Telusu Ammammaa. Thanks.",
+        "model_answer_english": "I know, Ammamma. Thank you.",
+        "key_vocab": ["ఎప్పుడూ (eppudoo) — always", "తెలుసు (telusu) — I know"]
+      }
+    ]
+  },
+  {
+    "id": "266446d7-2599-46ff-8269-908c8a3c8c02",
+    "target_language": "te",
+    "title": "Say sorry to Ammamma for not visiting",
+    "scenario_description": "You promised you would come. You did not come. She has not brought it up, which is worse.",
+    "emotional_anchor": "parent",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "హలో కన్నా. ఎలా ఉన్నావు?",
+        "ai_prompt_translit": "Halo kanna. Elaa unnaavu?",
+        "ai_prompt_english": "Hello, dear. How are you?",
+        "model_answer_native": "బాగున్నాను అమ్మమ్మా. నేను సారీ చెప్పాలి.",
+        "model_answer_translit": "Baagunnaanu Ammammaa. Nenu sorry cheppaali.",
+        "model_answer_english": "I'm well, Ammamma. I need to say sorry.",
+        "key_vocab": ["సారీ చెప్పాలి (sorry cheppaali) — need to apologize"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "సారీనా? ఎందుకు కన్నా?",
+        "ai_prompt_translit": "Sorry naa? Enduku kanna?",
+        "ai_prompt_english": "Sorry? What for, dear?",
+        "model_answer_native": "నేను రాలేదు. వస్తానని చెప్పి రాలేదు.",
+        "model_answer_translit": "Nenu raaledu. Vastaanani cheppi raaledu.",
+        "model_answer_english": "I didn't come. I said I would come and I didn't.",
+        "key_vocab": ["రాలేదు (raaledu) — didn't come", "చెప్పి (cheppi) — having said"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "అయ్యో, అది పర్వాలేదు కన్నా. నాకు కోపం లేదు. నీకు పని ఉంటుంది కదా.",
+        "ai_prompt_translit": "Ayyo, adi parvaaledu kanna. Naaku kopam ledu. Neeku pani untundi kadaa.",
+        "ai_prompt_english": "Oh, that's alright, dear. I'm not angry. You have work, don't you.",
+        "model_answer_native": "కానీ నాకు బాధగా ఉంది అమ్మమ్మా.",
+        "model_answer_translit": "Kaanee naaku baadhagaa undi Ammammaa.",
+        "model_answer_english": "But I feel bad, Ammamma.",
+        "key_vocab": ["కోపం (kopam) — anger", "బాధగా (baadhagaa) — feeling bad"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "బాధపడకు. నువ్వు ఇప్పుడు ఫోన్ చేశావు కదా. అదే చాలు నాకు.",
+        "ai_prompt_translit": "Baadhapadaku. Nuvvu ippudu phone chesaavu kadaa. Ade chaalu naaku.",
+        "ai_prompt_english": "Don't feel bad. You called now, didn't you. That's enough for me.",
+        "model_answer_native": "ఈసారి తప్పకుండా వస్తాను.",
+        "model_answer_translit": "Eesaari tappakundaa vastaanu.",
+        "model_answer_english": "This time I'll definitely come.",
+        "key_vocab": ["ఈసారి (eesaari) — this time", "తప్పకుండా (tappakundaa) — definitely"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "సరే కన్నా. కానీ రాకపోయినా ఫోన్ చెయ్యి. నీ గొంతు వింటే చాలు నాకు.",
+        "ai_prompt_translit": "Sare kanna. Kaanee raakapoyinaa phone cheyyi. Nee gontu vinte chaalu naaku.",
+        "ai_prompt_english": "Alright, dear. But even if you don't come, call. Hearing your voice is enough for me.",
+        "model_answer_native": "చేస్తాను అమ్మమ్మా. ప్రామిస్.",
+        "model_answer_translit": "Chestaanu Ammammaa. Promise.",
+        "model_answer_english": "I will, Ammamma. Promise.",
+        "key_vocab": ["గొంతు (gontu) — voice", "వింటే (vinte) — if I hear"]
+      }
+    ]
+  },
+  {
+    "id": "c7053cd7-a781-4c9b-a0ca-cc82552224b2",
+    "target_language": "te",
+    "title": "Tell Ammamma your parents are visiting you",
+    "scenario_description": "Your parents are coming to stay. Ammamma has advice, most of it about food.",
+    "emotional_anchor": "parent",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "ఏంటి కన్నా, ఏదో సందడిగా ఉన్నట్టు ఉంది?",
+        "ai_prompt_translit": "Enti kanna, edo sandadigaa unnattu undi?",
+        "ai_prompt_english": "What is it, dear, sounds like there's some commotion?",
+        "model_answer_native": "అమ్మా నాన్న వస్తున్నారు అమ్మమ్మా.",
+        "model_answer_translit": "Ammaa naanna vastunnaaru Ammammaa.",
+        "model_answer_english": "Amma and Nanna are coming, Ammamma.",
+        "key_vocab": ["వస్తున్నారు (vastunnaaru) — they're coming", "సందడి (sandadi) — commotion"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "ఓహో! ఎప్పుడు వస్తున్నారు?",
+        "ai_prompt_translit": "Oho! Eppudu vastunnaaru?",
+        "ai_prompt_english": "Oho! When are they coming?",
+        "model_answer_native": "శనివారం వస్తున్నారు. వారం రోజులు ఉంటారు.",
+        "model_answer_translit": "Shanivaaram vastunnaaru. Vaaram rojulu untaaru.",
+        "model_answer_english": "They're coming Saturday. They'll stay a week.",
+        "key_vocab": ["శనివారం (shanivaaram) — Saturday", "వారం (vaaram) — week"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "ఇల్లు సర్దావా? మీ అమ్మ అన్నీ చూస్తుంది, తెలుసు కదా!",
+        "ai_prompt_translit": "Illu sardaavaa? Mee amma annee choostundi, telusu kadaa!",
+        "ai_prompt_english": "Did you tidy the house? Your mother notices everything, you know!",
+        "model_answer_native": "సర్దుతున్నాను అమ్మమ్మా. భయంగా ఉంది.",
+        "model_answer_translit": "Sardutunnaanu Ammammaa. Bhayangaa undi.",
+        "model_answer_english": "I'm tidying, Ammamma. I'm nervous.",
+        "key_vocab": ["సర్దు (sardu) — tidy up", "ఇల్లు (illu) — house"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "నవ్వు రావట్లేదు నాకు! ఒకటి చెప్తాను — వాళ్ళకి వండి పెట్టు. అదే వాళ్ళకి కావాలి.",
+        "ai_prompt_translit": "Navvu raavatledu naaku! Okati cheptaanu — vaallaki vandi pettu. Ade vaallaki kaavaali.",
+        "ai_prompt_english": "I can't help laughing! Let me tell you one thing — cook for them. That's what they want.",
+        "model_answer_native": "నేను ఏం వండాలి అమ్మమ్మా?",
+        "model_answer_translit": "Nenu em vandaali Ammammaa?",
+        "model_answer_english": "What should I cook, Ammamma?",
+        "key_vocab": ["వండి పెట్టు (vandi pettu) — cook and serve", "ఏం (em) — what"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "పప్పు చెయ్యి. నేను నేర్పించాను కదా. మీ అమ్మ ఏడ్చేస్తుంది సంతోషంతో.",
+        "ai_prompt_translit": "Pappu cheyyi. Nenu nerpinchaanu kadaa. Mee amma edchestundi santoshantho.",
+        "ai_prompt_english": "Make pappu. I taught you, didn't I. Your mother will cry with happiness.",
+        "model_answer_native": "సరే అమ్మమ్మా. పప్పు చేస్తాను.",
+        "model_answer_translit": "Sare Ammammaa. Pappu chestaanu.",
+        "model_answer_english": "Okay, Ammamma. I'll make pappu.",
+        "key_vocab": ["నేర్పించాను (nerpinchaanu) — I taught", "ఏడ్చేస్తుంది (edchestundi) — she'll cry"]
+      }
+    ]
+  },
+  {
+    "id": "712d08ef-02ac-44fd-9e9e-6e03e4625a2d",
+    "target_language": "te",
+    "title": "Ask Ammamma for advice about your parents",
+    "scenario_description": "You had an argument with your mother. Ammamma has known her longer than you have.",
+    "emotional_anchor": "parent",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, నీ గొంతు బాగోలేదు. ఏమైంది?",
+        "ai_prompt_translit": "Kanna, nee gontu baagoledu. Emaindi?",
+        "ai_prompt_english": "Dear, your voice doesn't sound right. What happened?",
+        "model_answer_native": "అమ్మతో గొడవ అయ్యింది అమ్మమ్మా.",
+        "model_answer_translit": "Ammatho godava ayyindi Ammammaa.",
+        "model_answer_english": "I had a fight with Amma, Ammamma.",
+        "key_vocab": ["గొడవ (godava) — fight", "అయ్యింది (ayyindi) — happened"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "అయ్యో. దేని గురించి?",
+        "ai_prompt_translit": "Ayyo. Deni gurinchi?",
+        "ai_prompt_english": "Oh dear. About what?",
+        "model_answer_native": "చిన్న విషయం. కానీ ఆమెకి కోపం వచ్చింది.",
+        "model_answer_translit": "Chinna vishayam. Kaanee aameki kopam vachchindi.",
+        "model_answer_english": "A small thing. But she got angry.",
+        "key_vocab": ["విషయం (vishayam) — matter", "కోపం వచ్చింది (kopam vachchindi) — got angry"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "మీ అమ్మకి కోపం త్వరగా వస్తుంది, త్వరగా పోతుంది. చిన్నప్పటినుంచీ అంతే.",
+        "ai_prompt_translit": "Mee ammaki kopam tvaragaa vastundi, tvaragaa potundi. Chinnappatinunchee ante.",
+        "ai_prompt_english": "Your mother's anger comes fast and goes fast. She's been like that since childhood.",
+        "model_answer_native": "నేను ఏం చేయాలి అమ్మమ్మా?",
+        "model_answer_translit": "Nenu em cheyaali Ammammaa?",
+        "model_answer_english": "What should I do, Ammamma?",
+        "key_vocab": ["త్వరగా (tvaragaa) — quickly", "ఏం చేయాలి (em cheyaali) — what should I do"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "ఏమీ చేయకు. రేపు ఫోన్ చేసి \"భోజనం చేశావా\" అని అడుగు. అంతే. సరిపోతుంది.",
+        "ai_prompt_translit": "Emee cheyaku. Repu phone chesi \"bhojanam chesaavaa\" ani adugu. Ante. Saripotundi.",
+        "ai_prompt_english": "Do nothing. Tomorrow call and ask \"did you eat?\" That's all. It will be enough.",
+        "model_answer_native": "అంతేనా? అది సరిపోతుందా?",
+        "model_answer_translit": "Antenaa? Adi saripotundaa?",
+        "model_answer_english": "That's it? Will that be enough?",
+        "key_vocab": ["అంతే (ante) — that's all", "సరిపోతుంది (saripotundi) — it's enough"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "సరిపోతుంది కన్నా. మన కుటుంబంలో సారీ అనడం రాదు. అడగడం వచ్చు.",
+        "ai_prompt_translit": "Saripotundi kanna. Mana kutumbamlo sorry anadam raadu. Adagadam vachchu.",
+        "ai_prompt_english": "It will, dear. In our family we don't know how to say sorry. We know how to ask.",
+        "model_answer_native": "అర్థమైంది అమ్మమ్మా. రేపు ఫోన్ చేస్తాను.",
+        "model_answer_translit": "Arthamaindi Ammammaa. Repu phone chestaanu.",
+        "model_answer_english": "I understand, Ammamma. I'll call tomorrow.",
+        "key_vocab": ["కుటుంబం (kutumbam) — family", "అర్థమైంది (arthamaindi) — I understand"]
+      }
+    ]
+  },
+  {
+    "id": "aae45f18-0881-42f4-b72a-811baa2c71ad",
+    "target_language": "te",
+    "title": "Ask Ammamma why Amma never taught you Telugu",
+    "scenario_description": "The question underneath every other question. Ammamma answers it honestly, and without blaming anyone.",
+    "emotional_anchor": "parent",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, ఏదో అడగాలని ఉంది నీకు. అడుగు.",
+        "ai_prompt_translit": "Kanna, edo adagaalani undi neeku. Adugu.",
+        "ai_prompt_english": "Dear, you want to ask something. Ask.",
+        "model_answer_native": "అమ్మ నాకు తెలుగు ఎందుకు నేర్పించలేదు?",
+        "model_answer_translit": "Amma naaku telugu enduku nerpinchaledu?",
+        "model_answer_english": "Why didn't Amma teach me Telugu?",
+        "key_vocab": ["ఎందుకు (enduku) — why", "నేర్పించలేదు (nerpinchaledu) — didn't teach"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "ఆ ప్రశ్న ఎప్పటినుంచో ఉందా నీలో?",
+        "ai_prompt_translit": "Aa prashna eppatinuncho undaa neelo?",
+        "ai_prompt_english": "Has that question been inside you for a long time?",
+        "model_answer_native": "అవును అమ్మమ్మా. చాలా కాలంగా.",
+        "model_answer_translit": "Avunu Ammammaa. Chaalaa kaalangaa.",
+        "model_answer_english": "Yes, Ammamma. For a long time.",
+        "key_vocab": ["ప్రశ్న (prashna) — question", "చాలా కాలంగా (chaalaa kaalangaa) — for a long time"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "మీ అమ్మ కొత్త దేశానికి వెళ్ళింది. నువ్వు అక్కడ కష్టపడకూడదని అనుకుంది. అంతే కన్నా. ప్రేమే.",
+        "ai_prompt_translit": "Mee amma kotta desaaniki vellindi. Nuvvu akkada kashtapadakoodadani anukundi. Ante kanna. Preme.",
+        "ai_prompt_english": "Your mother went to a new country. She thought you shouldn't struggle there. That's all, dear. It was love.",
+        "model_answer_native": "కానీ ఇప్పుడు నాకు కష్టంగా ఉంది.",
+        "model_answer_translit": "Kaanee ippudu naaku kashtangaa undi.",
+        "model_answer_english": "But now it's hard for me.",
+        "key_vocab": ["దేశం (desam) — country", "కష్టపడు (kashtapadu) — to struggle"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "తెలుసు కన్నా. ఆమెకి కూడా తెలుసు. ఆమె బాధపడుతుంది, కానీ చెప్పదు.",
+        "ai_prompt_translit": "Telusu kanna. Aameki koodaa telusu. Aame baadhapadutundi, kaanee cheppadu.",
+        "ai_prompt_english": "I know, dear. She knows too. She feels bad, but she doesn't say it.",
+        "model_answer_native": "నేను ఆమెతో మాట్లాడాలా?",
+        "model_answer_translit": "Nenu aametho maatlaadaalaa?",
+        "model_answer_english": "Should I talk to her about it?",
+        "key_vocab": ["బాధపడుతుంది (baadhapadutundi) — she feels bad", "చెప్పదు (cheppadu) — she doesn't say"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "మాట్లాడకు. తెలుగులో ఒక వాక్యం చెప్పు ఆమెతో. అది చాలు. ఆమెకి అంతా అర్థమవుతుంది.",
+        "ai_prompt_translit": "Maatlaadaku. Telugulo oka vaakyam cheppu aametho. Adi chaalu. Aameki antaa arthamavutundi.",
+        "ai_prompt_english": "Don't talk about it. Just say one sentence to her in Telugu. That's enough. She'll understand everything.",
+        "model_answer_native": "సరే అమ్మమ్మా. చెప్తాను.",
+        "model_answer_translit": "Sare Ammammaa. Cheptaanu.",
+        "model_answer_english": "Okay, Ammamma. I'll say it.",
+        "key_vocab": ["వాక్యం (vaakyam) — sentence", "అర్థమవుతుంది (arthamavutundi) — she'll understand"]
+      }
+    ]
+  },
+  {
+    "id": "7daaa39a-d449-4909-9579-bec11b7748ed",
+    "target_language": "te",
+    "title": "Tell Ammamma about your sister",
+    "scenario_description": "Ammamma asks after your sibling, and quietly compares the two of you the way grandmothers do.",
+    "emotional_anchor": "parent",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, మీ చెల్లి ఎలా ఉంది?",
+        "ai_prompt_translit": "Kanna, mee chelli elaa undi?",
+        "ai_prompt_english": "Dear, how is your younger sister?",
+        "model_answer_native": "బాగుంది అమ్మమ్మా. ఆమె చదువుకుంటోంది.",
+        "model_answer_translit": "Baagundi Ammammaa. Aame chaduvukuntondi.",
+        "model_answer_english": "She's well, Ammamma. She's studying.",
+        "key_vocab": ["చెల్లి (chelli) — younger sister", "చదువు (chaduvu) — study"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "ఏం చదువుతోంది?",
+        "ai_prompt_translit": "Em chaduvutondi?",
+        "ai_prompt_english": "What is she studying?",
+        "model_answer_native": "డాక్టర్ కావాలని చదువుతోంది.",
+        "model_answer_translit": "Doctor kaavaalani chaduvutondi.",
+        "model_answer_english": "She's studying to become a doctor.",
+        "key_vocab": ["డాక్టర్ (doctor) — doctor", "కావాలని (kaavaalani) — wanting to become"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "అమ్మో, డాక్టరా! ఆమెకి తెలుగు వచ్చా?",
+        "ai_prompt_translit": "Ammo, doctaraa! Aameki telugu vachchaa?",
+        "ai_prompt_english": "Oh my, a doctor! Does she know Telugu?",
+        "model_answer_native": "రాదు అమ్మమ్మా. నాకంటే తక్కువ.",
+        "model_answer_translit": "Raadu Ammammaa. Naakante takkuva.",
+        "model_answer_english": "She doesn't, Ammamma. Less than me.",
+        "key_vocab": ["రాదు (raadu) — doesn't know", "తక్కువ (takkuva) — less"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "అయితే నువ్వే ఆమెకి నేర్పించాలి. అన్నయ్యవి కదా నువ్వు.",
+        "ai_prompt_translit": "Ayite nuvve aameki nerpinchaali. Annayyavi kadaa nuvvu.",
+        "ai_prompt_english": "Then you must teach her. You're the older brother, aren't you.",
+        "model_answer_native": "నాకే ఇంకా సరిగ్గా రాదు అమ్మమ్మా!",
+        "model_answer_translit": "Naake inkaa sariggaa raadu Ammammaa!",
+        "model_answer_english": "I don't know it properly myself yet, Ammamma!",
+        "key_vocab": ["నేర్పించాలి (nerpinchaali) — must teach", "సరిగ్గా (sariggaa) — properly"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "వస్తుంది కన్నా. నువ్వు నాతో మాట్లాడుతున్నావు కదా ఇప్పుడు? ఆమెని కూడా తీసుకురా.",
+        "ai_prompt_translit": "Vastundi kanna. Nuvvu naatho maatlaadutunnaavu kadaa ippudu? Aameni koodaa teesukuraa.",
+        "ai_prompt_english": "It will come, dear. You're talking to me now, aren't you? Bring her along too.",
+        "model_answer_native": "తీసుకొస్తాను అమ్మమ్మా. ఇద్దరం మాట్లాడతాం.",
+        "model_answer_translit": "Teesukostaanu Ammammaa. Iddaram maatlaadataam.",
+        "model_answer_english": "I'll bring her, Ammamma. We'll both talk.",
+        "key_vocab": ["తీసుకురా (teesukuraa) — bring along", "ఇద్దరం (iddaram) — both of us"]
+      }
+    ]
+  }
+]
