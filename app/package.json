@@ -10,7 +10,8 @@
     "ios:device": "expo run:ios --device",
     "ios:rebuild": "expo run:ios",
     "typecheck": "tsc --noEmit",
-    "check-deps": "expo install --check"
+    "check-deps": "expo install --check",
+    "ios:release": "expo run:ios --configuration Release --device"
   },
   "dependencies": {
     "@ammamma/core": "*",

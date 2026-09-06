@@ -94,7 +94,34 @@ try {
     console.log("transcript:  " + result.transcript);
     console.log("Ammamma:     " + result.reply.text);
     console.log("vetting:     " + (result.reply.rejected ?? "passed"));
-    console.log("audio:       " + Math.round((result.audioBase64?.length ?? 0) / 1365) + " KB of mp3");
+    // Measure what the user actually feels: how long until sound starts, not how long
+    // until the whole clip exists.
+    if (result.speakUrl) {
+      const speakStart = Date.now();
+      const audio = await fetch(result.speakUrl);
+      let firstByteAt = null;
+      let bytes = 0;
+      for await (const chunk of audio.body) {
+        if (firstByteAt === null) firstByteAt = Date.now();
+        bytes += chunk.length;
+      }
+      console.log(
+        "speak:       HTTP " +
+          audio.status +
+          "  first byte " +
+          ((firstByteAt - speakStart) / 1000).toFixed(2) +
+          "s  full " +
+          ((Date.now() - speakStart) / 1000).toFixed(2) +
+          "s  " +
+          Math.round(bytes / 1024) +
+          "KB",
+      );
+      console.log(
+        "TIME TO FIRST SOUND: " +
+          ((elapsed + (firstByteAt - speakStart)) / 1000).toFixed(1) +
+          "s",
+      );
+    }
     console.log("session:     turn " + result.session.currentTurn + " of " + result.session.totalTurns);
     if (result.timings) console.log("timings:     " + Object.entries(result.timings).map(([k,v])=>k+"="+(v/1000).toFixed(1)+"s").join("  "));
   }

@@ -58,8 +58,35 @@ supabase secrets set ELEVENLABS_VOICE_ID=...
 | `audio` | File | The user's spoken response |
 | `meta` | JSON string | `{ "sessionId": "uuid", "clientTurn": 1 }` |
 
-Pipeline: transcribe (Whisper) → moderate → advance-or-retry → chat → outbound vetting
-→ TTS → persist session state → return audio as base64.
+Pipeline: transcribe → moderate → chat (judge + reply in one call) → outbound vetting →
+persist session state → return JSON containing a **`speakUrl`**.
+
+## The `speak` Edge Function
+
+```bash
+supabase functions deploy speak --no-verify-jwt
+supabase secrets set SPEECH_SIGNING_SECRET=<any long random string>
+```
+
+`GET /functions/v1/speak?token=...` streams Ammamma's voice as `audio/mpeg`.
+
+**Why it exists.** `/turn` used to synthesize the whole clip, base64 it, and return it
+inline. Nothing could be heard until the final syllable existed — about 8s of a ~15s
+round trip. ElevenLabs emits its first playable bytes ~1s in, so piping the stream
+straight through cuts time-to-first-sound to roughly a third.
+
+**Why `--no-verify-jwt`.** The phone hands this URL directly to its audio player, and
+players do not reliably attach `Authorization` headers — with platform JWT checking on,
+every request 401s before the handler runs. Authentication is instead a short-lived HMAC
+token in the query string (`_shared/speech-token.ts`), which carries the line to speak,
+expires in 5 minutes, and cannot be forged into synthesizing arbitrary text.
+
+**Measured** (warm, `scripts/smoke-turn-function.mjs`):
+
+| | before | after |
+|---|---|---|
+| `/turn` round trip | ~15s | 4–6s |
+| time to first sound | ~15s | **5.6–7s** |
 
 ### Design notes
 

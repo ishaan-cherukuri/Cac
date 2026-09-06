@@ -269,8 +269,10 @@ export default function SessionScreen() {
         });
 
         setSpoken(result.reply.text || null);
-        if (result.audioUri) {
-          replyPlayer.replace({ uri: result.audioUri });
+        if (result.speakUrl) {
+          // A streaming URL, not a downloaded file: playback begins on the first bytes
+          // while the rest of the sentence is still being synthesized.
+          replyPlayer.replace({ uri: result.speakUrl });
           replyPlayer.play();
         }
 

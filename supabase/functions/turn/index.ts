@@ -15,6 +15,7 @@
 
 import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2";
 import OpenAI from "npm:openai@6";
+import { signSpeechToken } from "../_shared/speech-token.ts";
 import {
   buildSystemPrompt,
   buildTurnInstruction,
@@ -66,20 +67,6 @@ function json(body: unknown, status = 200): Response {
   });
 }
 
-/**
- * Chunked base64. Spreading a whole audio buffer into String.fromCharCode overflows the
- * call stack somewhere around 100-200KB depending on runtime — which is well inside the
- * size of a single spoken sentence, so the naive version fails in production, not in test.
- */
-function toBase64(bytes: Uint8Array): string {
-  const CHUNK = 0x8000;
-  let binary = "";
-  for (let i = 0; i < bytes.length; i += CHUNK) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + CHUNK));
-  }
-  return btoa(binary);
-}
-
 function requireEnv(name: string): string {
   const value = Deno.env.get(name);
   if (!value) throw new HttpError(500, `Server misconfigured: ${name} is not set`);
@@ -106,51 +93,6 @@ async function isFlagged(client: OpenAI, text: string): Promise<boolean> {
   } catch {
     return false;
   }
-}
-
-async function synthesize(text: string, openai: OpenAI): Promise<Uint8Array> {
-  const elevenLabsKey = Deno.env.get("ELEVENLABS_API_KEY");
-  const voiceId = Deno.env.get("ELEVENLABS_VOICE_ID");
-
-  if (elevenLabsKey && voiceId) {
-    try {
-      // The /stream endpoint, not the plain one. Benchmarked 2026-07-30 on Telugu:
-      //   plain:  5.45s to first byte, 6.24s total
-      //   stream: 1.00s to first byte, 3.83s total
-      // We still buffer the whole clip here, so we bank the 2.4s total improvement but
-      // not the 4.5s first-byte win. Capturing that too means streaming the response
-      // through to the client instead of returning base64 — worth doing for free-form
-      // replies, where time-to-first-audio is what the user actually feels.
-      const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream`, {
-        method: "POST",
-        headers: {
-          "xi-api-key": elevenLabsKey,
-          "Content-Type": "application/json",
-          Accept: "audio/mpeg",
-        },
-        body: JSON.stringify({
-          text,
-          // Only eleven_v3 supports Telugu — see packages/core notes and spike/README.md.
-          model_id: Deno.env.get("ELEVENLABS_MODEL_ID") ?? "eleven_v3",
-          voice_settings: { stability: 0.6, similarity_boost: 0.8, style: 0.15, use_speaker_boost: true },
-        }),
-      });
-      if (response.ok) return new Uint8Array(await response.arrayBuffer());
-      // Fall through to OpenAI rather than failing the turn.
-    } catch {
-      // Same — a TTS provider outage must not end the conversation.
-    }
-  }
-
-  const speech = await openai.audio.speech.create({
-    model: Deno.env.get("OPENAI_TTS_MODEL") ?? "gpt-4o-mini-tts",
-    voice: Deno.env.get("OPENAI_TTS_VOICE") ?? "shimmer",
-    input: text,
-    instructions:
-      "Speak as a warm, unhurried Telugu grandmother talking to a grandchild she loves. " +
-      "Gentle pace, natural pauses. Not a narrator, not a teacher.",
-  });
-  return new Uint8Array(await speech.arrayBuffer());
 }
 
 async function parseRequest(request: Request): Promise<{ meta: TurnRequestMeta; audio: File }> {
@@ -260,13 +202,16 @@ async function handle(request: Request): Promise<Response> {
   }));
   const transcript = transcription.text.trim();
 
-  // --- 2. Moderate before the transcript reaches the conversation model ----------
+  // --- 2. Moderate BEFORE the transcript reaches the conversation model -----------
+  // These stay sequential on purpose. Running them concurrently would save ~1s, but it
+  // would also send unmoderated user speech to the chat model, and SPEC section 9 makes
+  // "filtered for harmful content before the model processes it" an App Review
+  // requirement. The latency that mattered was the ~8s of TTS, which is gone entirely.
   const flagged = await time("moderation", () => isFlagged(openai, transcript));
 
-  // --- 3. Ammamma judges the answer AND replies, in one call --------------------
-  // Ordering matters: the reply depends on whether the answer landed, so the model has
-  // to judge first. Doing it as two calls would double per-turn latency, which is
-  // already this app's worst problem, so it returns both in one JSON object.
+  // --- 3. Ammamma judges the answer AND replies, in one call ---------------------
+  // The reply depends on whether the answer landed, so the model must judge first.
+  // Two calls would double per-turn latency, so it returns both in one JSON object.
   const currentTopicTurn = topic.turns[Math.min(resumed.state.currentTurn - 1, topic.turns.length - 1)];
   const difficulty = session.difficulty as Difficulty;
   const mayReAsk = resumed.state.attemptsOnCurrentTurn + 1 < MAX_ATTEMPTS_PER_TURN;
@@ -314,8 +259,12 @@ async function handle(request: Request): Promise<Response> {
   // --- 5. Outbound vetting: payment references, cold tone, empty generations -----
   const vetted = vetLine(judgement?.reply ?? "");
 
-  // --- 6. Speak it --------------------------------------------------------------
-  const speech = await time("tts", () => synthesize(vetted.text, openai));
+  // --- 6. Hand back a URL instead of audio ---------------------------------------
+  // No TTS here any more. Synthesizing the whole clip before responding was ~8s of the
+  // old ~15s round trip, and none of it could be heard until it was completely finished.
+  // The client points its player at this URL and audio begins in about a second.
+  const speakToken = await signSpeechToken(requireEnv("SPEECH_SIGNING_SECRET"), vetted.text);
+  const speakUrl = `${requireEnv("SUPABASE_URL")}/functions/v1/speak?token=${encodeURIComponent(speakToken)}`;
 
   // --- 7. Persist state so an app kill loses nothing ----------------------------
   await supabase
@@ -334,7 +283,7 @@ async function handle(request: Request): Promise<Response> {
     understood,
     transcript,
     reply: { text: vetted.text, rejected: vetted.rejected },
-    audioBase64: toBase64(speech),
+    speakUrl,
     timings,
     session: {
       currentTurn: progress.state.currentTurn,

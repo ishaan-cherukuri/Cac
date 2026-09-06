@@ -5,7 +5,6 @@
  * no provider key exists in this bundle to make it possible.
  */
 
-import { File, Paths } from "expo-file-system";
 import { supabase } from "./supabase";
 import type { Difficulty } from "./topics";
 
@@ -15,8 +14,15 @@ export interface TurnResult {
   outcome: "advance" | "retry" | "advance_without_comment";
   transcript: string;
   reply: { text: string; rejected: string | null };
-  /** Local file URI for the synthesized audio, ready to hand to a player. */
-  audioUri: string | null;
+  /**
+   * A streaming URL to hand straight to the audio player.
+   *
+   * Not a local file: the server used to synthesize the whole clip, base64 it, and send
+   * it inside this JSON, which meant nothing could be heard until the last syllable was
+   * generated — about 8 seconds of the old round trip. Pointing the player at this URL
+   * starts sound in ~1.3s while the rest is still being generated.
+   */
+  speakUrl: string | null;
   session: { currentTurn: number; turnsCompleted: number; totalTurns: number };
   timings?: Record<string, number>;
 }
@@ -97,7 +103,7 @@ export async function submitTurn(args: {
     outcome: TurnResult["outcome"];
     transcript?: string;
     reply?: { text: string; rejected: string | null };
-    audioBase64?: string;
+    speakUrl?: string;
     session?: TurnResult["session"];
     timings?: Record<string, number>;
   };
@@ -110,20 +116,9 @@ export async function submitTurn(args: {
       outcome: "advance",
       transcript: "",
       reply: { text: "", rejected: null },
-      audioUri: null,
+      speakUrl: null,
       session: payload.session ?? { currentTurn: 0, turnsCompleted: 0, totalTurns: 0 },
     };
-  }
-
-  let audioUri: string | null = null;
-  if (payload.audioBase64) {
-    // Overwrite a single file rather than accumulating one per turn — a five-minute
-    // session would otherwise leave a dozen orphaned mp3s in the cache directory.
-    const file = new File(Paths.cache, "ammamma-turn.mp3");
-    if (file.exists) file.delete();
-    file.create();
-    file.write(Uint8Array.from(atob(payload.audioBase64), (c) => c.charCodeAt(0)));
-    audioUri = file.uri;
   }
 
   return {
@@ -132,7 +127,7 @@ export async function submitTurn(args: {
     outcome: payload.outcome,
     transcript: payload.transcript ?? "",
     reply: payload.reply ?? { text: "", rejected: null },
-    audioUri,
+    speakUrl: payload.speakUrl ?? null,
     session: payload.session ?? { currentTurn: 1, turnsCompleted: 0, totalTurns: 0 },
     ...(payload.timings ? { timings: payload.timings } : {}),
   };

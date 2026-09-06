@@ -19,6 +19,7 @@
     "typecheck": "tsc -b --pretty",
     "ios": "npm run -w app ios",
     "ios:device": "npm run -w app ios:device",
-    "ios:rebuild": "npm run -w app ios:rebuild"
+    "ios:rebuild": "npm run -w app ios:rebuild",
+    "ios:release": "npm run -w app ios:release"
   }
 }
