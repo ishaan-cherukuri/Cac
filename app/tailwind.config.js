@@ -28,9 +28,9 @@ module.exports = {
         // red X out of the app is to make one inconvenient to reach for.
       },
       fontSize: {
-        // Telugu script needs more vertical room than Latin at the same point size.
-        telugu: ["28px", { lineHeight: "44px" }],
-        "telugu-sm": ["20px", { lineHeight: "34px" }],
+        // Telugu and Devanagari both need more vertical room than Latin at the same point size.
+        native: ["28px", { lineHeight: "44px" }],
+        "native-sm": ["20px", { lineHeight: "34px" }],
       },
     },
   },

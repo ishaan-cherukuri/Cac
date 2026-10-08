@@ -24,7 +24,17 @@ export interface TurnResult {
    */
   speakUrl: string | null;
   session: { currentTurn: number; turnsCompleted: number; totalTurns: number };
+  /** Key vocab found in what the user said this turn. */
+  spokenWords?: SpokenWord[];
+  /** The subset of spokenWords said for the first time ever (native script). */
+  newWords?: string[];
   timings?: Record<string, number>;
+}
+
+export interface SpokenWord {
+  native: string;
+  translit: string;
+  meaning: string;
 }
 
 export class TurnError extends Error {}
@@ -57,7 +67,7 @@ export async function startSession(
 }
 
 /**
- * Uploads the user's recording and returns Ammamma's next line plus its audio.
+ * Uploads the user's recording and returns the grandmother's next line plus its audio.
  *
  * The recording is sent and forgotten — it is never written to storage, which is what
  * lets the privacy manifest say so honestly.
@@ -94,7 +104,7 @@ export async function submitTurn(args: {
 
   if (!response.ok) {
     const detail = await response.text().catch(() => "");
-    throw new TurnError(`Ammamma couldn't hear that (${response.status}). ${detail.slice(0, 200)}`);
+    throw new TurnError(`She couldn't hear that (${response.status}). ${detail.slice(0, 200)}`);
   }
 
   const payload = (await response.json()) as {

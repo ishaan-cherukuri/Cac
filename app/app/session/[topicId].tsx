@@ -16,16 +16,19 @@ import {
   applyOutcome,
   buildFillInTheBlanks,
   extractVocabWords,
+  languageProfile,
   type BlankToken,
   type SessionState,
   type Difficulty,
 } from "@ammamma/core";
 import { useTopic, type TopicTurn } from "@/lib/topics";
+import { VoiceNoteCard } from "@/components/VoiceNoteCard";
+import type { SpokenWord } from "@/lib/turn";
 // formatRemaining is intentionally not imported: the countdown was removed from the UI.
 // useSessionClock stays — it is what enforces the 5-minute cap.
 import { useSessionClock } from "@/lib/useSessionClock";
 import { startSession, submitTurn } from "@/lib/turn";
-// answerAudioUrl is intentionally not imported: Ammamma speaks only her questions now.
+// answerAudioUrl is intentionally not imported: she speaks only her questions now.
 // The generated answer clips remain in storage, unused, in case that decision reverses.
 import { promptAudioUrl } from "@/lib/audio";
 
@@ -34,7 +37,7 @@ type Phase = "choosing" | "listening" | "recording" | "thinking" | "ended";
 const DIFFICULTY_COPY: Record<Difficulty, { label: string; blurb: string }> = {
   easy: {
     label: "Just repeat after her",
-    blurb: "Ammamma says it first. You say it back. Nothing to work out.",
+    blurb: "She says it first. You say it back. Nothing to work out.",
   },
   medium: {
     label: "Give me a nudge",
@@ -54,7 +57,7 @@ function Scaffolding({ turn, difficulty }: { turn: TopicTurn; difficulty: Diffic
     return (
       <View className="mt-8 rounded-2xl bg-cream-deep px-5 py-5">
         <Text className="text-xs uppercase tracking-wide text-ink-faint">Say this back</Text>
-        <Text className="mt-2 text-telugu-sm text-ink">{turn.model_answer_native}</Text>
+        <Text className="mt-2 text-native-sm text-ink">{turn.model_answer_native}</Text>
         <Text className="mt-1 text-base italic text-ink-soft">{turn.model_answer_translit}</Text>
         <Text className="mt-2 text-base text-ink-faint">{turn.model_answer_english}</Text>
       </View>
@@ -67,7 +70,7 @@ function Scaffolding({ turn, difficulty }: { turn: TopicTurn; difficulty: Diffic
   const preferredWords = extractVocabWords(turn.key_vocab);
   const translitTokens = buildFillInTheBlanks(turn.model_answer_translit, { preferredWords });
 
-  // Blank the Telugu script at the same positions when the two line up word-for-word,
+  // Blank the native script at the same positions when the two line up word-for-word,
   // so script and romanization show the same gaps. If they tokenize differently, blank
   // the script independently — either way it must never display the missing word.
   const blankIndices = new Set(
@@ -103,7 +106,7 @@ function Scaffolding({ turn, difficulty }: { turn: TopicTurn; difficulty: Diffic
       <Text className="text-xs uppercase tracking-wide text-ink-faint">
         Say the whole sentence
       </Text>
-      {renderTokens(nativeTokens, "mt-3 text-telugu-sm text-ink")}
+      {renderTokens(nativeTokens, "mt-3 text-native-sm text-ink")}
       {renderTokens(translitTokens, "mt-2 text-lg italic text-ink-soft")}
       <Text className="mt-3 text-base leading-6 text-ink-faint">
         {turn.model_answer_english}
@@ -131,11 +134,17 @@ export default function SessionScreen() {
     difficulty?: string;
   }>();
   const topic = useTopic(topicId);
+  // The topic, not the user's setting, decides the language: a deep link may open a
+  // topic in a language the user is not currently practising.
+  const language = languageProfile(topic.data?.target_language);
+  const persona = language.personaName;
 
   const [phase, setPhase] = useState<Phase>("choosing");
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [state, setState] = useState<SessionState | null>(null);
   const [closing, setClosing] = useState<string | null>(null);
+  // Every vocab word heard this session, for the closing screen. Keyed by native form.
+  const [wordsToday, setWordsToday] = useState<Map<string, SpokenWord>>(new Map());
   const [micDenied, setMicDenied] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [spoken, setSpoken] = useState<string | null>(null);
@@ -143,17 +152,17 @@ export default function SessionScreen() {
 
   const recorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
   // Three players rather than one: the scripted prompt, the easy-mode model answer, and
-  // Ammamma's live reply are independent sources, and sharing a player means one
+  // her live reply are independent sources, and sharing a player means one
   // replace() call cutting another line off mid-word.
   const promptPlayer = useAudioPlayer();
   const replyPlayer = useAudioPlayer();
   const promptStatus = useAudioPlayerStatus(promptPlayer);
   const replyStatus = useAudioPlayerStatus(replyPlayer);
 
-  // Never start recording over her. Cutting Ammamma off mid-sentence is the one thing
+  // Never start recording over her. Cutting her off mid-sentence is the one thing
   // that most breaks the illusion of talking to a person, so Speak stays disabled until
   // she has actually finished.
-  const ammammaSpeaking = promptStatus.playing || replyStatus.playing;
+  const grandmotherSpeaking = promptStatus.playing || replyStatus.playing;
   const clock = useSessionClock(state?.startedAt ?? null);
 
   const currentTurn: TopicTurn | undefined = useMemo(() => {
@@ -161,16 +170,19 @@ export default function SessionScreen() {
     return topic.data.turns[state.currentTurn - 1];
   }, [topic.data, state]);
 
-  const finish = useCallback((reason: "time_limit" | "topic_complete") => {
-    setPhase("ended");
-    setClosing(
-      reason === "topic_complete"
-        ? "సరే కన్నా. మళ్ళీ మాట్లాడు."
-        : "ఇంక చాలు కన్నా. రేపు మళ్ళీ మాట్లాడుకుందాం.",
-    );
-  }, []);
+  const finish = useCallback(
+    (reason: "time_limit" | "topic_complete") => {
+      setPhase("ended");
+      setClosing(
+        reason === "topic_complete"
+          ? language.closing.topicComplete.native
+          : language.closing.timeLimit.native,
+      );
+    },
+    [language],
+  );
 
-  // SPEC 3.1: the loop is "AI speaks -> user records -> AI responds". Ammamma has to
+  // SPEC 3.1: the loop is "AI speaks -> user records -> AI responds". She has to
   // open her mouth first. These lines are pre-generated (scripts/pregenerate-audio.mjs)
   // so there is no TTS wait here at all — the audio is a CDN fetch.
   const spokenForTurn = useRef<number | null>(null);
@@ -189,7 +201,7 @@ export default function SessionScreen() {
     }
   }, [phase, state, topicId, promptPlayer]);
 
-  // NOTE: Ammamma speaks ONLY her questions. She used to also speak the easy-mode model
+  // NOTE: she speaks ONLY her questions. She used to also speak the easy-mode model
   // answer (SPEC 3.1 describes that as pure shadowing), but hearing the line you are
   // about to say read aloud to you turned out to feel patronising rather than helpful.
   // The answer stays on screen as a written prompt; the voice is reserved for her side
@@ -256,7 +268,7 @@ export default function SessionScreen() {
     if (!state) return;
     const recordingUri = recorder.uri;
 
-    // Ask the server what Ammamma says next. If anything in that chain fails, the
+    // Ask the server what she says next. If anything in that chain fails, the
     // session still advances warmly using the local state machine — SPEC section 10:
     // never leave the user stuck, and never let an outage read as a judgement about
     // their speaking.
@@ -269,6 +281,14 @@ export default function SessionScreen() {
         });
 
         setSpoken(result.reply.text || null);
+        if (result.spokenWords?.length) {
+          const heard = result.spokenWords;
+          setWordsToday((previous) => {
+            const next = new Map(previous);
+            for (const word of heard) next.set(word.native, word);
+            return next;
+          });
+        }
         if (result.speakUrl) {
           // A streaming URL, not a downloaded file: playback begins on the first bytes
           // while the rest of the sentence is still being synthesized.
@@ -315,7 +335,7 @@ export default function SessionScreen() {
     return (
       <SafeAreaView className="flex-1 items-center justify-center bg-cream">
         <ActivityIndicator color="#C86B4A" />
-        <Text className="mt-4 text-ink-soft">Ammamma is sitting down…</Text>
+        <Text className="mt-4 text-ink-soft">She is sitting down…</Text>
       </SafeAreaView>
     );
   }
@@ -341,7 +361,7 @@ export default function SessionScreen() {
     return (
       <SafeAreaView className="flex-1 items-center justify-center bg-cream px-8">
         <Text className="text-center text-xl leading-8 text-ink">
-          Ammamma can't hear you yet.
+          {persona} can't hear you yet.
         </Text>
         <Text className="mt-3 text-center text-base leading-6 text-ink-soft">
           Turn on the microphone for this app in Settings, and she'll be waiting.
@@ -401,19 +421,53 @@ export default function SessionScreen() {
   // --- Closing (SPEC 3.1: always end warmly) ---------------------------------
 
   if (phase === "ended") {
+    // The line to send her: the answer to the last turn the user actually reached.
+    const lastTurn =
+      topic.data.turns[Math.max(0, (state?.turnsCompleted ?? 1) - 1)] ?? topic.data.turns[0];
+    const words = [...wordsToday.values()];
+
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-cream px-8">
-        <Text className="text-center text-telugu-sm text-ink">{closing}</Text>
-        <Text className="mt-6 text-center text-lg leading-7 text-ink-soft">
-          You spoke Telugu today.
-        </Text>
-        <Pressable
-          accessibilityRole="button"
-          onPress={() => router.replace("/home")}
-          className="mt-10 rounded-2xl bg-clay px-10 py-5 active:bg-clay-dark"
-        >
-          <Text className="text-lg font-semibold text-cream">Done</Text>
-        </Pressable>
+      <SafeAreaView className="flex-1 bg-cream">
+        <ScrollView contentContainerClassName="grow items-center justify-center px-8 py-10">
+          <Text className="text-center text-native-sm text-ink">{closing}</Text>
+          <Text className="mt-6 text-center text-lg leading-7 text-ink-soft">
+            You spoke {language.name} today.
+          </Text>
+
+          {words.length > 0 ? (
+            <View className="mt-8 w-full">
+              <Text className="text-xs uppercase tracking-wide text-ink-faint">
+                Words you said
+              </Text>
+              {words.map((word) => (
+                <Text key={word.native} className="mt-2 text-base text-ink-soft">
+                  <Text className="text-ink">{word.native}</Text> {word.translit} — {word.meaning}
+                </Text>
+              ))}
+            </View>
+          ) : null}
+
+          {lastTurn ? (
+            <View className="mt-8 w-full">
+              <VoiceNoteCard
+                persona={persona}
+                line={{
+                  native: lastTurn.model_answer_native,
+                  translit: lastTurn.model_answer_translit,
+                  english: lastTurn.model_answer_english,
+                }}
+              />
+            </View>
+          ) : null}
+
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => router.replace("/home")}
+            className="mt-10 rounded-2xl bg-clay px-10 py-5 active:bg-clay-dark"
+          >
+            <Text className="text-lg font-semibold text-cream">Done</Text>
+          </Pressable>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -432,8 +486,8 @@ export default function SessionScreen() {
       </View>
 
       <ScrollView contentContainerClassName="px-6 pb-6 pt-8 grow">
-        <Text className="text-xs uppercase tracking-wide text-ink-faint">Ammamma</Text>
-        <Text className="mt-3 text-telugu text-ink">{currentTurn?.ai_prompt_native}</Text>
+        <Text className="text-xs uppercase tracking-wide text-ink-faint">{persona}</Text>
+        <Text className="mt-3 text-native text-ink">{currentTurn?.ai_prompt_native}</Text>
         <Text className="mt-2 text-lg italic text-ink-soft">
           {currentTurn?.ai_prompt_translit}
         </Text>
@@ -446,7 +500,7 @@ export default function SessionScreen() {
             <Text className="text-xs uppercase tracking-wide text-ink-faint">
               She just said
             </Text>
-            <Text className="mt-2 text-telugu-sm text-ink">{spoken}</Text>
+            <Text className="mt-2 text-native-sm text-ink">{spoken}</Text>
           </View>
         ) : null}
 
@@ -455,7 +509,7 @@ export default function SessionScreen() {
         {hiccup ? (
           // Never framed as the user's fault, and never blocking. SPEC section 10.
           <Text className="mt-6 text-base leading-6 text-ink-faint">
-            Ammamma's line got lost on the way. Carrying on.
+            {persona}'s line got lost on the way. Carrying on.
           </Text>
         ) : null}
       </ScrollView>
@@ -464,20 +518,20 @@ export default function SessionScreen() {
         {phase === "thinking" ? (
           <View className="items-center py-6">
             <ActivityIndicator color="#C86B4A" />
-            <Text className="mt-3 text-ink-soft">Ammamma is listening…</Text>
+            <Text className="mt-3 text-ink-soft">{persona} is listening…</Text>
           </View>
         ) : (
           <>
             <Pressable
               accessibilityRole="button"
-              accessibilityState={{ disabled: ammammaSpeaking && phase !== "recording" }}
+              accessibilityState={{ disabled: grandmotherSpeaking && phase !== "recording" }}
               accessibilityLabel={phase === "recording" ? "Stop speaking" : "Start speaking"}
-              disabled={ammammaSpeaking && phase !== "recording"}
+              disabled={grandmotherSpeaking && phase !== "recording"}
               onPress={() => void (phase === "recording" ? stopRecording() : startRecording())}
               className={`h-24 w-24 items-center justify-center rounded-full ${
                 phase === "recording"
                   ? "bg-clay-dark"
-                  : ammammaSpeaking
+                  : grandmotherSpeaking
                     ? "bg-clay/40"
                     : "bg-clay"
               }`}
@@ -489,8 +543,8 @@ export default function SessionScreen() {
             <Text className="mt-4 text-center text-base text-ink-faint">
               {phase === "recording"
                 ? "Take your time. Tap when you're finished."
-                : ammammaSpeaking
-                  ? "Ammamma is talking…"
+                : grandmotherSpeaking
+                  ? `${persona} is talking…`
                   : "Tap and say it out loud."}
             </Text>
           </>

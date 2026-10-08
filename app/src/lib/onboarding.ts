@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const ONBOARDED_KEY = "ammamma.onboarded";
+const ONBOARDED_KEY = "app.onboarded";
 
 export type SelfAssessedLevel = "understand_only" | "some_speaking" | "improving";
 

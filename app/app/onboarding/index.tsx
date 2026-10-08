@@ -1,18 +1,22 @@
 import { View, Text, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { APP_NAME } from "@ammamma/core";
 
-/** Onboarding 1 of 3 — SPEC section 3.2: confirm the language, nothing else. */
-export default function LanguageConfirmation() {
+/**
+ * Onboarding 1 of 3 — SPEC section 3.2: the premise, nothing else. The language itself
+ * is chosen on the next screen, so this copy speaks to every family's language.
+ */
+export default function Welcome() {
   const router = useRouter();
 
   return (
     <SafeAreaView className="flex-1 bg-cream">
       <View className="flex-1 justify-center px-8">
-        <Text className="text-telugu text-ink">అమ్మమ్మ</Text>
+        <Text className="text-native text-ink">{APP_NAME}</Text>
 
         <Text className="mt-6 text-3xl leading-10 text-ink">
-          You understand Telugu.{"\n"}You just haven't spoken it.
+          You understand your family's language.{"\n"}You just haven't spoken it.
         </Text>
 
         <Text className="mt-5 text-lg leading-7 text-ink-soft">

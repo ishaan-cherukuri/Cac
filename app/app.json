@@ -1,11 +1,8 @@
 {
   "expo": {
-    "name": "Ammamma",
-    "slug": "ammamma",
     "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "ammamma",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -15,17 +12,13 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.ammamma.app",
       "infoPlist": {
-        "NSMicrophoneUsageDescription": "Ammamma needs your microphone so she can hear you speak Telugu.",
-        "NSLocalNetworkUsageDescription": "Ammamma connects to the development server on your local network.",
         "NSBonjourServices": [
           "_http._tcp"
         ]
       }
     },
     "android": {
-      "package": "com.ammamma.app",
       "predictiveBackGestureEnabled": false,
       "adaptiveIcon": {
         "backgroundColor": "#FDF6EC",
@@ -42,7 +35,8 @@
     },
     "plugins": [
       "expo-router",
-      "expo-audio"
+      "expo-audio",
+      "expo-sharing"
     ],
     "experiments": {
       "typedRoutes": true
