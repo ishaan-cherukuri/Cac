@@ -4,9 +4,15 @@ Working rules for this repo. Copied from `SPEC.md` section 10, plus decisions lo
 
 ## What this app is
 
-A mobile app for **receptive bilinguals** — people who understand Telugu but can't speak it. Users
-practice through short, scaffolded voice conversations with **Ammamma** (maternal grandmother), a
-warm AI persona.
+A mobile app for **receptive bilinguals** — people who understand their family's language but can't
+speak it. Users practise through short, scaffolded voice conversations with a warm AI **grandmother
+persona** (maternal grandmother) who speaks that language. Telugu is the launch language; Hindi is a
+pilot. Vocabulary is in `GLOSSARY.md`.
+
+**The app's name is not chosen yet.** It lives only in `packages/core/src/brand.ts` (`APP_NAME`,
+`APP_SLUG`, `BUNDLE_ID`, `SUPPORT_EMAIL`). Never write the name anywhere else. English copy refers
+to the grandmother through the `{persona}` token or `languageProfile(code).personaName` — never a
+hardcoded name.
 
 The core loop is **scaffolded shadowing with progressive fade-out**.
 
@@ -14,15 +20,16 @@ The core loop is **scaffolded shadowing with progressive fade-out**.
 
 | Decision | Value | Notes |
 |---|---|---|
-| Launch language | **Telugu** (`te`) | Single language. No multi-language code paths. |
-| Dialect | **Coastal Andhra** | All content normalizes to this register. |
-| Persona | **Ammamma** (maternal grandmother) | One voice, every session. |
-| Ammamma voice | ElevenLabs `TLhTqATJ3nsbNZKRJQB3` ("Naira J") | Middle-aged Indian female. No elderly Telugu voice exists in the library. |
+| Languages | **Telugu** (`te`, launch) + **Hindi** (`hi`, pilot) | Everything that differs per language lives in `packages/core/src/languages.ts`. Nothing else branches on language. See `docs/adr/0001-multiple-languages.md`. |
+| Dialect | Telugu: **Coastal Andhra**. Hindi: everyday spoken Hindustani | Content normalizes to these registers. |
+| Persona | The maternal grandmother — Ammamma in Telugu, Nani in Hindi | One voice per language, every session. |
+| Telugu voice | ElevenLabs `TLhTqATJ3nsbNZKRJQB3` ("Naira J") | Middle-aged Indian female. No elderly Telugu voice exists in the library. |
+| Hindi voice | Not chosen — `scripts/audition-voices.mjs --language hi` | Until chosen, /speak uses the OpenAI fallback for Hindi. |
 | ElevenLabs model | **`eleven_v3` only** | Verified against `/v1/models`: the ONLY model listing Telugu. `multilingual_v2` and `turbo/flash_v2_5` do NOT — using them reads Telugu with a non-Telugu phoneme set. |
 | Backend | **Supabase** | Postgres + Auth + Edge Functions + Storage. |
 | STT | **`gpt-4o-transcribe`** | **NOT `whisper-1`** — it rejects Telugu outright: `400 Language 'te' is not supported` (verified 2026-07-29). Deviation from SPEC §5, forced by the provider. |
 | Conversation | **OpenAI chat** | Behind a provider interface. Spec prefers Claude; swap is one file. |
-| TTS | **ElevenLabs** primary, **OpenAI TTS** fallback | Telugu quality UNVERIFIED for both. |
+| TTS | **ElevenLabs** primary, **OpenAI TTS** fallback | Quality UNVERIFIED for both, both languages. |
 | Audio lib | **expo-audio** | NOT `expo-av` — deprecated and removed in current SDKs. |
 | Styling | **NativeWind 4** + **tailwindcss 3.4.x** | Tailwind 4 is incompatible with NativeWind 4. |
 
@@ -58,13 +65,20 @@ lockfile remembers the pollution and keeps restoring it.
 - Never call the AI APIs from the client. All AI calls go through the backend.
 - Never store API keys in the client. Ever.
 - AI audio served from signed URLs. Per-turn user audio is transcribed and **discarded** — never persisted.
+  Transcripts are not persisted either; `spoken_words` stores only the dictionary entry of a key-vocab
+  word that the transcript contained.
+- The only user audio that is ever written to disk is the voice note on the closing screen: it stays
+  in the app's cache on the phone and leaves only if the user shares it themselves.
+- Edge Functions are split into `handler.ts` (all logic, dependencies passed in, runs under Node for
+  tests) and `index.ts` (Deno wiring only). Keep runtime-specific imports out of `handler.ts`.
 - Session state lives in the database, not just in client state — a session must survive app kill mid-flow.
 
 ## Product rules
 
 - Never introduce a red X, "wrong," "incorrect," or any punitive feedback UI
 - Never add a streak counter or streak-related mechanic
-- Never add gamification (XP, badges, levels) without explicit approval
+- Never add gamification (XP, badges, levels) without explicit approval. "Words you've said" is a
+  list, not a score: no totals, no goals.
 - Session length hard cap is 5 minutes — enforce in the state machine
 - Every AI-generated line to the user passes through a warmth check: rephrase anything that sounds
   sterile, clinical, or like a Duolingo error message
@@ -84,6 +98,19 @@ lockfile remembers the pollution and keeps restoring it.
 
 ## Content status
 
-All topic content in `content/topics/` is drafted by Claude and carries `"verified": false`.
-**Nothing ships to TestFlight until a native Telugu speaker reviews each topic** and flips the flag.
-See `content/REVIEW.md`.
+All topic content in `content/topics/` is drafted by Claude and carries `"verified": false` until
+a native speaker reviews it. **Only verified topics are seeded**, so a partly reviewed corpus ships
+only its reviewed part. See `content/REVIEW.md` for the first-release review plan.
+
+## Commands
+
+- `npm test` — core, content, spike and Edge Function tests (all under Node)
+- `npm run typecheck` — each workspace
+- `npm run content:validate` / `npm run content:seed`
+- `node --env-file=.env scripts/pregenerate-audio.mjs` — prompts, answers and vocab clips
+- `app/.maestro/*.yaml` — Maestro happy paths (`maestro test app/.maestro/<flow>.yaml`)
+
+## AI disclosure
+
+`AI_USAGE.md` records what AI did and what the author did. Keep it current: the Congressional App
+Challenge requires full disclosure, and every commit made with Claude carries a Co-Authored-By trailer.
