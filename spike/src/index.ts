@@ -31,10 +31,11 @@ const SAMPLES_DIR = resolve(import.meta.dirname, "../samples");
 const SAMPLE_LINE = "అమ్మమ్మా, నేను ఈరోజు ఆఫీసుకి వెళ్ళాను. చాలా పని ఉంది.";
 
 const TOPIC = {
-  topicTitle: "Tell Ammamma about your day",
+  language: "te",
+  topicTitle: "Tell your grandmother about your day",
   scenarioDescription:
-    "Ammamma has called to check in, the way she does most evenings. She wants to hear about your day.",
-};
+    "Your grandmother has called to check in, the way she does most evenings. She wants to hear about your day.",
+} as const;
 
 interface Args {
   audioPath: string | null;
@@ -197,7 +198,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  // ---- 2. Ammamma's next turn ----------------------------------------------
+  // ---- 2. The grandmother's next turn ----------------------------------------------
   heading("2. Conversation turn");
   const chat = createOpenAiChatProvider(client, chatModel);
   const reply = await chat.respond({

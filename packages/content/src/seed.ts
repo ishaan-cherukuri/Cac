@@ -4,8 +4,10 @@
  *   node --env-file=.env packages/content/src/seed.ts
  *   node --env-file=.env packages/content/src/seed.ts --allow-unverified   # dev only
  *
- * Refuses to seed unverified Telugu by default. RLS also hides unverified rows from
- * clients, so even a forced dev seed cannot surface bad content to a real user.
+ * Seeds only verified topics by default, so a partly-reviewed corpus can still ship the
+ * reviewed part. --allow-unverified seeds everything (dev only). RLS also hides
+ * unverified rows from clients, so even a forced dev seed cannot surface bad content to
+ * a real user.
  */
 
 import { createClient } from "@supabase/supabase-js";
@@ -19,6 +21,7 @@ interface TopicRow {
   emotional_anchor: Topic["emotional_anchor"];
   turns: Topic["turns"];
   verified: boolean;
+  starter: boolean;
 }
 
 function toRow(topic: Topic): TopicRow {
@@ -30,6 +33,7 @@ function toRow(topic: Topic): TopicRow {
     emotional_anchor: topic.emotional_anchor,
     turns: topic.turns,
     verified: topic.verified,
+    starter: topic.starter,
   };
 }
 
@@ -47,19 +51,26 @@ async function main(): Promise<void> {
     );
   }
 
-  const topics = await loadTopics();
-  console.log(`Loaded ${topics.length} topics.`);
+  const loaded = await loadTopics();
+  console.log(`Loaded ${loaded.length} topics.`);
+
+  const skipped = loaded.filter((topic) => !topic.verified);
+  const topics = allowUnverified ? loaded : loaded.filter((topic) => topic.verified);
 
   if (allowUnverified) {
-    const unverified = topics.filter((topic) => !topic.verified).length;
+    const unverified = skipped.length;
     console.warn(
       `\n⚠️  --allow-unverified: seeding ${unverified} unreviewed topic(s).\n` +
         `   RLS hides verified=false rows from clients, so users will see nothing.\n` +
         `   Never use this flag against production.\n`,
     );
   } else {
-    // Throws with the full list of offending titles.
+    // Belt and braces: the filter above guarantees this, and it stays as the tripwire if
+    // the filter is ever changed.
     assertShippable(topics);
+    if (skipped.length > 0) {
+      console.log(`Skipping ${skipped.length} unreviewed topic(s) — see content/REVIEW.md.`);
+    }
   }
 
   const supabase = createClient(url, serviceRoleKey, {

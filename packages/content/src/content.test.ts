@@ -5,21 +5,48 @@ import {
   analyzeAnchorBalance,
   findTransliterationProblems,
   findDuplicateIds,
+  findStarterConflicts,
+  findHardcodedPersona,
+  topicsInLanguage,
   assertShippable,
   UnverifiedContentError,
+  FULL_CORPUS_LANGUAGES,
   MIN_TOPICS,
   MAX_TOPICS,
   type Topic,
 } from "./index.ts";
+import { LANGUAGE_CODES } from "../../core/src/languages.ts";
 
 const topics = await loadTopics();
 
 describe("the topic corpus", () => {
-  test(`has ${MIN_TOPICS}-${MAX_TOPICS} topics as SPEC section 3.1 requires`, () => {
-    assert.ok(
-      topics.length >= MIN_TOPICS && topics.length <= MAX_TOPICS,
-      `found ${topics.length}`,
-    );
+  for (const language of FULL_CORPUS_LANGUAGES) {
+    const inLanguage = topicsInLanguage(topics, language);
+
+    test(`${language}: has ${MIN_TOPICS}-${MAX_TOPICS} topics as SPEC section 3.1 requires`, () => {
+      assert.ok(
+        inLanguage.length >= MIN_TOPICS && inLanguage.length <= MAX_TOPICS,
+        `found ${inLanguage.length}`,
+      );
+    });
+
+    test(`${language}: meets the 40/30/30 emotional balance SPEC section 7 requires`, () => {
+      const balance = analyzeAnchorBalance(inLanguage);
+      assert.deepEqual(balance.problems, []);
+      assert.ok(balance.meetsSpec);
+    });
+  }
+
+  test("every language has exactly one starter topic", () => {
+    assert.deepEqual(findStarterConflicts(topics), []);
+    for (const language of LANGUAGE_CODES) {
+      const starters = topicsInLanguage(topics, language).filter((topic) => topic.starter);
+      assert.equal(starters.length, 1, `${language} has ${starters.length} starter topics`);
+    }
+  });
+
+  test("English copy names the grandmother only through {persona}", () => {
+    assert.deepEqual(findHardcodedPersona(topics), []);
   });
 
   test("parses against the schema — every turn has all six text fields", () => {
@@ -33,12 +60,6 @@ describe("the topic corpus", () => {
 
   test("has no duplicate ids", () => {
     assert.deepEqual(findDuplicateIds(topics), []);
-  });
-
-  test("meets the 40/30/30 emotional balance SPEC section 7 requires", () => {
-    const balance = analyzeAnchorBalance(topics);
-    assert.deepEqual(balance.problems, []);
-    assert.ok(balance.meetsSpec);
   });
 
   test("transliterations contain no non-Latin lookalike characters", () => {

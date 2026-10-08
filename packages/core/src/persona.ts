@@ -1,5 +1,5 @@
 /**
- * The Ammamma persona prompt — the single source of truth for how the AI speaks.
+ * The grandmother persona prompt — the single source of truth for how the AI speaks.
  *
  * Lives in `core` rather than in the Edge Function or the spike so there is exactly one
  * copy. A persona that drifts between the prototype and production is a persona the user
@@ -10,10 +10,7 @@
  */
 
 import type { Difficulty } from "./session.ts";
-
-export const TARGET_LANGUAGE = "te";
-export const TARGET_LANGUAGE_NAME = "Telugu";
-export const PERSONA_NAME = "Ammamma";
+import { LANGUAGES, type LanguageCode } from "./languages.ts";
 
 const SCAFFOLDING: Record<Difficulty, string> = {
   easy:
@@ -28,13 +25,16 @@ const SCAFFOLDING: Record<Difficulty, string> = {
 };
 
 export interface PersonaPromptInput {
+  language: LanguageCode;
   difficulty: Difficulty;
   topicTitle: string;
   scenarioDescription: string;
 }
 
 export function buildSystemPrompt(input: PersonaPromptInput): string {
-  return `You are ${PERSONA_NAME} — the user's maternal grandmother. You speak ${TARGET_LANGUAGE_NAME}.
+  const { name: TARGET_LANGUAGE_NAME, personaName, register } = LANGUAGES[input.language];
+  return `You are ${personaName} — the user's maternal grandmother. You speak ${TARGET_LANGUAGE_NAME}:
+${register}
 
 The person talking to you is your grandchild. They understand ${TARGET_LANGUAGE_NAME} completely but have
 never been able to speak it back to you. This is a source of quiet grief for both of you. They are trying now.
@@ -74,7 +74,7 @@ Two or three sentences per turn, maximum. They are here to talk, not to listen t
  *
  * SPEC 3.1 wants detection WITHOUT correction: "if the user's response is unrecognizable
  * or nonsensical, the AI gently rephrases the question and gives one more try." So the
- * judgement drives whether Ammamma re-asks — it is never surfaced to the user as a score,
+ * judgement drives whether the grandmother re-asks — it is never surfaced to the user as a score,
  * a colour, or a "wrong".
  *
  * The bar is deliberately generous. A heritage speaker's answer will be halting, partly
@@ -85,6 +85,7 @@ Two or three sentences per turn, maximum. They are here to talk, not to listen t
  * every turn, and latency is already this app's worst problem.
  */
 export function buildTurnInstruction(input: {
+  language: LanguageCode;
   expectedAnswerNative: string;
   /**
    * Whether a re-ask is still allowed on this turn. False on the last attempt, where
@@ -94,6 +95,7 @@ export function buildTurnInstruction(input: {
    */
   mayReAsk: boolean;
 }): string {
+  const TARGET_LANGUAGE_NAME = LANGUAGES[input.language].name;
   return `Reply with a JSON object and nothing else:
 {"understood": true|false, "reply": "<what you say next, in ${TARGET_LANGUAGE_NAME}>"}
 
@@ -130,7 +132,7 @@ export interface TurnJudgement {
 
 /**
  * Parses the model's JSON. Anything malformed is treated as understood, because the
- * failure mode of guessing wrong matters: a false "not understood" makes Ammamma re-ask
+ * failure mode of guessing wrong matters: a false "not understood" makes the grandmother re-ask
  * a question the user answered fine, which is the exact experience of not being heard
  * that this app exists to undo. Advancing on a bad parse is the kinder error.
  */
@@ -192,9 +194,9 @@ export function failsWarmthCheck(text: string): boolean {
 }
 
 /** A line that is always safe to say when a generated turn has to be discarded. */
-export const FALLBACK_LINE = "ఇంకొంచెం చెప్పు, నాన్నా.";
-export const FALLBACK_LINE_TRANSLIT = "Inkoncham cheppu, naannaa.";
-export const FALLBACK_LINE_ENGLISH = "Tell me a little more, dear.";
+export function fallbackLine(language: LanguageCode): string {
+  return LANGUAGES[language].fallbackLine.native;
+}
 
 export type RejectionReason = "payment_reference" | "cold_tone" | "empty";
 
@@ -208,10 +210,11 @@ export interface VettedLine {
  * wholesale rather than edited — a line that broke character cannot be patched back
  * into character, and a warm generic reply is never wrong.
  */
-export function vetLine(raw: string): VettedLine {
+export function vetLine(raw: string, language: LanguageCode): VettedLine {
   const text = raw.trim();
-  if (text.length === 0) return { text: FALLBACK_LINE, rejected: "empty" };
-  if (containsPaymentReference(text)) return { text: FALLBACK_LINE, rejected: "payment_reference" };
-  if (failsWarmthCheck(text)) return { text: FALLBACK_LINE, rejected: "cold_tone" };
+  const fallback = fallbackLine(language);
+  if (text.length === 0) return { text: fallback, rejected: "empty" };
+  if (containsPaymentReference(text)) return { text: fallback, rejected: "payment_reference" };
+  if (failsWarmthCheck(text)) return { text: fallback, rejected: "cold_tone" };
   return { text, rejected: null };
 }

@@ -7,23 +7,34 @@ import {
   containsPaymentReference,
   failsWarmthCheck,
   vetLine,
-  FALLBACK_LINE,
-  PERSONA_NAME,
+  fallbackLine,
 } from "./persona.ts";
+import { LANGUAGE_CODES, LANGUAGES } from "./languages.ts";
 
 const TOPIC = {
-  topicTitle: "Tell Ammamma about your day",
-  scenarioDescription: "Ammamma has called to check in.",
+  language: "te",
+  topicTitle: "Tell your grandmother about your day",
+  scenarioDescription: "Your grandmother has called to check in.",
 } as const;
+
+const FALLBACK_LINE = fallbackLine("te");
 
 describe("buildSystemPrompt", () => {
   test("carries the persona, language, and topic into every difficulty", () => {
     for (const difficulty of ["easy", "medium", "hard"] as const) {
       const prompt = buildSystemPrompt({ ...TOPIC, difficulty });
-      assert.match(prompt, new RegExp(PERSONA_NAME));
+      assert.match(prompt, new RegExp(LANGUAGES.te.personaName));
       assert.match(prompt, /Telugu/);
       assert.ok(prompt.includes(TOPIC.topicTitle), `${difficulty} lost the topic title`);
     }
+  });
+
+  test("speaks the topic's language, as that language's grandmother", () => {
+    const hindi = buildSystemPrompt({ ...TOPIC, language: "hi", difficulty: "easy" });
+    assert.match(hindi, new RegExp(LANGUAGES.hi.personaName));
+    assert.match(hindi, /Hindi/);
+    assert.doesNotMatch(hindi, /Telugu/);
+    assert.doesNotMatch(hindi, new RegExp(LANGUAGES.te.personaName));
   });
 
   test("the three difficulties scaffold distinguishably differently", () => {
@@ -98,6 +109,7 @@ describe("failsWarmthCheck", () => {
 describe("buildTurnInstruction", () => {
   test("asks for JSON with both fields", () => {
     const instruction = buildTurnInstruction({
+      language: "te",
       expectedAnswerNative: "నేను ఆఫీసుకి వెళ్ళాను.",
       mayReAsk: true,
     });
@@ -106,9 +118,10 @@ describe("buildTurnInstruction", () => {
   });
 
   test("biases generously toward understood", () => {
-    // A false "not understood" makes Ammamma re-ask a question the user answered fine —
+    // A false "not understood" makes the grandmother re-ask a question the user answered fine —
     // exactly the not-being-heard experience the app exists to undo.
     const instruction = buildTurnInstruction({
+      language: "te",
       expectedAnswerNative: "సరే",
       mayReAsk: true,
     });
@@ -117,18 +130,18 @@ describe("buildTurnInstruction", () => {
   });
 
   test("branches on its own verdict, and stops re-asking on the last attempt", () => {
-    const retry = buildTurnInstruction({ expectedAnswerNative: "సరే", mayReAsk: true });
+    const retry = buildTurnInstruction({ language: "te", expectedAnswerNative: "సరే", mayReAsk: true });
     assert.match(retry, /SAME thing again/i);
     assert.match(retry, /[Dd]o not mention that you did not understand/);
 
-    const lastAttempt = buildTurnInstruction({ expectedAnswerNative: "సరే", mayReAsk: false });
+    const lastAttempt = buildTurnInstruction({ language: "te", expectedAnswerNative: "సరే", mayReAsk: false });
     assert.notEqual(retry, lastAttempt);
     assert.match(lastAttempt, /do not ask again/i);
   });
 
   test("forbids surfacing the judgement to the user", () => {
     for (const mayReAsk of [true, false]) {
-      const instruction = buildTurnInstruction({ expectedAnswerNative: "సరే", mayReAsk });
+      const instruction = buildTurnInstruction({ language: "te", expectedAnswerNative: "సరే", mayReAsk });
       assert.match(instruction, /[Nn]o correction/);
     }
   });
@@ -162,27 +175,34 @@ describe("parseTurnJudgement", () => {
 describe("vetLine", () => {
   test("passes a good line through untouched", () => {
     const line = "ఏం చేశావు ఈరోజు?";
-    assert.deepEqual(vetLine(line), { text: line, rejected: null });
+    assert.deepEqual(vetLine(line, "te"), { text: line, rejected: null });
   });
 
   test("replaces rather than edits a rejected line", () => {
     // Editing a line that broke character cannot restore character; substitution can.
-    const payment = vetLine("You can subscribe at our website for more lessons.");
+    const payment = vetLine("You can subscribe at our website for more lessons.", "te");
     assert.equal(payment.text, FALLBACK_LINE);
     assert.equal(payment.rejected, "payment_reference");
 
-    const cold = vetLine("Incorrect. The right answer is వెళ్ళాను.");
+    const cold = vetLine("Incorrect. The right answer is వెళ్ళాను.", "te");
     assert.equal(cold.text, FALLBACK_LINE);
     assert.equal(cold.rejected, "cold_tone");
   });
 
   test("substitutes for an empty generation", () => {
-    assert.equal(vetLine("   ").rejected, "empty");
-    assert.equal(vetLine("   ").text, FALLBACK_LINE);
+    assert.equal(vetLine("   ", "te").rejected, "empty");
+    assert.equal(vetLine("   ", "te").text, FALLBACK_LINE);
   });
 
-  test("the fallback line itself survives every check", () => {
+  test("the fallback line itself survives every check, in every language", () => {
     // A fallback that trips its own filters would loop forever.
-    assert.deepEqual(vetLine(FALLBACK_LINE), { text: FALLBACK_LINE, rejected: null });
+    for (const language of LANGUAGE_CODES) {
+      const fallback = fallbackLine(language);
+      assert.deepEqual(vetLine(fallback, language), { text: fallback, rejected: null });
+    }
+  });
+
+  test("falls back in the conversation's own language", () => {
+    assert.equal(vetLine("   ", "hi").text, LANGUAGES.hi.fallbackLine.native);
   });
 });

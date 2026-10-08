@@ -6,7 +6,8 @@
  * bytes instead of after a full download. Players do not reliably attach custom headers,
  * so the credential has to survive inside the URL itself.
  *
- * The token carries the line to speak, so /speak needs no database round trip — one less
+ * The token carries the line to speak and its language (which picks the voice), so
+ * /speak needs no database round trip — one less
  * hop before audio starts. It is signed and expiring, so it cannot be used to run up an
  * ElevenLabs bill by synthesizing arbitrary text.
  */
@@ -41,15 +42,28 @@ async function hmac(secret: string, payload: string): Promise<string> {
 /** Tokens live only long enough to start playing the line they were minted for. */
 const TTL_MS = 5 * 60 * 1000;
 
-export async function signSpeechToken(secret: string, text: string): Promise<string> {
-  const payload = toBase64Url(encoder.encode(JSON.stringify({ t: text, e: Date.now() + TTL_MS })));
+export interface SpeechLine {
+  text: string;
+  /** Language code — /speak uses it to choose the voice. */
+  language: string;
+}
+
+export async function signSpeechToken(
+  secret: string,
+  line: SpeechLine,
+  now = Date.now(),
+): Promise<string> {
+  const payload = toBase64Url(
+    encoder.encode(JSON.stringify({ t: line.text, l: line.language, e: now + TTL_MS })),
+  );
   return `${payload}.${await hmac(secret, payload)}`;
 }
 
 export async function verifySpeechToken(
   secret: string,
   token: string,
-): Promise<{ text: string } | null> {
+  now = Date.now(),
+): Promise<SpeechLine | null> {
   const [payload, signature] = token.split(".");
   if (!payload || !signature) return null;
 
@@ -65,11 +79,13 @@ export async function verifySpeechToken(
   try {
     const decoded = JSON.parse(new TextDecoder().decode(fromBase64Url(payload))) as {
       t?: unknown;
+      l?: unknown;
       e?: unknown;
     };
     if (typeof decoded.t !== "string" || typeof decoded.e !== "number") return null;
-    if (Date.now() > decoded.e) return null;
-    return { text: decoded.t };
+    if (now > decoded.e) return null;
+    // Tokens minted before languages existed carry no `l`; they were all Telugu.
+    return { text: decoded.t, language: typeof decoded.l === "string" ? decoded.l : "te" };
   } catch {
     return null;
   }

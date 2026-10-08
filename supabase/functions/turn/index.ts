@@ -25,11 +25,11 @@ import {
   applyOutcome,
   resumeSession,
   MAX_ATTEMPTS_PER_TURN,
+  languageProfile,
+  findSpokenVocab,
+  type SpokenVocab,
   type Difficulty,
-  type SessionState,
 } from "../../../packages/core/src/index.ts";
-
-const TARGET_LANGUAGE = "te";
 
 interface TurnRequestMeta {
   sessionId: string;
@@ -123,7 +123,7 @@ async function parseRequest(request: Request): Promise<{ meta: TurnRequestMeta; 
 async function loadSession(supabase: SupabaseClient, sessionId: string) {
   const { data, error } = await supabase
     .from("sessions")
-    .select("id, user_id, difficulty, started_at, completed_at, turns_completed, current_turn, topics(title, scenario_description, turns)")
+    .select("id, user_id, topic_id, difficulty, started_at, completed_at, turns_completed, current_turn, topics(target_language, title, scenario_description, turns)")
     .eq("id", sessionId)
     .single();
 
@@ -131,6 +131,44 @@ async function loadSession(supabase: SupabaseClient, sessionId: string) {
   // exactly what we want to leak.
   if (error || !data) throw new HttpError(404, "Session not found");
   return data;
+}
+
+/**
+ * Records the vocab the user just said. Insert-or-ignore, so the first time a word was
+ * said is kept; `.select()` then returns only the rows that were new.
+ *
+ * Never throws: "Words you've said" is a keepsake, and a failed write must not cost the
+ * user the conversation turn.
+ */
+async function recordSpokenWords(
+  supabase: SupabaseClient,
+  row: { userId: string; language: string; topicId: string; turnNumber: number },
+  words: SpokenVocab[],
+): Promise<SpokenVocab[]> {
+  if (words.length === 0) return [];
+  const { data, error } = await supabase
+    .from("spoken_words")
+    .upsert(
+      words.map((word) => ({
+        user_id: row.userId,
+        language: row.language,
+        word_native: word.native,
+        word_translit: word.translit,
+        meaning: word.meaning,
+        topic_id: row.topicId,
+        turn_number: row.turnNumber,
+        vocab_index: word.index,
+      })),
+      { onConflict: "user_id,language,word_native", ignoreDuplicates: true },
+    )
+    .select("word_native");
+
+  if (error) {
+    console.error("spoken_words write failed:", error.message);
+    return [];
+  }
+  const inserted = new Set((data ?? []).map((saved) => saved.word_native as string));
+  return words.filter((word) => inserted.has(word.native));
 }
 
 async function handle(request: Request): Promise<Response> {
@@ -151,11 +189,13 @@ async function handle(request: Request): Promise<Response> {
 
   // deno-lint-ignore no-explicit-any
   const topic = (session as any).topics as {
+    target_language: string;
     title: string;
     scenario_description: string;
     turns: TopicTurn[];
   } | null;
   if (!topic) throw new HttpError(500, "Session has no topic");
+  const language = languageProfile(topic.target_language);
 
   const now = Date.now();
 
@@ -198,7 +238,7 @@ async function handle(request: Request): Promise<Response> {
     file: audio,
     // NOT whisper-1: it rejects Telugu with "400 Language 'te' is not supported".
     model: Deno.env.get("OPENAI_STT_MODEL") ?? "gpt-4o-transcribe",
-    language: TARGET_LANGUAGE,
+    language: language.code,
   }));
   const transcript = transcription.text.trim();
 
@@ -209,10 +249,28 @@ async function handle(request: Request): Promise<Response> {
   // requirement. The latency that mattered was the ~8s of TTS, which is gone entirely.
   const flagged = await time("moderation", () => isFlagged(openai, transcript));
 
-  // --- 3. Ammamma judges the answer AND replies, in one call ---------------------
+  const currentTopicTurn = topic.turns[Math.min(resumed.state.currentTurn - 1, topic.turns.length - 1)];
+
+  // --- 3a. Words they actually said ---------------------------------------------
+  // Runs alongside the chat call rather than before it: it is off the critical path.
+  // Flagged speech records nothing. Only the dictionary entry is stored, never the
+  // transcript around it.
+  const spokenWords = flagged ? [] : findSpokenVocab(transcript, currentTopicTurn?.key_vocab ?? []);
+  const newWordsPromise = time("words", () =>
+    recordSpokenWords(
+      supabase,
+      {
+        userId: session.user_id as string,
+        language: language.code,
+        topicId: session.topic_id as string,
+        turnNumber: currentTopicTurn?.turn_number ?? resumed.state.currentTurn,
+      },
+      spokenWords,
+    ));
+
+  // --- 3b. The grandmother judges the answer AND replies, in one call --------------
   // The reply depends on whether the answer landed, so the model must judge first.
   // Two calls would double per-turn latency, so it returns both in one JSON object.
-  const currentTopicTurn = topic.turns[Math.min(resumed.state.currentTurn - 1, topic.turns.length - 1)];
   const difficulty = session.difficulty as Difficulty;
   const mayReAsk = resumed.state.attemptsOnCurrentTurn + 1 < MAX_ATTEMPTS_PER_TURN;
 
@@ -228,6 +286,7 @@ async function handle(request: Request): Promise<Response> {
       {
         role: "system",
         content: buildSystemPrompt({
+          language: language.code,
           difficulty,
           topicTitle: topic.title,
           scenarioDescription: topic.scenario_description,
@@ -238,6 +297,7 @@ async function handle(request: Request): Promise<Response> {
       {
         role: "system",
         content: buildTurnInstruction({
+          language: language.code,
           expectedAnswerNative: currentTopicTurn?.model_answer_native ?? "",
           mayReAsk,
         }),
@@ -246,8 +306,9 @@ async function handle(request: Request): Promise<Response> {
   }));
 
   const judgement = parseTurnJudgement(completion.choices[0]?.message?.content ?? "");
+  const newWords = await newWordsPromise;
 
-  // Moderation-flagged speech is treated as not understood so Ammamma simply re-asks
+  // Moderation-flagged speech is treated as not understood so she simply re-asks
   // rather than engaging with it. A malformed judgement counts as understood — see
   // parseTurnJudgement for why advancing is the kinder failure.
   const understood = flagged ? false : (judgement?.understood ?? true);
@@ -257,13 +318,16 @@ async function handle(request: Request): Promise<Response> {
   const progress = applyOutcome(resumed.state, outcome, now);
 
   // --- 5. Outbound vetting: payment references, cold tone, empty generations -----
-  const vetted = vetLine(judgement?.reply ?? "");
+  const vetted = vetLine(judgement?.reply ?? "", language.code);
 
   // --- 6. Hand back a URL instead of audio ---------------------------------------
   // No TTS here any more. Synthesizing the whole clip before responding was ~8s of the
   // old ~15s round trip, and none of it could be heard until it was completely finished.
   // The client points its player at this URL and audio begins in about a second.
-  const speakToken = await signSpeechToken(requireEnv("SPEECH_SIGNING_SECRET"), vetted.text);
+  const speakToken = await signSpeechToken(requireEnv("SPEECH_SIGNING_SECRET"), {
+    text: vetted.text,
+    language: language.code,
+  });
   const speakUrl = `${requireEnv("SUPABASE_URL")}/functions/v1/speak?token=${encodeURIComponent(speakToken)}`;
 
   // --- 7. Persist state so an app kill loses nothing ----------------------------
@@ -284,6 +348,9 @@ async function handle(request: Request): Promise<Response> {
     transcript,
     reply: { text: vetted.text, rejected: vetted.rejected },
     speakUrl,
+    // Everything said this turn, and the subset said for the first time ever.
+    spokenWords: spokenWords.map(({ native, translit, meaning }) => ({ native, translit, meaning })),
+    newWords: newWords.map(({ native }) => native),
     timings,
     session: {
       currentTurn: progress.state.currentTurn,

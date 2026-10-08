@@ -41,7 +41,7 @@ export function createOpenAiChatProvider(client: OpenAI, model: string): ChatPro
 
       const completion = await client.chat.completions.create({
         model,
-        // Warmth needs room; a cold temperature makes Ammamma sound like a form letter.
+        // Warmth needs room; a cold temperature makes the grandmother sound like a form letter.
         temperature: 0.8,
         max_tokens: 200,
         messages: [
@@ -53,7 +53,7 @@ export function createOpenAiChatProvider(client: OpenAI, model: string): ChatPro
       const raw = completion.choices[0]?.message?.content ?? "";
       // vetLine substitutes wholesale on any violation — payment reference, cold tone,
       // or empty generation. See packages/core/src/persona.ts.
-      const vetted = vetLine(raw);
+      const vetted = vetLine(raw, request.language);
 
       return {
         text: vetted.text,

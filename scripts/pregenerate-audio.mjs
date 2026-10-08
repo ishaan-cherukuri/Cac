@@ -1,19 +1,21 @@
 /**
- * Pre-generates Ammamma's scripted audio and uploads it to Supabase Storage.
+ * Pre-generates the grandmother's scripted audio and uploads it to Supabase Storage.
  *
  * Fixes two problems at once:
- *   1. Ammamma currently never SPEAKS her question — the app shows text and waits.
+ *   1. The grandmother used to never SPEAK her question — the app shows text and waits.
  *      SPEC 3.1's loop is "AI speaks -> user records -> AI responds"; turn one had no voice.
  *   2. TTS is 6-17s of every turn. Scripted lines never change, so synthesizing them
  *      once takes TTS off the critical path entirely for easy and medium levels.
  *
- * Model choice: eleven_v3, deliberately. It is the slowest ElevenLabs model but the only
- * one that officially supports Telugu, and latency is irrelevant for audio generated
- * ahead of time. Speed only matters for live free-form replies.
+ * Voice and model come from each topic's language profile (packages/core/src/languages.ts).
+ * Telugu uses eleven_v3, the slowest ElevenLabs model but the only one that officially
+ * supports Telugu; latency is irrelevant for audio generated ahead of time. A language
+ * whose voice has not been chosen yet is skipped, not read with the wrong voice.
  *
  * What gets generated, per SPEC 3.1:
  *   - ai_prompt_native   -> every turn, every level (she always asks)
  *   - model_answer_native -> easy level only (she says the answer for the user to repeat)
+ *   - each key_vocab word -> "Words you've said" plays it back in her voice
  *
  * Idempotent: skips anything already uploaded, so it is safe to re-run and resume after
  * a quota limit. Character cost is reported as it goes.
@@ -21,14 +23,16 @@
  *   node --env-file=.env scripts/pregenerate-audio.mjs --limit 1     # prove it, one topic
  *   node --env-file=.env scripts/pregenerate-audio.mjs               # everything
  *   node --env-file=.env scripts/pregenerate-audio.mjs --prompts-only
+ *   node --env-file=.env scripts/pregenerate-audio.mjs --language hi
  */
 
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
+import { languageProfile } from "../packages/core/src/languages.ts";
+import { parseVocabEntry } from "../packages/core/src/spoken.ts";
 
 const BUCKET = "topic-audio";
-const MODEL = "eleven_v3";
 const TOPICS_DIR = "content/topics";
 
 const args = process.argv.slice(2);
@@ -36,12 +40,23 @@ const limitIndex = args.indexOf("--limit");
 const limit = limitIndex === -1 ? Infinity : Number(args[limitIndex + 1]);
 const promptsOnly = args.includes("--prompts-only");
 const dryRun = args.includes("--dry-run");
+const languageIndex = args.indexOf("--language");
+const onlyLanguage = languageIndex === -1 ? null : args[languageIndex + 1];
 
 const elevenKey = process.env.ELEVENLABS_API_KEY;
-const voiceId = process.env.ELEVENLABS_VOICE_ID;
-if (!elevenKey || !voiceId) {
-  console.error("Need ELEVENLABS_API_KEY and ELEVENLABS_VOICE_ID in .env");
+if (!elevenKey) {
+  console.error("Need ELEVENLABS_API_KEY in .env");
   process.exit(1);
+}
+
+/** Same precedence as the /speak function: per-language env, legacy Telugu env, profile. */
+function voiceFor(language) {
+  const profile = languageProfile(language);
+  const voiceId =
+    process.env[`ELEVENLABS_VOICE_ID_${profile.code.toUpperCase()}`] ??
+    (profile.code === "te" ? process.env.ELEVENLABS_VOICE_ID : undefined) ??
+    profile.elevenLabs.voiceId;
+  return { voiceId, modelId: profile.elevenLabs.modelId };
 }
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
@@ -64,7 +79,7 @@ async function ensureBucket() {
   console.log(`created public bucket "${BUCKET}"`);
 }
 
-async function synthesize(text) {
+async function synthesize(text, { voiceId, modelId }) {
   const response = await fetch(
     `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream`,
     {
@@ -76,7 +91,7 @@ async function synthesize(text) {
       },
       body: JSON.stringify({
         text,
-        model_id: MODEL,
+        model_id: modelId,
         voice_settings: { stability: 0.6, similarity_boost: 0.8, style: 0.15 },
       }),
     },
@@ -107,24 +122,48 @@ async function upload(path, bytes) {
 // --- collect the work ---------------------------------------------------------
 
 const files = (await readdir(TOPICS_DIR)).filter((f) => f.endsWith(".json")).sort();
-const topics = [];
+const allTopics = [];
 for (const file of files) {
-  topics.push(...JSON.parse(await readFile(join(TOPICS_DIR, file), "utf8")));
+  allTopics.push(...JSON.parse(await readFile(join(TOPICS_DIR, file), "utf8")));
+}
+
+const topics = [];
+for (const topic of allTopics) {
+  if (onlyLanguage && topic.target_language !== onlyLanguage) continue;
+  if (!voiceFor(topic.target_language).voiceId) {
+    console.warn(`skipping "${topic.title}": no voice chosen for ${topic.target_language} yet`);
+    continue;
+  }
+  topics.push(topic);
 }
 
 const jobs = [];
 for (const topic of topics.slice(0, limit)) {
+  const voice = voiceFor(topic.target_language);
   for (const turn of topic.turns) {
     jobs.push({
       path: `${topic.id}/${turn.turn_number}-prompt.mp3`,
       text: turn.ai_prompt_native,
       kind: "prompt",
+      voice,
     });
     if (!promptsOnly) {
       jobs.push({
         path: `${topic.id}/${turn.turn_number}-answer.mp3`,
         text: turn.model_answer_native,
         kind: "answer",
+        voice,
+      });
+      // Path mirrors vocabAudioUrl in app/src/lib/audio.ts.
+      turn.key_vocab.forEach((raw, index) => {
+        const entry = parseVocabEntry(raw);
+        if (!entry) return;
+        jobs.push({
+          path: `${topic.id}/${turn.turn_number}-vocab-${index}.mp3`,
+          text: entry.native,
+          kind: "vocab",
+          voice,
+        });
       });
     }
   }
@@ -134,7 +173,8 @@ const totalChars = jobs.reduce((sum, job) => sum + job.text.length, 0);
 console.log(
   `${topics.slice(0, limit).length} topic(s), ${jobs.length} clip(s), ${totalChars} characters`,
 );
-console.log(`model: ${MODEL}   voice: ${voiceId}\n`);
+const voices = [...new Set(jobs.map((job) => `${job.voice.modelId}/${job.voice.voiceId}`))];
+console.log(`voices: ${voices.join(", ")}\n`);
 
 if (dryRun) {
   console.log("--dry-run: nothing generated.");
@@ -156,7 +196,7 @@ for (const [index, job] of jobs.entries()) {
   }
 
   try {
-    const audio = await synthesize(job.text);
+    const audio = await synthesize(job.text, job.voice);
     await upload(job.path, audio);
     generated++;
     charsSpent += job.text.length;

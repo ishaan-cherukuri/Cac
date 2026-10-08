@@ -1,5 +1,5 @@
 /**
- * GET /functions/v1/speak?token=... — streams Ammamma's voice.
+ * GET /functions/v1/speak?token=... — streams the grandmother's voice.
  *
  * This exists so audio can start playing before it has finished generating. The old
  * design returned the whole clip base64-encoded inside the /turn JSON, which meant the
@@ -14,6 +14,7 @@
  */
 
 import { verifySpeechToken } from "../_shared/speech-token.ts";
+import { languageProfile, type LanguageProfile } from "../../../packages/core/src/index.ts";
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -32,7 +33,7 @@ function requireEnv(name: string): string {
  * the fallback keeps the same start-early behaviour rather than silently reverting to a
  * buffered clip.
  */
-async function openAiStream(text: string): Promise<Response> {
+async function openAiStream(text: string, language: LanguageProfile): Promise<Response> {
   return await fetch("https://api.openai.com/v1/audio/speech", {
     method: "POST",
     headers: {
@@ -44,15 +45,20 @@ async function openAiStream(text: string): Promise<Response> {
       voice: Deno.env.get("OPENAI_TTS_VOICE") ?? "shimmer",
       input: text,
       response_format: "mp3",
-      instructions:
-        "Speak as a warm, unhurried Telugu grandmother talking to a grandchild she loves.",
+      instructions: language.ttsInstruction,
     }),
   });
 }
 
-async function elevenLabsStream(text: string): Promise<Response | null> {
+async function elevenLabsStream(text: string, language: LanguageProfile): Promise<Response | null> {
   const key = Deno.env.get("ELEVENLABS_API_KEY");
-  const voiceId = Deno.env.get("ELEVENLABS_VOICE_ID");
+  // Per-language env override (ELEVENLABS_VOICE_ID_HI) beats the profile, so a voice can
+  // be trialled in production without a code change. The legacy unsuffixed variable
+  // still applies to Telugu, which is what it always meant.
+  const voiceId =
+    Deno.env.get(`ELEVENLABS_VOICE_ID_${language.code.toUpperCase()}`) ??
+    (language.code === "te" ? Deno.env.get("ELEVENLABS_VOICE_ID") : undefined) ??
+    language.elevenLabs.voiceId;
   if (!key || !voiceId) return null;
 
   const response = await fetch(
@@ -64,7 +70,7 @@ async function elevenLabsStream(text: string): Promise<Response | null> {
         text,
         // Only eleven_v3 supports Telugu. It is the slowest model, but streaming makes
         // its time-to-first-byte competitive — see scripts/bench-tts.mjs.
-        model_id: Deno.env.get("ELEVENLABS_MODEL_ID") ?? "eleven_v3",
+        model_id: Deno.env.get("ELEVENLABS_MODEL_ID") ?? language.elevenLabs.modelId,
         voice_settings: { stability: 0.6, similarity_boost: 0.8, style: 0.15 },
       }),
     },
@@ -86,7 +92,10 @@ Deno.serve(async (request: Request): Promise<Response> => {
       return new Response("Invalid or expired token", { status: 403, headers: CORS_HEADERS });
     }
 
-    const upstream = (await elevenLabsStream(verified.text)) ?? (await openAiStream(verified.text));
+    const language = languageProfile(verified.language);
+    const upstream =
+      (await elevenLabsStream(verified.text, language)) ??
+      (await openAiStream(verified.text, language));
     if (!upstream.ok || !upstream.body) {
       return new Response("Speech generation failed", { status: 502, headers: CORS_HEADERS });
     }

@@ -13,6 +13,7 @@
  */
 
 import { z } from "zod";
+import { LANGUAGE_CODES, type LanguageCode } from "../../core/src/languages.ts";
 
 export const EMOTIONAL_ANCHORS = ["grandparent", "parent", "cousin", "cultural"] as const;
 export const DIFFICULTIES = ["easy", "medium", "hard"] as const;
@@ -20,12 +21,15 @@ export const DIFFICULTIES = ["easy", "medium", "hard"] as const;
 export type EmotionalAnchor = (typeof EMOTIONAL_ANCHORS)[number];
 export type Difficulty = (typeof DIFFICULTIES)[number];
 
+/** `native (translit) — meaning`, e.g. `అవును (avunu) — yes`. Parsed by parseVocabEntry in core. */
+const VOCAB_ENTRY = /^[^()]+ \([^()]+\) — .+$/u;
+
 export const turnSchema = z.object({
   turn_number: z.number().int().positive(),
 
-  /** What Ammamma says, in Telugu script. */
+  /** What the grandmother says, in native script. */
   ai_prompt_native: z.string().min(1),
-  /** Romanized, for users who speak Telugu but don't read it. */
+  /** Romanized, for users who speak the language but don't read it. */
   ai_prompt_translit: z.string().min(1),
   /** Shown only if the user taps for help. */
   ai_prompt_english: z.string().min(1),
@@ -35,15 +39,19 @@ export const turnSchema = z.object({
   model_answer_translit: z.string().min(1),
   model_answer_english: z.string().min(1),
 
-  /** Surfaced as the medium-difficulty hint. Empty is legal; a turn may need no vocab. */
-  key_vocab: z.array(z.string().min(1)),
+  /**
+   * Surfaced as the medium-difficulty hint, and matched against the user's speech to
+   * build "Words you've said". Format: `native (translit) — meaning`.
+   */
+  key_vocab: z.array(z.string().regex(VOCAB_ENTRY, "key_vocab must be `native (translit) — meaning`")),
 });
 
 export type Turn = z.infer<typeof turnSchema>;
 
 export const topicSchema = z.object({
   id: z.uuid(),
-  target_language: z.literal("te"),
+  target_language: z.enum(LANGUAGE_CODES),
+  /** English copy (title, scenario, English lines) writes the grandmother as `{persona}`. */
   title: z.string().min(1),
   scenario_description: z.string().min(1),
   emotional_anchor: z.enum(EMOTIONAL_ANCHORS),
@@ -53,6 +61,9 @@ export const topicSchema = z.object({
    * `assertShippable` refuses to let unverified content reach a build.
    */
   verified: z.boolean(),
+
+  /** The conversation a new user is dropped into after onboarding. One per language. */
+  starter: z.boolean().default(false),
 
   turns: z
     .array(turnSchema)
@@ -126,14 +137,47 @@ export function analyzeAnchorBalance(topics: Topic[]): AnchorBalance {
   };
 }
 
-/** SPEC section 3.1 calls for 20-30 hand-curated topics. */
+/** SPEC section 3.1 calls for 20-30 hand-curated topics per language. */
 export const MIN_TOPICS = 20;
 export const MAX_TOPICS = 30;
+
+/**
+ * Languages held to the full corpus rules (size and 40/30/30 balance). Any other
+ * language is a pilot: a handful of topics, checked for structure only.
+ */
+export const FULL_CORPUS_LANGUAGES: readonly LanguageCode[] = ["te"];
+
+export function topicsInLanguage(topics: Topic[], language: LanguageCode): Topic[] {
+  return topics.filter((topic) => topic.target_language === language);
+}
+
+/** Every language may name at most one starter topic. Returns the languages that name more. */
+export function findStarterConflicts(topics: Topic[]): LanguageCode[] {
+  return LANGUAGE_CODES.filter(
+    (language) => topicsInLanguage(topics, language).filter((topic) => topic.starter).length > 1,
+  );
+}
+
+/** English copy must name the grandmother through `{persona}`, never a hardcoded word. */
+const HARDCODED_PERSONA = /\b(Ammamma|Nani)\b/;
+
+export function findHardcodedPersona(topics: Topic[]): string[] {
+  const problems: string[] = [];
+  for (const topic of topics) {
+    const english = [
+      topic.title,
+      topic.scenario_description,
+      ...topic.turns.flatMap((turn) => [turn.ai_prompt_english, turn.model_answer_english]),
+    ];
+    if (english.some((text) => HARDCODED_PERSONA.test(text))) problems.push(topic.title);
+  }
+  return problems;
+}
 
 export class UnverifiedContentError extends Error {
   constructor(unverified: Topic[]) {
     super(
-      `${unverified.length} topic(s) have not been reviewed by a native Telugu speaker:\n` +
+      `${unverified.length} topic(s) have not been reviewed by a native speaker:\n` +
         unverified.map((topic) => `  - ${topic.title}`).join("\n") +
         `\n\nSee content/REVIEW.md. Flip "verified" to true only after a real review.`,
     );
@@ -141,7 +185,11 @@ export class UnverifiedContentError extends Error {
   }
 }
 
-/** Call before anything user-facing ships. Throws rather than warns — warnings get ignored. */
+/**
+ * Throws if any of these topics is unverified. Throws rather than warns — warnings get
+ * ignored. Seeding uses it on the verified subset; release checks use it on everything
+ * that will be visible.
+ */
 export function assertShippable(topics: Topic[]): void {
   const unverified = topics.filter((topic) => !topic.verified);
   if (unverified.length > 0) throw new UnverifiedContentError(unverified);
