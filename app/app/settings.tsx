@@ -2,7 +2,7 @@ import { View, Text, Pressable, Switch, ScrollView, Linking } from "react-native
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
-import { SUPPORT_EMAIL } from "@ammamma/core";
+import { SUPPORT_EMAIL } from "@shared/core";
 import { LANGUAGE_OPTIONS, useChangeLanguage, useLanguage } from "@/lib/language";
 
 /**

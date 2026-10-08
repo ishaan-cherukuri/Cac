@@ -92,7 +92,7 @@ try {
     console.log("outcome:     " + result.outcome);
     console.log("understood:  " + result.understood);
     console.log("transcript:  " + result.transcript);
-    console.log("Ammamma:     " + result.reply.text);
+    console.log("Grandmother: " + result.reply.text);
     console.log("vetting:     " + (result.reply.rejected ?? "passed"));
     // Measure what the user actually feels: how long until sound starts, not how long
     // until the whole clip exists.

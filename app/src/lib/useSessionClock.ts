@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { SESSION_LIMIT_MS } from "@ammamma/core";
+import { SESSION_LIMIT_MS } from "@shared/core";
 
 /**
  * Ticks once a second so the 5-minute cap can be enforced and shown.
  *
- * The cap itself is decided by @ammamma/core from timestamps, not by counting ticks —
+ * The cap itself is decided by @shared/core from timestamps, not by counting ticks —
  * a dropped tick while the app is backgrounded must not buy the user extra time.
  */
 export function useSessionClock(startedAt: number | null): {

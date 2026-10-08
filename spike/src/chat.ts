@@ -7,7 +7,7 @@
  */
 
 import OpenAI from "openai";
-import { buildSystemPrompt, vetLine, type PersonaPromptInput } from "@ammamma/core";
+import { buildSystemPrompt, vetLine, type PersonaPromptInput } from "@shared/core";
 
 export interface ChatTurn {
   role: "assistant" | "user";

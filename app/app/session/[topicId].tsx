@@ -20,7 +20,7 @@ import {
   type BlankToken,
   type SessionState,
   type Difficulty,
-} from "@ammamma/core";
+} from "@shared/core";
 import { useTopic, type TopicTurn } from "@/lib/topics";
 import { VoiceNoteCard } from "@/components/VoiceNoteCard";
 import type { SpokenWord } from "@/lib/turn";

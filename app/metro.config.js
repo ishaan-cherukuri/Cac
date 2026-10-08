@@ -2,7 +2,7 @@ const { getDefaultConfig } = require("expo/metro-config");
 const { withNativeWind } = require("nativewind/metro");
 const path = require("node:path");
 
-// Monorepo setup: the app lives in a workspace and imports @ammamma/core, whose source
+// Monorepo setup: the app lives in a workspace and imports @shared/core, whose source
 // sits outside this directory. Metro only watches the project folder by default, so it
 // needs both the workspace root in watchFolders and both node_modules locations, or
 // shared imports resolve at typecheck time and fail at bundle time.

@@ -7,7 +7,7 @@
     "noFallthroughCasesInSwitch": true,
     "exactOptionalPropertyTypes": true,
     "noEmit": true,
-    // @ammamma/core imports with explicit .ts extensions because Node's type-stripping
+    // @shared/core imports with explicit .ts extensions because Node's type-stripping
     // requires them. Metro and Babel both handle it; TypeScript needs to be told.
     "allowImportingTsExtensions": true,
     "paths": {

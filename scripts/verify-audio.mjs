@@ -2,7 +2,7 @@
  * Verifies pre-generated audio: every clip present, non-trivial, and distinct.
  *
  * The distinctness check matters. Identical bytes at two different paths would mean a
- * clip was uploaded under the wrong key — Ammamma saying the wrong sentence, which is
+ * clip was uploaded under the wrong key — the grandmother saying the wrong sentence, which is
  * far worse than silence and completely invisible without hashing.
  *
  *   node --env-file=.env scripts/verify-audio.mjs

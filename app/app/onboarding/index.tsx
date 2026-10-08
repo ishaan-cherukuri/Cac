@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { APP_NAME } from "@ammamma/core";
+import { APP_NAME } from "@shared/core";
 
 /**
  * Onboarding 1 of 3 — SPEC section 3.2: the premise, nothing else. The language itself

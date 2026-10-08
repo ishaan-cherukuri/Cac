@@ -3,7 +3,7 @@ import { View, Text, Pressable, ActivityIndicator, ScrollView } from "react-nati
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useQueryClient } from "@tanstack/react-query";
-import type { LanguageCode } from "@ammamma/core";
+import type { LanguageCode } from "@shared/core";
 import { LEVEL_OPTIONS, markOnboarded, type SelfAssessedLevel } from "@/lib/onboarding";
 import { LANGUAGE_OPTIONS, saveLanguage } from "@/lib/language";
 import { supabase, ensureSignedIn } from "@/lib/supabase";

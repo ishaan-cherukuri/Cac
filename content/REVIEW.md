@@ -1,19 +1,54 @@
-# Native speaker review — Telugu content
+# Native speaker review
 
-**Status: 0 of 30 topics verified. Nothing here is cleared to ship.**
+**Status: 0 of 33 topics verified (30 Telugu, 3 Hindi). Nothing here is cleared to ship.**
+
+## The plan for the first release (Congressional App Challenge, due Oct 26 2026)
+
+Not everything needs review before the app ships — only what will be visible. Seeding
+skips unverified topics, so these 13 are enough for a complete, honest demo:
+
+| Language | Topic | Why it's in the first 13 |
+|---|---|---|
+| Telugu | Ask {persona} about her childhood | **The starter** — every new user's first conversation |
+| Telugu | Tell {persona} about your day | Easiest everyday topic |
+| Telugu | Tell {persona} you miss her | The emotional heart of the app; the demo video |
+| Telugu | Ask {persona} what your mother was like as a child | Grandparent ↔ parent link |
+| Telugu | Practice calling Amma | Parent anchor |
+| Telugu | Ask {persona} why Amma never taught you Telugu | The app's own story |
+| Telugu | Tell {persona} about your father | Parent anchor |
+| Telugu | Greet elders at Sankranti | Cultural anchor |
+| Telugu | Talk to a cousin about cricket | Cousin anchor |
+| Telugu | Order food at a restaurant in Hyderabad | Out-in-the-world anchor |
+| Hindi | Celebrate Holi with {persona} | **Hindi starter** |
+| Hindi | Tell {persona} about Raksha Bandhan | |
+| Hindi | Watch an old Hindi film with {persona} | |
+
+**How to review one topic (about 10 minutes each):**
+
+1. Open the topic in `content/topics/*.json` (Telugu: `grandparent`, `parent`,
+   `general`; Hindi: `hindi.json`). Read every turn aloud — her line, then the answer.
+2. Fix anything that sounds off directly in the file: the native script, the
+   transliteration, and the English must still say the same thing.
+3. When the whole topic is right, change `"verified": false` to `"verified": true`.
+4. Run `npm run content:validate`, then commit with the reviewer's name in the message
+   (e.g. `Verify "Celebrate Holi" — reviewed by <name>`). That commit is the record that a
+   native speaker checked it.
+
+`{persona}` in English text is filled in by the app (Ammamma in Telugu, Nani in Hindi) —
+leave it as is.
 
 Every topic in `content/topics/` was drafted by Claude and carries `"verified": false`.
 The Telugu is plausible but unverified — expect errors in register, verb agreement, and
 word choice that a native speaker will catch instantly and a model will not.
 
-`assertShippable()` throws while any topic is unverified, so this cannot be forgotten
-by accident.
+Unverified topics are never seeded (and RLS hides them even if they were), so a
+half-reviewed corpus ships only its reviewed half.
 
 ## What a reviewer needs to check
 
 Per topic, in priority order:
 
-1. **Does Ammamma sound like a real grandmother?** Not a textbook, not a news reader.
+1. **Does she sound like a real grandmother?** Not a textbook, not a news reader.
    Slightly informal, warm, a little repetitive. If a line sounds like it came from a
    language course, it is wrong even if it is grammatically perfect.
 2. **Is the register right for an elder speaking to a grandchild?** Check the
@@ -30,7 +65,7 @@ Per topic, in priority order:
 ## Every topic is now 8 turns
 
 Each of the 30 topics was extended to the SPEC maximum of 8 turns. Turns 1-5 (and 1-6 for
-"Ask Ammamma about her childhood" and "Ask Ammamma how to make her pappu") are the original
+"Ask {persona} about her childhood" and "Ask {persona} how to make her pappu") are the original
 drafts. **Everything from turn 6 onward is newer and has had less passes over it** — review
 those with extra care.
 
@@ -76,7 +111,7 @@ attempt, simplify rather than delete — the vocabulary domain is the point of t
 
 ## Dialect — decided: Coastal Andhra
 
-Ammamma speaks **Coastal Andhra** Telugu. The drafts were already written in a broadly
+The Telugu grandmother speaks **Coastal Andhra** Telugu. The drafts were already written in a broadly
 Coastal Andhra / standard-written register, so no rewrite is needed.
 
 **Reviewer instruction:** normalize toward Coastal Andhra throughout. Where a line reads

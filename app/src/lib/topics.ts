@@ -7,7 +7,7 @@
  */
 
 import { useQuery } from "@tanstack/react-query";
-import { withPersona, type LanguageCode } from "@ammamma/core";
+import { withPersona, type LanguageCode } from "@shared/core";
 import { supabase } from "./supabase";
 import { useLanguage } from "./language";
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Text, Pressable, FlatList, ActivityIndicator } from "react-native";
 import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { withPersona } from "@ammamma/core";
+import { withPersona } from "@shared/core";
 import {
   useTopics,
   useSessionCount,

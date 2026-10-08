@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ammamma/core": "*",
+    "@shared/core": "*",
     "openai": "^6.49.0"
   },
   "devDependencies": {

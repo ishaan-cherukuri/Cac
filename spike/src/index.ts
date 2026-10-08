@@ -22,7 +22,7 @@ import { loadConfig, resolveTtsProvider, TARGET_LANGUAGE_NAME } from "./config.t
 import { transcribeAll, describeError, type TranscriptionResult } from "./stt.ts";
 import { createOpenAiChatProvider } from "./chat.ts";
 import { synthesize } from "./tts.ts";
-import type { Difficulty } from "@ammamma/core";
+import type { Difficulty } from "@shared/core";
 
 const OUT_DIR = resolve(import.meta.dirname, "../out");
 const SAMPLES_DIR = resolve(import.meta.dirname, "../samples");
@@ -211,7 +211,7 @@ async function main(): Promise<void> {
   if (reply.rejected) {
     console.log(`  ⚠️  Outbound check "${reply.rejected}" tripped — response replaced. Investigate the prompt.`);
   }
-  console.log(`\n  Ammamma: ${reply.text}`);
+  console.log(`\n  Grandmother: ${reply.text}`);
 
   // ---- 3. Speak it back -----------------------------------------------------
   heading("3. Synthesis");
@@ -223,7 +223,7 @@ async function main(): Promise<void> {
     console.log(`  ⚠️  ElevenLabs failed, fell back to OpenAI TTS:\n      ${fellBackBecause}`);
   }
 
-  const outPath = join(OUT_DIR, `ammamma-${args.difficulty}.mp3`);
+  const outPath = join(OUT_DIR, `grandmother-${args.difficulty}.mp3`);
   await writeFile(outPath, speech.audio);
   console.log(`  Voice    : ${speech.provider} (${speech.model}) ${speech.latencyMs}ms`);
   console.log(`  Saved    : ${outPath}`);

@@ -62,7 +62,7 @@ today?" Keep the hesitations and the code-switching in. That is the real test se
 The script runs both `whisper-1` and `gpt-4o-transcribe` on every clip so you get a
 provider comparison for one extra API call rather than a single pass/fail.
 
-## Choosing the Ammamma voice
+## Choosing the grandmother voice
 
 SPEC section 11 wants 3–5 ElevenLabs voices auditioned before locking one in. Once you
 have a key, set `ELEVENLABS_VOICE_ID` and re-run for each candidate — output lands in

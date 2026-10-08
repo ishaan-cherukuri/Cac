@@ -68,7 +68,7 @@ supabase functions deploy speak --no-verify-jwt
 supabase secrets set SPEECH_SIGNING_SECRET=<any long random string>
 ```
 
-`GET /functions/v1/speak?token=...` streams Ammamma's voice as `audio/mpeg`.
+`GET /functions/v1/speak?token=...` streams the grandmother's voice as `audio/mpeg`.
 
 **Why it exists.** `/turn` used to synthesize the whole clip, base64 it, and return it
 inline. Nothing could be heard until the final syllable existed — about 8s of a ~15s
@@ -108,7 +108,7 @@ expires in 5 minutes, and cannot be forged into synthesizing arbitrary text.
 The logic that matters is tested under Node:
 
 ```bash
-npm run -w @ammamma/core test    # 28 tests: state machine, cap, resume, vetting
+npm run -w @shared/core test    # state machine, languages, vocab matching: state machine, cap, resume, vetting
 ```
 
 The handler itself has no test yet — it is I/O wiring, and testing it needs either Deno

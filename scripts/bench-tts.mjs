@@ -15,7 +15,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 
 const OUT_DIR = "spike/out/bench";
 
-// Two sentences: roughly what Ammamma says in one turn.
+// Two sentences: roughly what the grandmother says in one turn.
 const LINE =
   "ఏమైంది కన్నా? ఈరోజు నాతో మాట్లాడాలని అనిపించిందా? భోజనం చేశావా?";
 

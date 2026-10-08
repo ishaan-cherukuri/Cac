@@ -14,7 +14,7 @@ import {
   LANGUAGE_CODES,
   type LanguageCode,
   type LanguageProfile,
-} from "@ammamma/core";
+} from "@shared/core";
 import { supabase } from "./supabase";
 
 const LANGUAGE_KEY = "app.language";
