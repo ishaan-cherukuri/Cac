@@ -27,6 +27,53 @@ Per topic, in priority order:
 5. **Does anything shame the learner?** No correction, no "that's not right," nothing
    that implies the user should already know this.
 
+## Every topic is now 8 turns
+
+Each of the 30 topics was extended to the SPEC maximum of 8 turns. Turns 1-5 (and 1-6 for
+"Ask Ammamma about her childhood" and "Ask Ammamma how to make her pappu") are the original
+drafts. **Everything from turn 6 onward is newer and has had less passes over it** — review
+those with extra care.
+
+The added turns exist to widen everyday vocabulary, so each topic carries one domain of
+ordinary casual speech rather than more of the same scenario words:
+
+| Domain | Topics carrying it |
+|---|---|
+| weather, seasons | her childhood |
+| times of day, daily verbs | your day |
+| kitchen staples | her pappu |
+| colours, clothes | her wedding |
+| phone and messaging | you miss her |
+| school | your mother as a child |
+| animals | tell you a story |
+| numbers 1-10, age | her birthday |
+| hours, days off | your job |
+| trees, rivers, fields | her village |
+| body parts | the song |
+| days of the week | what she does all day |
+| greetings, thanks, "wait a little" | calling Amma |
+| more food words | what Amma cooked |
+| cars, buses, commuting | your father |
+| salary, saving, spending | your new job |
+| months, flights, staying | not visiting |
+| rooms, beds, doors, cleaning | parents visiting |
+| feelings, staying calm | advice about parents |
+| learning and remembering verbs | why Amma never taught you |
+| describing a person | your sister |
+| feasts, songs, photos | cousin's wedding |
+| drinks, spice, the bill | restaurant |
+| more vegetables, kilos, change | vegetable market |
+| festival words | Sankranti |
+| left, right, straight, landmarks | directions |
+| games, teams, winning and losing | cricket |
+| family terms (maamayya, attayya, pinni, baabaayi) | relative you cannot place |
+| baby care | cousin's new baby |
+| train times, delays, luggage | train ticket |
+
+Reviewer note: the new model answers were written to stay short and literally sayable by
+someone with near-zero production. If any of them needs a construction this user would not
+attempt, simplify rather than delete — the vocabulary domain is the point of the turn.
+
 ## Dialect — decided: Coastal Andhra
 
 Ammamma speaks **Coastal Andhra** Telugu. The drafts were already written in a broadly
