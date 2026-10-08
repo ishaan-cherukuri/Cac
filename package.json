@@ -15,11 +15,12 @@
     "spike": "npm run -w spike start --",
     "content:validate": "npm run -w @shared/content validate",
     "content:seed": "npm run -w @shared/content seed --",
-    "test": "npm run -w @shared/core test && npm run -w @shared/content test && npm run -w spike test",
-    "typecheck": "tsc -b --pretty",
+    "test": "npm run -w @shared/core test && npm run -w @shared/content test && npm run -w spike test && npm run test:functions",
+    "typecheck": "npm run -w @shared/core typecheck && npm run -w @shared/content typecheck && npm run -w app typecheck",
     "ios": "npm run -w app ios",
     "ios:device": "npm run -w app ios:device",
     "ios:rebuild": "npm run -w app ios:rebuild",
-    "ios:release": "npm run -w app ios:release"
+    "ios:release": "npm run -w app ios:release",
+    "test:functions": "node --test supabase/functions/**/*.test.ts"
   }
 }

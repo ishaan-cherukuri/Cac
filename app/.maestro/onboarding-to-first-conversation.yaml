@@ -1,0 +1,27 @@
+# Happy path: a brand-new user reaches their first conversation without a menu.
+#
+#   maestro test app/.maestro/onboarding-to-first-conversation.yaml
+#
+# Needs a dev build on a booted simulator and at least one verified Telugu topic seeded.
+# appId must match BUNDLE_ID in packages/core/src/brand.ts.
+# Stops at the Speak button: recording real speech is not reliable in a simulator.
+appId: com.example.appname
+---
+- launchApp:
+    clearState: true
+- assertVisible: "You understand your family's language.*"
+- tapOn: "Start"
+- assertVisible: "Which language does your family speak?"
+- tapOn: "Telugu"
+- assertVisible: "Where are you right now?"
+- tapOn: "I understand a lot but speak nothing"
+# The microphone prompt appears because the starter opens straight into Easy.
+- runFlow:
+    when:
+      visible: "Allow"
+    commands:
+      - tapOn: "Allow"
+- extendedWaitUntil:
+    visible: "Speak"
+    timeout: 15000
+- assertVisible: "Say this back"
