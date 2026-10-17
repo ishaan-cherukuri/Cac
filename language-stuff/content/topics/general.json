@@ -1,0 +1,812 @@
+[
+  {
+    "id": "b1463196-e49c-44b7-bc17-111c8cba8108",
+    "target_language": "te",
+    "title": "Congratulate a cousin on their wedding",
+    "scenario_description": "Your cousin is getting married. {persona} rehearses the greeting with you so you are not silent at the reception.",
+    "emotional_anchor": "cousin",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, మీ అన్నయ్య పెళ్ళికి వెళ్తున్నావా?",
+        "ai_prompt_translit": "Kanna, mee annayya pelliki veltunnaavaa?",
+        "ai_prompt_english": "Dear, are you going to your cousin's wedding?",
+        "model_answer_native": "వెళ్తున్నాను అమ్మమ్మా. కానీ ఏం మాట్లాడాలో తెలియదు.",
+        "model_answer_translit": "Veltunnaanu Ammammaa. Kaanee em maatlaadaalo teliyadu.",
+        "model_answer_english": "I'm going, {persona}. But I don't know what to say.",
+        "key_vocab": ["పెళ్ళి (pelli) — wedding", "అన్నయ్య (annayya) — older cousin/brother"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "అదెంత పని! నేను నేర్పిస్తాను. \"శుభాకాంక్షలు\" అను. చెప్పు.",
+        "ai_prompt_translit": "Adenta pani! Nenu nerpistaanu. \"Shubhaakaankshalu\" anu. Cheppu.",
+        "ai_prompt_english": "That's nothing! I'll teach you. Say \"congratulations.\" Say it.",
+        "model_answer_native": "శుభాకాంక్షలు అన్నయ్యా!",
+        "model_answer_translit": "Shubhaakaankshalu annayyaa!",
+        "model_answer_english": "Congratulations, brother!",
+        "key_vocab": ["శుభాకాంక్షలు (shubhaakaankshalu) — congratulations"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "భేష్! ఇప్పుడు కొత్త పెళ్ళికూతురికి ఏం చెప్తావు?",
+        "ai_prompt_translit": "Bhesh! Ippudu kotta pellikooturiki em cheptaavu?",
+        "ai_prompt_english": "Excellent! Now what will you say to the bride?",
+        "model_answer_native": "మీరు చాలా అందంగా ఉన్నారు. శుభాకాంక్షలు.",
+        "model_answer_translit": "Meeru chaalaa andangaa unnaaru. Shubhaakaankshalu.",
+        "model_answer_english": "You look very beautiful. Congratulations.",
+        "key_vocab": ["పెళ్ళికూతురు (pellikooturu) — bride", "అందంగా (andangaa) — beautiful"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "చాలా బాగా చెప్పావు! వాళ్ళు నిన్ను అడుగుతారు — \"నువ్వు ఎక్కడ ఉంటున్నావు?\" ఏం చెప్తావు?",
+        "ai_prompt_translit": "Chaalaa baagaa cheppaavu! Vaallu ninnu adugutaaru — \"nuvvu ekkada untunnaavu?\" Em cheptaavu?",
+        "ai_prompt_english": "You said that very well! They'll ask you — \"where do you live?\" What will you say?",
+        "model_answer_native": "నేను అమెరికాలో ఉంటున్నాను.",
+        "model_answer_translit": "Nenu America lo untunnaanu.",
+        "model_answer_english": "I live in America.",
+        "key_vocab": ["ఉంటున్నాను (untunnaanu) — I live", "ఎక్కడ (ekkada) — where"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "అంతే! ఇంక భయపడకు. నువ్వు తెలుగు మాట్లాడితే వాళ్ళు ఆశ్చర్యపోతారు.",
+        "ai_prompt_translit": "Ante! Inka bhayapadaku. Nuvvu telugu maatlaadite vaallu aashcharyapotaaru.",
+        "ai_prompt_english": "That's it! Don't be scared anymore. If you speak Telugu they'll be amazed.",
+        "model_answer_native": "థాంక్స్ అమ్మమ్మా. ఇప్పుడు ధైర్యంగా ఉంది.",
+        "model_answer_translit": "Thanks Ammammaa. Ippudu dhairyangaa undi.",
+        "model_answer_english": "Thanks, {persona}. I feel brave now.",
+        "key_vocab": ["ధైర్యం (dhairyam) — courage", "భయపడకు (bhayapadaku) — don't be scared"]
+      },
+      {
+        "turn_number": 6,
+        "ai_prompt_native": "పెళ్ళిలో విందు ఉంటుంది. ఏం తింటావు కన్నా?",
+        "ai_prompt_translit": "Pellilo vindu untundi. Em tintaavu kanna?",
+        "ai_prompt_english": "There will be a feast at the wedding. What will you eat, dear?",
+        "model_answer_native": "విందులో బిర్యానీ తింటాను అమ్మమ్మా.",
+        "model_answer_translit": "Vindulo biryani tintaanu Ammammaa.",
+        "model_answer_english": "I will eat biryani at the feast, {persona}.",
+        "key_vocab": ["విందు (vindu) — feast", "తింటాను (tintaanu) — I will eat"]
+      },
+      {
+        "turn_number": 7,
+        "ai_prompt_native": "పాటలు పెడతారు, డాన్స్ చేస్తారు. నువ్వు కూడా చెయ్యి!",
+        "ai_prompt_translit": "Paatalu pedataaru, dance chestaaru. Nuvvu koodaa cheyyi!",
+        "ai_prompt_english": "They play songs and dance. You do it too!",
+        "model_answer_native": "పాటలు వింటాను అమ్మమ్మా. డాన్స్ రాదు.",
+        "model_answer_translit": "Paatalu vintaanu Ammammaa. Dance raadu.",
+        "model_answer_english": "I will listen to the songs, {persona}. I cannot dance.",
+        "key_vocab": ["పాటలు (paatalu) — songs", "రాదు (raadu) — do not know how"]
+      },
+      {
+        "turn_number": 8,
+        "ai_prompt_native": "ఫోటో తీసి నాకు పంపు. అందరినీ చూడాలి నేను.",
+        "ai_prompt_translit": "Photo teesi naaku pampu. Andarinee choodaali nenu.",
+        "ai_prompt_english": "Take a photo and send it to me. I want to see everyone.",
+        "model_answer_native": "ఫోటో తీసి పంపుతాను అమ్మమ్మా.",
+        "model_answer_translit": "Photo teesi pamputaanu Ammammaa.",
+        "model_answer_english": "I will take a photo and send it, {persona}.",
+        "key_vocab": ["ఫోటో (photo) — photo", "పంపుతాను (pamputaanu) — I will send"]
+      }
+    ]
+  },
+  {
+    "id": "a35feec2-ffec-4a7e-85a9-6a66b7d8fe1b",
+    "target_language": "te",
+    "title": "Order food at a restaurant in Hyderabad",
+    "scenario_description": "{persona} plays the waiter. She is enjoying this far too much.",
+    "emotional_anchor": "cultural",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "సరే కన్నా, నేను సర్వర్‌ని. నువ్వు హోటల్లో ఉన్నావు. మొదలుపెడతాను — \"ఏం కావాలి సార్?\"",
+        "ai_prompt_translit": "Sare kanna, nenu server ni. Nuvvu hotel lo unnaavu. Modalupedataanu — \"em kaavaali saar?\"",
+        "ai_prompt_english": "Alright dear, I'm the waiter. You're in a restaurant. I'll start — \"what would you like, sir?\"",
+        "model_answer_native": "మెనూ ఇవ్వండి.",
+        "model_answer_translit": "Menu ivvandi.",
+        "model_answer_english": "Please give me the menu.",
+        "key_vocab": ["ఇవ్వండి (ivvandi) — please give", "కావాలి (kaavaali) — want"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "\"ఇదిగోండి సార్. ఏం తీసుకుంటారు?\"",
+        "ai_prompt_translit": "\"Idigondi saar. Em teesukuntaaru?\"",
+        "ai_prompt_english": "\"Here you are, sir. What will you have?\"",
+        "model_answer_native": "నాకు ఒక బిర్యానీ కావాలి.",
+        "model_answer_translit": "Naaku oka biryani kaavaali.",
+        "model_answer_english": "I would like one biryani.",
+        "key_vocab": ["బిర్యానీ (biryani) — biryani", "ఒక (oka) — one"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "\"చికెన్ లేదా మటన్ సార్?\"",
+        "ai_prompt_translit": "\"Chicken ledaa mutton saar?\"",
+        "ai_prompt_english": "\"Chicken or mutton, sir?\"",
+        "model_answer_native": "చికెన్ ఇవ్వండి. ఎక్కువ కారం వద్దు.",
+        "model_answer_translit": "Chicken ivvandi. Ekkuva kaaram vaddu.",
+        "model_answer_english": "Give me chicken. Not too spicy.",
+        "key_vocab": ["వద్దు (vaddu) — don't want", "లేదా (ledaa) — or"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "\"సరే సార్. తాగడానికి ఏమైనా?\"",
+        "ai_prompt_translit": "\"Sare saar. Taagadaaniki emainaa?\"",
+        "ai_prompt_english": "\"Alright sir. Anything to drink?\"",
+        "model_answer_native": "ఒక మజ్జిగ ఇవ్వండి.",
+        "model_answer_translit": "Oka majjiga ivvandi.",
+        "model_answer_english": "Give me one buttermilk.",
+        "key_vocab": ["మజ్జిగ (majjiga) — buttermilk", "తాగడానికి (taagadaaniki) — to drink"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "అబ్బో! మజ్జిగ అడిగావా? నువ్వు నిజమైన తెలుగువాడివి కన్నా!",
+        "ai_prompt_translit": "Abbo! Majjiga adigaavaa? Nuvvu nijamaina teluguvaadivi kanna!",
+        "ai_prompt_english": "Oh my! You asked for buttermilk? You're a real Telugu person, dear!",
+        "model_answer_native": "నువ్వు నేర్పించావు కదా అమ్మమ్మా.",
+        "model_answer_translit": "Nuvvu nerpinchaavu kadaa Ammammaa.",
+        "model_answer_english": "You taught me, didn't you, {persona}.",
+        "key_vocab": ["నిజమైన (nijamaina) — real", "నేర్పించావు (nerpinchaavu) — you taught"]
+      },
+      {
+        "turn_number": 6,
+        "ai_prompt_native": "తాగడానికి ఏం కావాలి? నీళ్ళా, చాయా?",
+        "ai_prompt_translit": "Taagadaaniki em kaavaali? Neellaa, chaayaa?",
+        "ai_prompt_english": "What do you want to drink? Water or tea?",
+        "model_answer_native": "నీళ్ళు కావాలి. తర్వాత చాయ్ ఇవ్వండి.",
+        "model_answer_translit": "Neellu kaavaali. Tarvaata chaay ivvandi.",
+        "model_answer_english": "I want water. Then please bring tea.",
+        "key_vocab": ["నీళ్ళు (neellu) — water", "చాయ్ (chaay) — tea"]
+      },
+      {
+        "turn_number": 7,
+        "ai_prompt_native": "కారం ఎక్కువ ఉంటే చెప్పు. 'కారం తక్కువ' అను.",
+        "ai_prompt_translit": "Kaaram ekkuva unte cheppu. 'Kaaram takkuva' anu.",
+        "ai_prompt_english": "If it is too spicy, say so. Say 'less spice.'",
+        "model_answer_native": "కారం తక్కువ చేయండి. నాకు ఎక్కువ కారం వద్దు.",
+        "model_answer_translit": "Kaaram takkuva cheyandi. Naaku ekkuva kaaram vaddu.",
+        "model_answer_english": "Please make it less spicy. I do not want too much spice.",
+        "key_vocab": ["కారం (kaaram) — spice", "తక్కువ (takkuva) — less"]
+      },
+      {
+        "turn_number": 8,
+        "ai_prompt_native": "చివరిలో బిల్లు అడుగు. 'బిల్లు ఇవ్వండి' అంటే చాలు.",
+        "ai_prompt_translit": "Chivarilo billu adugu. 'Billu ivvandi' ante chaalu.",
+        "ai_prompt_english": "At the end ask for the bill. Just say 'please bring the bill.'",
+        "model_answer_native": "బిల్లు ఇవ్వండి. చాలా బాగుంది, ధన్యవాదాలు.",
+        "model_answer_translit": "Billu ivvandi. Chaalaa baagundi, dhanyavaadaalu.",
+        "model_answer_english": "Please bring the bill. It was very good, thank you.",
+        "key_vocab": ["బిల్లు (billu) — bill", "ధన్యవాదాలు (dhanyavaadaalu) — thank you"]
+      }
+    ]
+  },
+  {
+    "id": "f39aeaed-91c1-4fb6-a450-97127ec80fea",
+    "target_language": "te",
+    "title": "Bargain at the vegetable market",
+    "scenario_description": "{persona} has been beating down vegetable prices for sixty years. She is going to teach you the tone.",
+    "emotional_anchor": "cultural",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, మార్కెట్‌కి వెళ్ళి కూరగాయలు కొనాలి. నేను షాపువాడిని. అడుగు!",
+        "ai_prompt_translit": "Kanna, market ki velli kooragaayalu konaali. Nenu shopuvaadini. Adugu!",
+        "ai_prompt_english": "Dear, you have to go to the market and buy vegetables. I'm the shopkeeper. Ask!",
+        "model_answer_native": "టమాటాలు ఎంత?",
+        "model_answer_translit": "Tamaataalu enta?",
+        "model_answer_english": "How much are the tomatoes?",
+        "key_vocab": ["కూరగాయలు (kooragaayalu) — vegetables", "ఎంత (enta) — how much"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "\"కిలో అరవై రూపాయలమ్మా.\"",
+        "ai_prompt_translit": "\"Kilo aravai roopaayalammaa.\"",
+        "ai_prompt_english": "\"Sixty rupees a kilo.\"",
+        "model_answer_native": "అరవైనా? చాలా ఎక్కువ.",
+        "model_answer_translit": "Aravainaa? Chaalaa ekkuva.",
+        "model_answer_english": "Sixty? That's too much.",
+        "key_vocab": ["అరవై (aravai) — sixty", "రూపాయలు (roopaayalu) — rupees"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "\"లేదమ్మా, మంచి టమాటాలు.\" — ఇప్పుడు తగ్గించమని అడుగు!",
+        "ai_prompt_translit": "\"Ledammaa, manchi tamaataalu.\" — ippudu taggincamani adugu!",
+        "ai_prompt_english": "\"No, they're good tomatoes.\" — now ask him to reduce it!",
+        "model_answer_native": "నలభైకి ఇవ్వండి. నేను రోజూ వస్తాను.",
+        "model_answer_translit": "Nalabhaiki ivvandi. Nenu rojoo vastaanu.",
+        "model_answer_english": "Give them for forty. I'll come every day.",
+        "key_vocab": ["నలభై (nalabhai) — forty", "తగ్గించు (tagginchu) — reduce"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "అరె! బాగా చెప్పావు! \"సరేమ్మా, యాభైకి తీసుకో.\" ఒప్పుకుంటావా?",
+        "ai_prompt_translit": "Are! Baagaa cheppaavu! \"Saremmaa, yaabhaiki teesuko.\" Oppukuntaavaa?",
+        "ai_prompt_english": "Hey! Well said! \"Fine, take them for fifty.\" Will you agree?",
+        "model_answer_native": "సరే. ఒక కిలో ఇవ్వండి.",
+        "model_answer_translit": "Sare. Oka kilo ivvandi.",
+        "model_answer_english": "Alright. Give me one kilo.",
+        "key_vocab": ["యాభై (yaabhai) — fifty", "ఒప్పుకో (oppuko) — agree"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "చూశావా! నా మనవడు బేరం ఆడేశాడు! మీ అమ్మకి ఇది రాదు, తెలుసా?",
+        "ai_prompt_translit": "Chooshaavaa! Naa manavadu beram aadesaadu! Mee ammaki idi raadu, telusaa?",
+        "ai_prompt_english": "See that! My grandchild bargained! Your mother can't do this, you know?",
+        "model_answer_native": "నిజమా? నేను ఆమెకి నేర్పిస్తాను!",
+        "model_answer_translit": "Nijamaa? Nenu aameki nerpistaanu!",
+        "model_answer_english": "Really? I'll teach her!",
+        "key_vocab": ["బేరం (beram) — bargaining", "మనవడు (manavadu) — grandson"]
+      },
+      {
+        "turn_number": 6,
+        "ai_prompt_native": "ఇంకా ఏం కొంటావు? బంగాళదుంప, వంకాయ కావాలా?",
+        "ai_prompt_translit": "Inkaa em kontaavu? Bangaaladumpa, vankaaya kaavaalaa?",
+        "ai_prompt_english": "What else will you buy? Do you want potato and brinjal?",
+        "model_answer_native": "వంకాయ కావాలి. బంగాళదుంప కూడా ఇవ్వండి.",
+        "model_answer_translit": "Vankaaya kaavaali. Bangaaladumpa koodaa ivvandi.",
+        "model_answer_english": "I want brinjal. Please give potato as well.",
+        "key_vocab": ["వంకాయ (vankaaya) — brinjal", "బంగాళదుంప (bangaaladumpa) — potato"]
+      },
+      {
+        "turn_number": 7,
+        "ai_prompt_native": "ఎంత కావాలి? 'ఒక కిలో' అను.",
+        "ai_prompt_translit": "Enta kaavaali? 'Oka kilo' anu.",
+        "ai_prompt_english": "How much do you want? Say 'one kilo.'",
+        "model_answer_native": "ఒక కిలో ఇవ్వండి. అర కిలో వంకాయ.",
+        "model_answer_translit": "Oka kilo ivvandi. Ara kilo vankaaya.",
+        "model_answer_english": "Give me one kilo. Half a kilo of brinjal.",
+        "key_vocab": ["కిలో (kilo) — kilo", "అర (ara) — half"]
+      },
+      {
+        "turn_number": 8,
+        "ai_prompt_native": "చిల్లర లెక్క చూసుకో కన్నా. తొందరపడకు.",
+        "ai_prompt_translit": "Chillara lekka choosuko kanna. Tondarapadaku.",
+        "ai_prompt_english": "Check your change, dear. Do not rush.",
+        "model_answer_native": "చిల్లర ఇవ్వండి. లెక్క సరిగ్గా ఉందా?",
+        "model_answer_translit": "Chillara ivvandi. Lekka sariggaa undaa?",
+        "model_answer_english": "Please give the change. Is the count right?",
+        "key_vocab": ["చిల్లర (chillara) — change", "లెక్క (lekka) — count"]
+      }
+    ]
+  },
+  {
+    "id": "da27130c-48b9-48f6-bc92-049d11871a12",
+    "target_language": "te",
+    "title": "Greet elders at Sankranti",
+    "scenario_description": "It is Sankranti. There will be a room full of relatives and every one of them will ask you something.",
+    "emotional_anchor": "cultural",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, సంక్రాంతికి అందరూ వస్తారు. పెద్దవాళ్ళని ఎలా పలకరిస్తావు?",
+        "ai_prompt_translit": "Kanna, sankraantiki andaroo vastaaru. Peddavaallani elaa palakaristaavu?",
+        "ai_prompt_english": "Dear, everyone comes for Sankranti. How will you greet the elders?",
+        "model_answer_native": "నాకు తెలియదు అమ్మమ్మా. నేర్పించు.",
+        "model_answer_translit": "Naaku teliyadu Ammammaa. Nerpinchu.",
+        "model_answer_english": "I don't know, {persona}. Teach me.",
+        "key_vocab": ["సంక్రాంతి (sankraanti) — Sankranti", "పెద్దవాళ్ళు (peddavaallu) — elders"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "కాళ్ళకి దండం పెట్టి \"నమస్కారం\" అను. చెప్పు చూద్దాం.",
+        "ai_prompt_translit": "Kaallaki dandam petti \"namaskaaram\" anu. Cheppu choodaam.",
+        "ai_prompt_english": "Touch their feet and say \"namaskaram.\" Say it, let's see.",
+        "model_answer_native": "నమస్కారం. సంక్రాంతి శుభాకాంక్షలు.",
+        "model_answer_translit": "Namaskaaram. Sankraanti shubhaakaankshalu.",
+        "model_answer_english": "Namaskaram. Happy Sankranti.",
+        "key_vocab": ["నమస్కారం (namaskaaram) — respectful greeting", "దండం (dandam) — obeisance"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "చాలా బాగుంది! వాళ్ళు అడుగుతారు — \"ఎన్నాళ్ళకి వచ్చావు?\" ఏం చెప్తావు?",
+        "ai_prompt_translit": "Chaalaa baagundi! Vaallu adugutaaru — \"ennaallaki vachchaavu?\" Em cheptaavu?",
+        "ai_prompt_english": "Very good! They'll ask — \"after how long have you come?\" What will you say?",
+        "model_answer_native": "చాలా రోజుల తర్వాత వచ్చాను.",
+        "model_answer_translit": "Chaalaa rojula tarvaata vachchaanu.",
+        "model_answer_english": "I've come after a long time.",
+        "key_vocab": ["తర్వాత (tarvaata) — after", "ఎన్నాళ్ళకి (ennaallaki) — after how long"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "సరిగ్గా చెప్పావు. ఇంకా అడుగుతారు — \"భోజనం చేశావా?\" చెప్పు.",
+        "ai_prompt_translit": "Sariggaa cheppaavu. Inkaa adugutaaru — \"bhojanam chesaavaa?\" Cheppu.",
+        "ai_prompt_english": "You said it right. They'll also ask — \"have you eaten?\" Say it.",
+        "model_answer_native": "ఇంకా చేయలేదు. మీతో కలిసి చేస్తాను.",
+        "model_answer_translit": "Inkaa cheyaledu. Meetho kalisi chestaanu.",
+        "model_answer_english": "Not yet. I'll eat together with you.",
+        "key_vocab": ["కలిసి (kalisi) — together", "ఇంకా (inkaa) — yet"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "ఆహా! అలా అంటే వాళ్ళ మనసు కరిగిపోతుంది. నువ్వు తయారు అయ్యావు కన్నా.",
+        "ai_prompt_translit": "Aahaa! Alaa ante vaalla manasu karigipotundi. Nuvvu tayaaru ayyaavu kanna.",
+        "ai_prompt_english": "Aha! Say that and their hearts will melt. You're ready, dear.",
+        "model_answer_native": "థాంక్స్ అమ్మమ్మా. నువ్వు కూడా వస్తావా?",
+        "model_answer_translit": "Thanks Ammammaa. Nuvvu koodaa vastaavaa?",
+        "model_answer_english": "Thanks, {persona}. Will you come too?",
+        "key_vocab": ["మనసు (manasu) — heart", "తయారు (tayaaru) — ready"]
+      },
+      {
+        "turn_number": 6,
+        "ai_prompt_native": "పండగ రోజు ముగ్గు వేస్తారు. నువ్వు చూశావా ఎప్పుడైనా?",
+        "ai_prompt_translit": "Panduga roju muggu vestaaru. Nuvvu chooshaavaa eppudainaa?",
+        "ai_prompt_english": "On the festival day they draw rangoli. Have you ever seen it?",
+        "model_answer_native": "ముగ్గు చూశాను అమ్మమ్మా. చాలా అందంగా ఉంటుంది.",
+        "model_answer_translit": "Muggu chooshaanu Ammammaa. Chaalaa andangaa untundi.",
+        "model_answer_english": "I have seen rangoli, {persona}. It is very beautiful.",
+        "key_vocab": ["ముగ్గు (muggu) — rangoli", "పండగ (panduga) — festival"]
+      },
+      {
+        "turn_number": 7,
+        "ai_prompt_native": "కొత్త బట్టలు కట్టుకుంటారు. నీకు కొత్త బట్టలు ఉన్నాయా?",
+        "ai_prompt_translit": "Kotta battalu kattukuntaaru. Neeku kotta battalu unnaayaa?",
+        "ai_prompt_english": "Everyone wears new clothes. Do you have new clothes?",
+        "model_answer_native": "కొత్త బట్టలు కొన్నాను అమ్మమ్మా.",
+        "model_answer_translit": "Kotta battalu konnaanu Ammammaa.",
+        "model_answer_english": "I bought new clothes, {persona}.",
+        "key_vocab": ["బట్టలు (battalu) — clothes", "కొన్నాను (konnaanu) — I bought"]
+      },
+      {
+        "turn_number": 8,
+        "ai_prompt_native": "పిండివంటలు చేస్తాము. అరిసెలు, జంతికలు. నీకు ఏది ఇష్టం?",
+        "ai_prompt_translit": "Pindivantalu chestaamu. Ariselu, jantikalu. Neeku edi ishtam?",
+        "ai_prompt_english": "We make festive snacks. Ariselu, jantikalu. Which do you like?",
+        "model_answer_native": "నాకు అరిసెలు ఇష్టం అమ్మమ్మా.",
+        "model_answer_translit": "Naaku ariselu ishtam Ammammaa.",
+        "model_answer_english": "I like ariselu, {persona}.",
+        "key_vocab": ["పిండివంటలు (pindivantalu) — festive snacks", "అరిసెలు (ariselu) — ariselu sweet"]
+      }
+    ]
+  },
+  {
+    "id": "cfea9af6-ae78-4c14-9287-560b76f77e8e",
+    "target_language": "te",
+    "title": "Ask for directions on the street",
+    "scenario_description": "You are lost. {persona} is the auto driver, and she thinks this is hilarious.",
+    "emotional_anchor": "cultural",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, నువ్వు దారి తప్పిపోయావు. నేను ఆటోవాడిని. అడుగు!",
+        "ai_prompt_translit": "Kanna, nuvvu daari tappipoyaavu. Nenu autovaadini. Adugu!",
+        "ai_prompt_english": "Dear, you're lost. I'm the auto driver. Ask!",
+        "model_answer_native": "అన్నా, రైల్వే స్టేషన్ ఎక్కడ ఉంది?",
+        "model_answer_translit": "Annaa, railway station ekkada undi?",
+        "model_answer_english": "Brother, where is the railway station?",
+        "key_vocab": ["దారి (daari) — way", "స్టేషన్ (station) — station"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "\"ఇక్కడి నుంచి రెండు కిలోమీటర్లు. వస్తారా?\"",
+        "ai_prompt_translit": "\"Ikkadi nunchi rendu kilometerlu. Vastaaraa?\"",
+        "ai_prompt_english": "\"Two kilometers from here. Will you come?\"",
+        "model_answer_native": "ఎంత అవుతుంది?",
+        "model_answer_translit": "Enta avutundi?",
+        "model_answer_english": "How much will it be?",
+        "key_vocab": ["కిలోమీటర్లు (kilometerlu) — kilometers", "అవుతుంది (avutundi) — will be"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "\"వంద రూపాయలు.\" — ఎక్కువ అడుగుతున్నాడు! ఏం చెప్తావు?",
+        "ai_prompt_translit": "\"Vanda roopaayalu.\" — ekkuva adugutunnaadu! Em cheptaavu?",
+        "ai_prompt_english": "\"A hundred rupees.\" — he's asking too much! What will you say?",
+        "model_answer_native": "చాలా ఎక్కువ. మీటర్ వేయండి.",
+        "model_answer_translit": "Chaalaa ekkuva. Meter veyandi.",
+        "model_answer_english": "That's too much. Put the meter on.",
+        "key_vocab": ["వంద (vanda) — hundred", "మీటర్ (meter) — meter"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "\"సరే సార్, ఎక్కండి.\" — చూశావా, తెలుగులో అడిగితే మోసం చేయరు!",
+        "ai_prompt_translit": "\"Sare saar, ekkandi.\" — chooshaavaa, telugulo adigite mosam cheyaru!",
+        "ai_prompt_english": "\"Alright sir, get in.\" — see, if you ask in Telugu they won't cheat you!",
+        "model_answer_native": "నిజమే అమ్మమ్మా. థాంక్స్.",
+        "model_answer_translit": "Nijame Ammammaa. Thanks.",
+        "model_answer_english": "That's true, {persona}. Thanks.",
+        "key_vocab": ["ఎక్కండి (ekkandi) — get in", "మోసం (mosam) — cheating"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "ఇప్పుడు నువ్వు ఒక్కడివే ఇండియాలో తిరగొచ్చు. నాకు గర్వంగా ఉంది.",
+        "ai_prompt_translit": "Ippudu nuvvu okkadive India lo tiragochchu. Naaku garvangaa undi.",
+        "ai_prompt_english": "Now you can travel around India by yourself. I feel proud.",
+        "model_answer_native": "నీవల్లే అమ్మమ్మా. అంతా నీవల్లే.",
+        "model_answer_translit": "Neevalle Ammammaa. Antaa neevalle.",
+        "model_answer_english": "Because of you, {persona}. All because of you.",
+        "key_vocab": ["గర్వం (garvam) — pride", "ఒక్కడివే (okkadive) — by yourself"]
+      },
+      {
+        "turn_number": 6,
+        "ai_prompt_native": "కుడి వైపా, ఎడమ వైపా అని అడుగు కన్నా.",
+        "ai_prompt_translit": "Kudi vaipaa, edama vaipaa ani adugu kanna.",
+        "ai_prompt_english": "Ask whether it is to the right or the left, dear.",
+        "model_answer_native": "కుడి వైపా? ఎడమ వైపా? చెప్పండి.",
+        "model_answer_translit": "Kudi vaipaa? Edama vaipaa? Cheppandi.",
+        "model_answer_english": "To the right? To the left? Please tell me.",
+        "key_vocab": ["కుడి (kudi) — right", "ఎడమ (edama) — left"]
+      },
+      {
+        "turn_number": 7,
+        "ai_prompt_native": "నేరుగా వెళ్ళమంటే 'నేరుగా' అంటారు. అర్థమైందా కన్నా?",
+        "ai_prompt_translit": "Nerugaa vellamante 'nerugaa' antaaru. Arthamaindaa kanna?",
+        "ai_prompt_english": "If they mean go straight ahead they say 'nerugaa.' Does that make sense?",
+        "model_answer_native": "అర్థమైంది అమ్మమ్మా. నేరుగా వెళ్తాను.",
+        "model_answer_translit": "Arthamaindi Ammammaa. Nerugaa veltaanu.",
+        "model_answer_english": "I understand, {persona}. I will go straight.",
+        "key_vocab": ["నేరుగా (nerugaa) — straight", "అర్థమైంది (arthamaindi) — I understand"]
+      },
+      {
+        "turn_number": 8,
+        "ai_prompt_native": "ఆసుపత్రి, బ్యాంకు ఎక్కడ ఉందో అడగాలంటే ఏమంటావు?",
+        "ai_prompt_translit": "Aasupatri, bank ekkada undo adagaalante emantaavu?",
+        "ai_prompt_english": "How would you ask where the hospital or the bank is?",
+        "model_answer_native": "ఆసుపత్రి ఎక్కడ ఉంది? బ్యాంకు దగ్గరలో ఉందా?",
+        "model_answer_translit": "Aasupatri ekkada undi? Bank daggaralo undaa?",
+        "model_answer_english": "Where is the hospital? Is the bank nearby?",
+        "key_vocab": ["ఆసుపత్రి (aasupatri) — hospital", "దగ్గరలో (daggaralo) — nearby"]
+      }
+    ]
+  },
+  {
+    "id": "67feccd3-d9e9-491d-8c84-1f0c5b331e91",
+    "target_language": "te",
+    "title": "Talk to a cousin about cricket",
+    "scenario_description": "Your cousin only wants to talk about one thing. {persona} does not follow cricket but she will help anyway.",
+    "emotional_anchor": "cousin",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, మీ తమ్ముడు ఎప్పుడూ క్రికెట్ గురించే మాట్లాడతాడు కదా?",
+        "ai_prompt_translit": "Kanna, mee tammudu eppudoo cricket gurinche maatlaadataadu kadaa?",
+        "ai_prompt_english": "Dear, your younger cousin always talks about cricket, doesn't he?",
+        "model_answer_native": "అవును అమ్మమ్మా. నాకు ఏం చెప్పాలో తెలియదు.",
+        "model_answer_translit": "Avunu Ammammaa. Naaku em cheppaalo teliyadu.",
+        "model_answer_english": "Yes, {persona}. I don't know what to say.",
+        "key_vocab": ["తమ్ముడు (tammudu) — younger brother/cousin", "క్రికెట్ (cricket) — cricket"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "సులభం! \"మ్యాచ్ చూశావా?\" అని అడుగు. చెప్పు.",
+        "ai_prompt_translit": "Sulabham! \"Match chooshaavaa?\" ani adugu. Cheppu.",
+        "ai_prompt_english": "Easy! Ask \"did you watch the match?\" Say it.",
+        "model_answer_native": "నిన్న మ్యాచ్ చూశావా?",
+        "model_answer_translit": "Ninna match chooshaavaa?",
+        "model_answer_english": "Did you watch the match yesterday?",
+        "key_vocab": ["నిన్న (ninna) — yesterday", "చూశావా (chooshaavaa) — did you watch"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "వాడు అంటాడు — \"చూశాను! ఇండియా గెలిచింది!\" ఏం చెప్తావు?",
+        "ai_prompt_translit": "Vaadu antaadu — \"chooshaanu! India gelichindi!\" Em cheptaavu?",
+        "ai_prompt_english": "He'll say — \"I watched! India won!\" What will you say?",
+        "model_answer_native": "చాలా సంతోషం! ఎవరు బాగా ఆడారు?",
+        "model_answer_translit": "Chaalaa santosham! Evaru baagaa aadaaru?",
+        "model_answer_english": "So happy! Who played well?",
+        "key_vocab": ["గెలిచింది (gelichindi) — won", "ఆడారు (aadaaru) — played"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "చూశావా, అలా అడిగితే వాడు గంటసేపు మాట్లాడతాడు. నీకు ఏమీ చెప్పక్కర్లేదు!",
+        "ai_prompt_translit": "Chooshaavaa, alaa adigite vaadu gantasepu maatlaadataadu. Neeku emee cheppakkarledu!",
+        "ai_prompt_english": "See, ask like that and he'll talk for an hour. You won't have to say anything!",
+        "model_answer_native": "అది మంచి ఐడియా అమ్మమ్మా!",
+        "model_answer_translit": "Adi manchi idea Ammammaa!",
+        "model_answer_english": "That's a good idea, {persona}!",
+        "key_vocab": ["గంటసేపు (gantasepu) — for an hour", "ఐడియా (idea) — idea"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "అరవై సంవత్సరాలు మీ తాతయ్యతో ఇలాగే మాట్లాడాను. అనుభవం అంటే అది!",
+        "ai_prompt_translit": "Aravai samvatsaraalu mee taatayyatho ilaage maatlaadaanu. Anubhavam ante adi!",
+        "ai_prompt_english": "I talked to your grandfather like this for sixty years. That's what experience is!",
+        "model_answer_native": "నువ్వు చాలా తెలివైనదానివి అమ్మమ్మా.",
+        "model_answer_translit": "Nuvvu chaalaa telivainadaanivi Ammammaa.",
+        "model_answer_english": "You're very clever, {persona}.",
+        "key_vocab": ["అనుభవం (anubhavam) — experience", "తెలివైన (telivaina) — clever"]
+      },
+      {
+        "turn_number": 6,
+        "ai_prompt_native": "ఆట ఎప్పుడు? ఏ జట్టు ఆడుతుంది?",
+        "ai_prompt_translit": "Aata eppudu? E jattu aadutundi?",
+        "ai_prompt_english": "When is the match? Which team is playing?",
+        "model_answer_native": "రేపు ఆట ఉంది అమ్మమ్మా. మన జట్టు ఆడుతుంది.",
+        "model_answer_translit": "Repu aata undi Ammammaa. Mana jattu aadutundi.",
+        "model_answer_english": "The match is tomorrow, {persona}. Our team is playing.",
+        "key_vocab": ["ఆట (aata) — game", "జట్టు (jattu) — team"]
+      },
+      {
+        "turn_number": 7,
+        "ai_prompt_native": "గెలిచారా, ఓడిపోయారా? నాకు చెప్పు.",
+        "ai_prompt_translit": "Gelichaaraa, odipoyaaraa? Naaku cheppu.",
+        "ai_prompt_english": "Did they win or lose? Tell me.",
+        "model_answer_native": "మనవాళ్ళు గెలిచారు అమ్మమ్మా. చాలా సంతోషం.",
+        "model_answer_translit": "Manavaallu gelichaaru Ammammaa. Chaalaa santosham.",
+        "model_answer_english": "Our side won, {persona}. Very happy.",
+        "key_vocab": ["గెలిచారు (gelichaaru) — they won", "ఓడిపోయారు (odipoyaaru) — they lost"]
+      },
+      {
+        "turn_number": 8,
+        "ai_prompt_native": "ఓడిపోతే బాధపడకు. మళ్ళీ ఆడతారు కదా.",
+        "ai_prompt_translit": "Odipote baadhapadaku. Mallee aadataaru kadaa.",
+        "ai_prompt_english": "If they lose, do not be upset. They will play again.",
+        "model_answer_native": "బాధపడను అమ్మమ్మా. మళ్ళీ ఆడతారు.",
+        "model_answer_translit": "Baadhapadanu Ammammaa. Mallee aadataaru.",
+        "model_answer_english": "I will not be upset, {persona}. They will play again.",
+        "key_vocab": ["బాధపడను (baadhapadanu) — I will not be upset", "ఆడతారు (aadataaru) — they will play"]
+      }
+    ]
+  },
+  {
+    "id": "406f96fe-53c1-4f6d-b0bb-be69db237dcc",
+    "target_language": "te",
+    "title": "Meet a relative you cannot place",
+    "scenario_description": "Someone at the function knows you. You have no idea who they are. {persona} has a strategy.",
+    "emotional_anchor": "cousin",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, ఫంక్షన్‌లో ఎవరో నిన్ను పలకరిస్తారు. నీకు వాళ్ళు ఎవరో తెలియదు. ఏం చేస్తావు?",
+        "ai_prompt_translit": "Kanna, function lo evaro ninnu palakaristaaru. Neeku vaallu evaro teliyadu. Em chestaavu?",
+        "ai_prompt_english": "Dear, at the function someone greets you. You don't know who they are. What do you do?",
+        "model_answer_native": "నాకు తెలియదు అమ్మమ్మా. చాలా ఇబ్బందిగా ఉంటుంది.",
+        "model_answer_translit": "Naaku teliyadu Ammammaa. Chaalaa ibbandigaa untundi.",
+        "model_answer_english": "I don't know, {persona}. It's very awkward.",
+        "key_vocab": ["ఫంక్షన్ (function) — function", "ఇబ్బంది (ibbandi) — awkwardness"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "నేను చెప్తాను. \"నమస్కారం! ఎలా ఉన్నారు?\" అను. పేరు అడగకు.",
+        "ai_prompt_translit": "Nenu cheptaanu. \"Namaskaaram! Elaa unnaaru?\" anu. Peru adagaku.",
+        "ai_prompt_english": "I'll tell you. Say \"namaskaram! How are you?\" Don't ask their name.",
+        "model_answer_native": "నమస్కారం! ఎలా ఉన్నారు?",
+        "model_answer_translit": "Namaskaaram! Elaa unnaaru?",
+        "model_answer_english": "Namaskaram! How are you?",
+        "key_vocab": ["పేరు (peru) — name", "అడగకు (adagaku) — don't ask"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "వాళ్ళు అంటారు — \"బాగున్నాను! నువ్వు ఎంత పెద్దవాడివి అయ్యావు!\" ఏం చెప్తావు?",
+        "ai_prompt_translit": "Vaallu antaaru — \"baagunnaanu! Nuvvu enta peddavaadivi ayyaavu!\" Em cheptaavu?",
+        "ai_prompt_english": "They'll say — \"I'm well! How grown up you've become!\" What will you say?",
+        "model_answer_native": "అవును, చాలా కాలం అయ్యింది.",
+        "model_answer_translit": "Avunu, chaalaa kaalam ayyindi.",
+        "model_answer_english": "Yes, it's been a long time.",
+        "key_vocab": ["కాలం (kaalam) — time", "పెద్దవాడు (peddavaadu) — grown up"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "భేష్! ఇప్పుడు తెలివైన ప్రశ్న — \"ఇంట్లో అందరూ బాగున్నారా?\" అడుగు.",
+        "ai_prompt_translit": "Bhesh! Ippudu telivaina prashna — \"intlo andaroo baagunnaaraa?\" adugu.",
+        "ai_prompt_english": "Excellent! Now the clever question — ask \"is everyone at home well?\"",
+        "model_answer_native": "ఇంట్లో అందరూ బాగున్నారా?",
+        "model_answer_translit": "Intlo andaroo baagunnaaraa?",
+        "model_answer_english": "Is everyone at home well?",
+        "key_vocab": ["ఇంట్లో (intlo) — at home", "ప్రశ్న (prashna) — question"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "అంతే! వాళ్ళు ఇంటి గురించి చెప్తారు, నీకు వాళ్ళు ఎవరో తెలిసిపోతుంది. ఎవరికీ తెలియదు నీకు తెలియదని!",
+        "ai_prompt_translit": "Ante! Vaallu inti gurinchi cheptaaru, neeku vaallu evaro telisipotundi. Evarikee teliyadu neeku teliyadani!",
+        "ai_prompt_english": "That's it! They'll talk about their family, and you'll figure out who they are. Nobody will know that you didn't know!",
+        "model_answer_native": "నువ్వు చాలా తెలివైనదానివి అమ్మమ్మా!",
+        "model_answer_translit": "Nuvvu chaalaa telivainadaanivi Ammammaa!",
+        "model_answer_english": "You're so clever, {persona}!",
+        "key_vocab": ["తెలిసిపోతుంది (telisipotundi) — you'll figure out", "ఎవరికీ (evarikee) — to nobody"]
+      },
+      {
+        "turn_number": 6,
+        "ai_prompt_native": "మీ అమ్మ అన్నయ్యని 'మామయ్య' అంటారు. గుర్తుంచుకో.",
+        "ai_prompt_translit": "Mee amma annayyani 'maamayya' antaaru. Gurtunchuko.",
+        "ai_prompt_english": "Your mother's older brother is called 'maamayya.' Remember that.",
+        "model_answer_native": "మామయ్య అంటాను అమ్మమ్మా. గుర్తుంచుకుంటాను.",
+        "model_answer_translit": "Maamayya antaanu Ammammaa. Gurtunchukuntaanu.",
+        "model_answer_english": "I will say maamayya, {persona}. I will remember.",
+        "key_vocab": ["మామయ్య (maamayya) — maternal uncle", "గుర్తుంచుకుంటాను (gurtunchukuntaanu) — I will remember"]
+      },
+      {
+        "turn_number": 7,
+        "ai_prompt_native": "ఆయన భార్యని 'అత్తయ్య' అంటారు. మీ అమ్మ చెల్లిని 'పిన్ని' అంటారు.",
+        "ai_prompt_translit": "Aayana bhaaryani 'attayya' antaaru. Mee amma chellini 'pinni' antaaru.",
+        "ai_prompt_english": "His wife is called 'attayya.' Your mother's younger sister is 'pinni.'",
+        "model_answer_native": "అత్తయ్య, పిన్ని — అర్థమైంది అమ్మమ్మా.",
+        "model_answer_translit": "Attayya, pinni — arthamaindi Ammammaa.",
+        "model_answer_english": "Attayya, pinni — I understand, {persona}.",
+        "key_vocab": ["అత్తయ్య (attayya) — aunt", "పిన్ని (pinni) — mother's younger sister"]
+      },
+      {
+        "turn_number": 8,
+        "ai_prompt_native": "మీ నాన్న తమ్ముడు 'బాబాయి'. ఇప్పుడు అందరూ తెలుసు కదా!",
+        "ai_prompt_translit": "Mee naanna tammudu 'baabaayi'. Ippudu andaroo telusu kadaa!",
+        "ai_prompt_english": "Your father's younger brother is 'baabaayi.' Now you know them all!",
+        "model_answer_native": "బాబాయి కూడా తెలుసు అమ్మమ్మా. ఇప్పుడు అందరూ తెలుసు.",
+        "model_answer_translit": "Baabaayi koodaa telusu Ammammaa. Ippudu andaroo telusu.",
+        "model_answer_english": "I know baabaayi too, {persona}. Now I know everyone.",
+        "key_vocab": ["బాబాయి (baabaayi) — father's younger brother", "అందరూ (andaroo) — everyone"]
+      }
+    ]
+  },
+  {
+    "id": "1c5d36f7-eafa-400f-a0fe-7703a9b26447",
+    "target_language": "te",
+    "title": "Congratulate a cousin on their new baby",
+    "scenario_description": "Your cousin has had a baby. {persona} walks you through what you are supposed to say, and what you are supposed to bring.",
+    "emotional_anchor": "cousin",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, మీ అక్కకి పాప పుట్టింది. తెలుసా?",
+        "ai_prompt_translit": "Kanna, mee akkaki paapa puttindi. Telusaa?",
+        "ai_prompt_english": "Dear, your older cousin had a baby girl. Did you know?",
+        "model_answer_native": "తెలుసు అమ్మమ్మా! చాలా సంతోషం.",
+        "model_answer_translit": "Telusu Ammammaa! Chaalaa santosham.",
+        "model_answer_english": "I know, {persona}! I'm very happy.",
+        "key_vocab": ["పాప (paapa) — baby girl", "పుట్టింది (puttindi) — was born"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "ఆమెకి ఫోన్ చేశావా? ఏం చెప్తావు?",
+        "ai_prompt_translit": "Aameki phone chesaavaa? Em cheptaavu?",
+        "ai_prompt_english": "Did you call her? What will you say?",
+        "model_answer_native": "శుభాకాంక్షలు అక్కా! పాప ఎలా ఉంది?",
+        "model_answer_translit": "Shubhaakaankshalu akkaa! Paapa elaa undi?",
+        "model_answer_english": "Congratulations, sister! How is the baby?",
+        "key_vocab": ["అక్క (akka) — older sister/cousin", "ఎలా ఉంది (elaa undi) — how is"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "బాగా అడిగావు! ఆమె అంటుంది — \"బాగుంది, కానీ రాత్రి నిద్ర లేదు.\" ఏం చెప్తావు?",
+        "ai_prompt_translit": "Baagaa adigaavu! Aame antundi — \"baagundi, kaanee raatri nidra ledu.\" Em cheptaavu?",
+        "ai_prompt_english": "Well asked! She'll say — \"she's fine, but no sleep at night.\" What will you say?",
+        "model_answer_native": "అయ్యో! కొంచెం విశ్రాంతి తీసుకో అక్కా.",
+        "model_answer_translit": "Ayyo! Konchem vishraanti teesuko akkaa.",
+        "model_answer_english": "Oh no! Get some rest, sister.",
+        "key_vocab": ["రాత్రి (raatri) — night", "విశ్రాంతి (vishraanti) — rest"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "మంచిది. ఇప్పుడు ముఖ్యమైనది — పాప పేరు ఏంటి అని అడుగు.",
+        "ai_prompt_translit": "Manchidi. Ippudu mukhyamainadi — paapa peru enti ani adugu.",
+        "ai_prompt_english": "Good. Now the important thing — ask what the baby's name is.",
+        "model_answer_native": "పాపకి ఏం పేరు పెట్టారు?",
+        "model_answer_translit": "Paapaki em peru pettaaru?",
+        "model_answer_english": "What name did you give the baby?",
+        "key_vocab": ["పేరు పెట్టు (peru pettu) — to name", "ముఖ్యమైనది (mukhyamainadi) — the important thing"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "ఆమె నా పేరు పెట్టిందట కన్నా. ఇప్పుడు ఇద్దరు ఉన్నాం ఈ ఇంట్లో!",
+        "ai_prompt_translit": "Aame naa peru pettindata kanna. Ippudu iddaru unnaam ee intlo!",
+        "ai_prompt_english": "She named her after me, dear. Now there are two of us in this house!",
+        "model_answer_native": "అది చాలా బాగుంది అమ్మమ్మా!",
+        "model_answer_translit": "Adi chaalaa baagundi Ammammaa!",
+        "model_answer_english": "That's so wonderful, {persona}!",
+        "key_vocab": ["ఇద్దరు (iddaru) — two people", "ఇంట్లో (intlo) — in the house"]
+      },
+      {
+        "turn_number": 6,
+        "ai_prompt_native": "పాప ఎంత చిన్నదో! పాలు తాగుతుందా?",
+        "ai_prompt_translit": "Paapa enta chinnado! Paalu taagutundaa?",
+        "ai_prompt_english": "How tiny the baby is! Does she drink milk?",
+        "model_answer_native": "పాలు తాగుతుంది అమ్మమ్మా. చాలా చిన్నది.",
+        "model_answer_translit": "Paalu taagutundi Ammammaa. Chaalaa chinnadi.",
+        "model_answer_english": "She drinks milk, {persona}. She is very small.",
+        "key_vocab": ["పాలు (paalu) — milk", "చిన్నది (chinnadi) — small one"]
+      },
+      {
+        "turn_number": 7,
+        "ai_prompt_native": "ఏడిస్తే ఎత్తుకో. నిద్ర పోతుంది. నేను అలాగే చేసేదాన్ని.",
+        "ai_prompt_translit": "Edeeste ettuko. Nidra potundi. Nenu alaage chesedaanni.",
+        "ai_prompt_english": "If she cries, pick her up. She will sleep. That is what I used to do.",
+        "model_answer_native": "ఏడిస్తే ఎత్తుకుంటాను అమ్మమ్మా. నిద్ర పోతుంది.",
+        "model_answer_translit": "Edeeste ettukuntaanu Ammammaa. Nidra potundi.",
+        "model_answer_english": "If she cries I will pick her up, {persona}. She will sleep.",
+        "key_vocab": ["ఏడిస్తే (edeeste) — if she cries", "నిద్ర (nidra) — sleep"]
+      },
+      {
+        "turn_number": 8,
+        "ai_prompt_native": "పాపకి ముద్దు పెట్టి నా తరపున దీవించు.",
+        "ai_prompt_translit": "Paapaki muddu petti naa tarapuna deevinchu.",
+        "ai_prompt_english": "Give the baby a kiss and bless her on my behalf.",
+        "model_answer_native": "ముద్దు పెడతాను అమ్మమ్మా. నీ దీవెనలు చెప్తాను.",
+        "model_answer_translit": "Muddu pedataanu Ammammaa. Nee deevenalu cheptaanu.",
+        "model_answer_english": "I will kiss her, {persona}. I will pass on your blessings.",
+        "key_vocab": ["ముద్దు (muddu) — kiss", "దీవెనలు (deevenalu) — blessings"]
+      }
+    ]
+  },
+  {
+    "id": "eccca23a-9e07-4fbd-84df-561372a00b53",
+    "target_language": "te",
+    "title": "Buy a train ticket",
+    "scenario_description": "{persona} is the man behind the counter, and the queue behind you is getting impatient.",
+    "emotional_anchor": "cultural",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "కన్నా, నువ్వు రైల్వే స్టేషన్‌లో ఉన్నావు. నేను కౌంటర్‌లో ఉన్నాను. \"చెప్పండి?\"",
+        "ai_prompt_translit": "Kanna, nuvvu railway station lo unnaavu. Nenu counter lo unnaanu. \"Cheppandi?\"",
+        "ai_prompt_english": "Dear, you're at the railway station. I'm at the counter. \"Yes, tell me?\"",
+        "model_answer_native": "విజయవాడకి ఒక టికెట్ కావాలి.",
+        "model_answer_translit": "Vijayawaadaki oka ticket kaavaali.",
+        "model_answer_english": "I need one ticket to Vijayawada.",
+        "key_vocab": ["టికెట్ (ticket) — ticket", "కావాలి (kaavaali) — I need"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "\"ఎప్పటికి కావాలి?\"",
+        "ai_prompt_translit": "\"Eppatiki kaavaali?\"",
+        "ai_prompt_english": "\"For when do you need it?\"",
+        "model_answer_native": "రేపు ఉదయం కావాలి.",
+        "model_answer_translit": "Repu udayam kaavaali.",
+        "model_answer_english": "I need it for tomorrow morning.",
+        "key_vocab": ["రేపు (repu) — tomorrow", "ఉదయం (udayam) — morning"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "\"ఉదయం ఆరు గంటలకి ఉంది. సరిపోతుందా?\"",
+        "ai_prompt_translit": "\"Udayam aaru gantalaki undi. Saripotundaa?\"",
+        "ai_prompt_english": "\"There's one at six in the morning. Will that do?\"",
+        "model_answer_native": "సరిపోతుంది. ఎంత అవుతుంది?",
+        "model_answer_translit": "Saripotundi. Enta avutundi?",
+        "model_answer_english": "That works. How much will it be?",
+        "key_vocab": ["గంటలు (gantalu) — o'clock", "సరిపోతుంది (saripotundi) — that works"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "\"మూడు వందల యాభై రూపాయలు.\" డబ్బు ఇచ్చి ఏం అడుగుతావు?",
+        "ai_prompt_translit": "\"Moodu vandala yaabhai roopaayalu.\" Dabbu ichchi em adugutaavu?",
+        "ai_prompt_english": "\"Three hundred and fifty rupees.\" After paying, what will you ask?",
+        "model_answer_native": "ఏ ప్లాట్‌ఫారం నుంచి వెళ్తుంది?",
+        "model_answer_translit": "Ee platform nunchi veltundi?",
+        "model_answer_english": "Which platform does it leave from?",
+        "key_vocab": ["డబ్బు (dabbu) — money", "ప్లాట్‌ఫారం (platform) — platform"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "\"మూడో నంబరు.\" — కన్నా, నువ్వు ఒక్క ఇంగ్లీష్ మాట కూడా వాడలేదు! చూశావా?",
+        "ai_prompt_translit": "\"Moodo nambaru.\" — kanna, nuvvu okka English maata koodaa vaadaledu! Chooshaavaa?",
+        "ai_prompt_english": "\"Number three.\" — dear, you didn't use a single English word! Did you notice?",
+        "model_answer_native": "నిజమా? నాకు తెలియలేదు అమ్మమ్మా!",
+        "model_answer_translit": "Nijamaa? Naaku teliyaledu Ammammaa!",
+        "model_answer_english": "Really? I didn't even notice, {persona}!",
+        "key_vocab": ["మూడో (moodo) — third", "తెలియలేదు (teliyaledu) — I didn't notice"]
+      },
+      {
+        "turn_number": 6,
+        "ai_prompt_native": "రైలు ఎన్ని గంటలకి? సమయం అడిగావా?",
+        "ai_prompt_translit": "Railu enni gantalaki? Samayam adigaavaa?",
+        "ai_prompt_english": "What time is the train? Did you ask the time?",
+        "model_answer_native": "రైలు ఎన్ని గంటలకి? సమయం చెప్పండి.",
+        "model_answer_translit": "Railu enni gantalaki? Samayam cheppandi.",
+        "model_answer_english": "What time is the train? Please tell me the time.",
+        "key_vocab": ["రైలు (railu) — train", "సమయం (samayam) — time"]
+      },
+      {
+        "turn_number": 7,
+        "ai_prompt_native": "ఆలస్యం అయితే అడుగు — 'రైలు ఆలస్యమా?' అను.",
+        "ai_prompt_translit": "Aalasyam ayite adugu — 'railu aalasyamaa?' anu.",
+        "ai_prompt_english": "If it is late, ask — say 'is the train delayed?'",
+        "model_answer_native": "రైలు ఆలస్యమా? ఎంత సేపు ఆగాలి?",
+        "model_answer_translit": "Railu aalasyamaa? Enta sepu aagaali?",
+        "model_answer_english": "Is the train delayed? How long must I wait?",
+        "key_vocab": ["ఆలస్యం (aalasyam) — delay", "ఆగాలి (aagaali) — must wait"]
+      },
+      {
+        "turn_number": 8,
+        "ai_prompt_native": "సామాను జాగ్రత్త. దిగేటప్పుడు మర్చిపోకు కన్నా.",
+        "ai_prompt_translit": "Saamaanu jaagratta. Digetappudu marchipoku kanna.",
+        "ai_prompt_english": "Mind your luggage. Do not leave it behind when you get off, dear.",
+        "model_answer_native": "సామాను జాగ్రత్తగా చూసుకుంటాను అమ్మమ్మా.",
+        "model_answer_translit": "Saamaanu jaagrattagaa choosukuntaanu Ammammaa.",
+        "model_answer_english": "I will look after my luggage carefully, {persona}.",
+        "key_vocab": ["సామాను (saamaanu) — luggage", "జాగ్రత్తగా (jaagrattagaa) — carefully"]
+      }
+    ]
+  }
+]

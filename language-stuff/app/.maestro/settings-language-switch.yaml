@@ -1,0 +1,19 @@
+# Switching language in Settings changes whose topics home shows.
+#
+#   maestro test app/.maestro/settings-language-switch.yaml
+#
+# Run after onboarding-to-first-conversation.yaml (it relies on an onboarded user).
+# Needs at least one verified Hindi topic seeded.
+appId: com.example.appname
+---
+- launchApp
+- runFlow:
+    when:
+      visible: "Not now"
+    commands:
+      - tapOn: "Not now"
+- tapOn: "Settings"
+- tapOn: "Hindi"
+- assertVisible: "A note from Nani"
+- tapOn: "Done"
+- assertVisible: "With Nani"

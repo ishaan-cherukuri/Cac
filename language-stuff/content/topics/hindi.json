@@ -1,0 +1,273 @@
+[
+  {
+    "id": "5b0f2c3e-8d4a-4c1e-9a7b-2f6d1e8c4a01",
+    "target_language": "hi",
+    "title": "Celebrate Holi with {persona}",
+    "scenario_description": "It's Holi. {persona} is at the door with a plate of gujiya and a fistful of gulal, and she is not letting you leave without colour on your face.",
+    "emotional_anchor": "grandparent",
+    "verified": false,
+    "starter": true,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "होली है! आज रंग खेलोगे ना, बेटा?",
+        "ai_prompt_translit": "Holi hai! Aaj rang kheloge na, beta?",
+        "ai_prompt_english": "It's Holi! You'll play with colours today, won't you, dear?",
+        "model_answer_native": "हाँ नानी! पहले आपको गुलाल लगाना है।",
+        "model_answer_translit": "Haan Nani! Pehle aapko gulaal lagaana hai.",
+        "model_answer_english": "Yes, {persona}! First I have to put gulal on you.",
+        "key_vocab": ["रंग (rang) — colour", "गुलाल (gulaal) — coloured powder", "लगाना (lagaana) — to put on, apply"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "अरे, धीरे से! मेरे बालों में नहीं। तुम्हें कौन सा रंग सबसे अच्छा लगता है?",
+        "ai_prompt_translit": "Arre, dheere se! Mere baalon mein nahi. Tumhe kaun sa rang sabse accha lagta hai?",
+        "ai_prompt_english": "Hey, gently! Not in my hair. Which colour do you like best?",
+        "model_answer_native": "मुझे हरा और पीला रंग सबसे अच्छा लगता है।",
+        "model_answer_translit": "Mujhe hara aur peela rang sabse accha lagta hai.",
+        "model_answer_english": "I like green and yellow best.",
+        "key_vocab": ["हरा (hara) — green", "पीला (peela) — yellow", "अच्छा लगना (accha lagna) — to like"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "मैंने गुजिया बनाई है। कितनी खाओगे?",
+        "ai_prompt_translit": "Maine gujiya banaayi hai. Kitni khaaoge?",
+        "ai_prompt_english": "I've made gujiya. How many will you eat?",
+        "model_answer_native": "कम से कम तीन, नानी! आपकी गुजिया सबसे अच्छी होती है।",
+        "model_answer_translit": "Kam se kam teen, Nani! Aapki gujiya sabse acchi hoti hai.",
+        "model_answer_english": "At least three, {persona}! Your gujiya are the best.",
+        "key_vocab": ["कम से कम (kam se kam) — at least", "तीन (teen) — three", "सबसे (sabse) — the most"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "जब मैं छोटी थी, हम टेसू के फूलों से रंग बनाते थे। तुमने कभी टेसू देखा है?",
+        "ai_prompt_translit": "Jab main chhoti thi, hum tesu ke phoolon se rang banaate the. Tumne kabhi tesu dekha hai?",
+        "ai_prompt_english": "When I was little, we made colour from tesu flowers. Have you ever seen tesu?",
+        "model_answer_native": "नहीं, कभी नहीं देखा। वो कैसे दिखते हैं?",
+        "model_answer_translit": "Nahi, kabhi nahi dekha. Woh kaise dikhte hain?",
+        "model_answer_english": "No, never. What do they look like?",
+        "key_vocab": ["कभी नहीं (kabhi nahi) — never", "फूल (phool) — flower", "दिखना (dikhna) — to look, appear"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "चमकीले नारंगी, आग जैसे। होली से एक रात पहले क्या जलाते हैं, पता है?",
+        "ai_prompt_translit": "Chamkeele naarangi, aag jaise. Holi se ek raat pehle kya jalaate hain, pata hai?",
+        "ai_prompt_english": "Bright orange, like fire. Do you know what we burn the night before Holi?",
+        "model_answer_native": "होलिका दहन! हम आग जलाते हैं।",
+        "model_answer_translit": "Holika dahan! Hum aag jalaate hain.",
+        "model_answer_english": "Holika Dahan! We light a bonfire.",
+        "key_vocab": ["रात (raat) — night", "आग (aag) — fire", "जलाना (jalaana) — to light, burn"]
+      },
+      {
+        "turn_number": 6,
+        "ai_prompt_native": "हाँ। हमारे गाँव में सब लोग आग के चारों ओर गाना गाते थे। तुम्हारे यहाँ होली कैसे मनाते हैं?",
+        "ai_prompt_translit": "Haan. Hamaare gaon mein sab log aag ke chaaron or gaana gaate the. Tumhaare yahaan Holi kaise manaate hain?",
+        "ai_prompt_english": "Yes. In our village everyone sang around the fire. How do people celebrate Holi where you live?",
+        "model_answer_native": "यहाँ मंदिर में होली होती है। सब दोस्त मिलकर रंग खेलते हैं।",
+        "model_answer_translit": "Yahaan mandir mein Holi hoti hai. Sab dost milkar rang khelte hain.",
+        "model_answer_english": "Here there's Holi at the temple. All my friends play with colours together.",
+        "key_vocab": ["मंदिर (mandir) — temple", "मिलकर (milkar) — together", "खेलना (khelna) — to play"]
+      },
+      {
+        "turn_number": 7,
+        "ai_prompt_native": "अच्छा है। और ठंडाई पी या नहीं?",
+        "ai_prompt_translit": "Accha hai. Aur thandaai pi ya nahi?",
+        "ai_prompt_english": "That's nice. And did you have thandai or not?",
+        "model_answer_native": "हाँ, ठंडी ठंडाई पी। बहुत मज़ा आया।",
+        "model_answer_translit": "Haan, thandi thandaai pi. Bahut mazaa aaya.",
+        "model_answer_english": "Yes, I had cold thandai. It was so much fun.",
+        "key_vocab": ["पीना (peena) — to drink", "ठंडी (thandi) — cold", "मज़ा आना (mazaa aana) — to have fun"]
+      },
+      {
+        "turn_number": 8,
+        "ai_prompt_native": "चलो, अब नहा लो। रंग छुड़ाने में घंटों लगेंगे!",
+        "ai_prompt_translit": "Chalo, ab naha lo. Rang chhudaane mein ghanton lagenge!",
+        "ai_prompt_english": "Come on, go and have a bath now. Getting the colour off will take hours!",
+        "model_answer_native": "ठीक है नानी। अगले साल फिर साथ में होली खेलेंगे।",
+        "model_answer_translit": "Theek hai Nani. Agle saal phir saath mein Holi khelenge.",
+        "model_answer_english": "Okay, {persona}. Next year we'll play Holi together again.",
+        "key_vocab": ["नहाना (nahaana) — to bathe", "अगले साल (agle saal) — next year", "साथ में (saath mein) — together"]
+      }
+    ]
+  },
+  {
+    "id": "9e4a7d21-3c6b-4f80-b1d2-6a8e5c0f7b12",
+    "target_language": "hi",
+    "title": "Tell {persona} about Raksha Bandhan",
+    "scenario_description": "It's Raksha Bandhan and {persona} has called. She wants to know everything: the rakhi, the sweets, the gifts, and whether anyone has remembered to call your mama.",
+    "emotional_anchor": "grandparent",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "आज रक्षाबंधन है ना? राखी मनाई या नहीं?",
+        "ai_prompt_translit": "Aaj Rakshabandhan hai na? Raakhi manaayi ya nahi?",
+        "ai_prompt_english": "It's Raksha Bandhan today, isn't it? Did you all celebrate Rakhi?",
+        "model_answer_native": "हाँ नानी, सुबह सबने मिलकर राखी मनाई।",
+        "model_answer_translit": "Haan Nani, subah sabne milkar raakhi manaayi.",
+        "model_answer_english": "Yes, {persona}, we all celebrated Rakhi together this morning.",
+        "key_vocab": ["राखी (raakhi) — rakhi, the sacred thread", "सुबह (subah) — morning", "मनाना (manaana) — to celebrate"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "कैसी राखी थी? रंग-बिरंगी वाली या सादी?",
+        "ai_prompt_translit": "Kaisi raakhi thi? Rang-birangi waali ya saadi?",
+        "ai_prompt_english": "What kind of rakhi was it? A colourful one or a plain one?",
+        "model_answer_native": "लाल धागे वाली, उस पर छोटे-छोटे मोती थे।",
+        "model_answer_translit": "Laal dhaage waali, us par chhote-chhote moti the.",
+        "model_answer_english": "One with red thread, with tiny beads on it.",
+        "key_vocab": ["लाल (laal) — red", "धागा (dhaaga) — thread", "मोती (moti) — bead, pearl"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "और मिठाई में क्या था? घेवर मिला?",
+        "ai_prompt_translit": "Aur mithaai mein kya tha? Ghevar mila?",
+        "ai_prompt_english": "And what sweets were there? Did you get ghevar?",
+        "model_answer_native": "घेवर नहीं, पर काजू कतली और लड्डू थे।",
+        "model_answer_translit": "Ghevar nahi, par kaaju katli aur laddoo the.",
+        "model_answer_english": "No ghevar, but there was kaju katli and laddoos.",
+        "key_vocab": ["मिठाई (mithaai) — sweets", "पर (par) — but", "लड्डू (laddoo) — laddoo, a round sweet"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "हमारे यहाँ तो घेवर के बिना राखी अधूरी है। तोहफ़े में क्या मिला?",
+        "ai_prompt_translit": "Hamaare yahaan toh ghevar ke bina raakhi adhoori hai. Tohfe mein kya mila?",
+        "ai_prompt_english": "Back home, Rakhi isn't complete without ghevar. What gifts were there?",
+        "model_answer_native": "किताबें और एक घड़ी। सबको तोहफ़े बहुत पसंद आए।",
+        "model_answer_translit": "Kitaabein aur ek ghadi. Sabko tohfe bahut pasand aaye.",
+        "model_answer_english": "Books and a watch. Everyone loved the gifts.",
+        "key_vocab": ["तोहफ़ा (tohfa) — gift", "किताब (kitaab) — book", "घड़ी (ghadi) — watch, clock"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "जब तुम्हारी मम्मी छोटी थी, वो अपने भाई के लिए खुद राखी बनाती थी। पता था?",
+        "ai_prompt_translit": "Jab tumhaari mummy chhoti thi, woh apne bhai ke liye khud raakhi banaati thi. Pata tha?",
+        "ai_prompt_english": "When your mum was little, she made rakhis herself for her brother. Did you know?",
+        "model_answer_native": "नहीं! मम्मी ने कभी नहीं बताया। कैसे बनाती थीं?",
+        "model_answer_translit": "Nahi! Mummy ne kabhi nahi bataaya. Kaise banaati thin?",
+        "model_answer_english": "No! Mum never told me. How did she make them?",
+        "key_vocab": ["भाई (bhai) — brother", "खुद (khud) — oneself, by hand", "बताना (bataana) — to tell"]
+      },
+      {
+        "turn_number": 6,
+        "ai_prompt_native": "रेशम के धागे और पुराने बटनों से। तुम्हारे मामा ने वो आज तक संभाल कर रखी हैं। मामा से बात किए कितने दिन हुए?",
+        "ai_prompt_translit": "Resham ke dhaage aur puraane batanon se. Tumhaare mama ne woh aaj tak sambhaal kar rakhi hain. Mama se baat kiye kitne din hue?",
+        "ai_prompt_english": "With silk thread and old buttons. Your mama has kept them safe to this day. How long since you talked to your mama?",
+        "model_answer_native": "बहुत दिन हो गए। आज शाम को मामा को फ़ोन करना है।",
+        "model_answer_translit": "Bahut din ho gaye. Aaj shaam ko mama ko phone karna hai.",
+        "model_answer_english": "It's been a long time. I need to call Mama this evening.",
+        "key_vocab": ["मामा (mama) — mother's brother", "दिन (din) — day", "फ़ोन करना (phone karna) — to call"]
+      },
+      {
+        "turn_number": 7,
+        "ai_prompt_native": "हाँ, ज़रूर करना। वो बहुत खुश होगा। और मुझे कब फ़ोन करोगे?",
+        "ai_prompt_translit": "Haan, zaroor karna. Woh bahut khush hoga. Aur mujhe kab phone karoge?",
+        "ai_prompt_english": "Yes, do call him. He'll be so happy. And when will you call me?",
+        "model_answer_native": "हर रविवार, नानी। पक्का वादा।",
+        "model_answer_translit": "Har ravivaar, Nani. Pakka vaada.",
+        "model_answer_english": "Every Sunday, {persona}. A real promise.",
+        "key_vocab": ["हर (har) — every", "रविवार (ravivaar) — Sunday", "वादा (vaada) — promise"]
+      },
+      {
+        "turn_number": 8,
+        "ai_prompt_native": "ठीक है, याद रखूँगी। खुश रहो, बेटा।",
+        "ai_prompt_translit": "Theek hai, yaad rakhoongi. Khush raho, beta.",
+        "ai_prompt_english": "Alright, I'll remember that. Stay happy, dear.",
+        "model_answer_native": "आप भी अपना ख़याल रखिए, नानी।",
+        "model_answer_translit": "Aap bhi apna khayaal rakhiye, Nani.",
+        "model_answer_english": "You take care of yourself too, {persona}.",
+        "key_vocab": ["ख़याल रखना (khayaal rakhna) — to take care", "खुश (khush) — happy", "आप (aap) — you, respectfully"]
+      }
+    ]
+  },
+  {
+    "id": "c7d13e58-0a9f-4b26-8e3c-4f1b9d6a2e73",
+    "target_language": "hi",
+    "title": "Watch an old Hindi film with {persona}",
+    "scenario_description": "It's Sunday afternoon and {persona} has put on an old Hindi film, the kind she queued for at the cinema hall when she was young. She pats the seat next to her.",
+    "emotional_anchor": "grandparent",
+    "verified": false,
+    "turns": [
+      {
+        "turn_number": 1,
+        "ai_prompt_native": "आओ, मेरे पास बैठो। तुमने कभी पुरानी हिंदी फ़िल्म देखी है?",
+        "ai_prompt_translit": "Aao, mere paas baitho. Tumne kabhi puraani Hindi film dekhi hai?",
+        "ai_prompt_english": "Come, sit by me. Have you ever watched an old Hindi film?",
+        "model_answer_native": "हाँ नानी, मम्मी के साथ 'शोले' देखी थी।",
+        "model_answer_translit": "Haan Nani, mummy ke saath 'Sholay' dekhi thi.",
+        "model_answer_english": "Yes, {persona}, I watched 'Sholay' with Mum.",
+        "key_vocab": ["फ़िल्म (film) — film", "देखना (dekhna) — to watch", "के साथ (ke saath) — with"]
+      },
+      {
+        "turn_number": 2,
+        "ai_prompt_native": "शोले! वो तो मैंने हॉल में तीन बार देखी थी। उसमें तुम्हें कौन सबसे अच्छा लगा?",
+        "ai_prompt_translit": "Sholay! Woh toh maine hall mein teen baar dekhi thi. Usmein tumhe kaun sabse accha laga?",
+        "ai_prompt_english": "Sholay! I saw that three times at the cinema hall. Who did you like best in it?",
+        "model_answer_native": "मुझे जय और वीरू की दोस्ती सबसे अच्छी लगी।",
+        "model_answer_translit": "Mujhe Jai aur Veeru ki dosti sabse acchi lagi.",
+        "model_answer_english": "I liked Jai and Veeru's friendship best.",
+        "key_vocab": ["दोस्ती (dosti) — friendship", "बार (baar) — time, occurrence", "अच्छा लगना (accha lagna) — to like"]
+      },
+      {
+        "turn_number": 3,
+        "ai_prompt_native": "उस ज़माने में पूरा परिवार साथ में फ़िल्म देखने जाता था। तुम लोग फ़िल्म कहाँ देखते हो?",
+        "ai_prompt_translit": "Us zamaane mein poora parivaar saath mein film dekhne jaata tha. Tum log film kahaan dekhte ho?",
+        "ai_prompt_english": "Back then the whole family went to the pictures together. Where do you all watch films?",
+        "model_answer_native": "हम ज़्यादातर घर पर टीवी या फ़ोन पर देखते हैं।",
+        "model_answer_translit": "Hum zyaadatar ghar par TV ya phone par dekhte hain.",
+        "model_answer_english": "We mostly watch at home, on the TV or on our phones.",
+        "key_vocab": ["परिवार (parivaar) — family", "ज़्यादातर (zyaadatar) — mostly", "घर (ghar) — home"]
+      },
+      {
+        "turn_number": 4,
+        "ai_prompt_native": "फ़ोन पर! हॉल में तो लोग गानों पर सीटी बजाते थे। तुम्हें फ़िल्मी गाने पसंद हैं?",
+        "ai_prompt_translit": "Phone par! Hall mein toh log gaanon par seeti bajaate the. Tumhe filmi gaane pasand hain?",
+        "ai_prompt_english": "On a phone! In the hall people used to whistle at the songs. Do you like film songs?",
+        "model_answer_native": "हाँ, मम्मी गाड़ी में पुराने गाने बजाती हैं।",
+        "model_answer_translit": "Haan, mummy gaadi mein puraane gaane bajaati hain.",
+        "model_answer_english": "Yes, Mum plays old songs in the car.",
+        "key_vocab": ["गाना (gaana) — song", "पुराना (puraana) — old", "गाड़ी (gaadi) — car"]
+      },
+      {
+        "turn_number": 5,
+        "ai_prompt_native": "अच्छा? कौन से गाने? कोई नाम याद है?",
+        "ai_prompt_translit": "Accha? Kaun se gaane? Koi naam yaad hai?",
+        "ai_prompt_english": "Really? Which songs? Do you remember any names?",
+        "model_answer_native": "'लग जा गले'। मम्मी कहती हैं आप ये गाना गाती थीं।",
+        "model_answer_translit": "'Lag Jaa Gale'. Mummy kehti hain aap ye gaana gaati thin.",
+        "model_answer_english": "'Lag Jaa Gale'. Mum says you used to sing this song.",
+        "key_vocab": ["नाम (naam) — name", "याद (yaad) — memory, remembering", "कहती हैं (kehti hain) — she says"]
+      },
+      {
+        "turn_number": 6,
+        "ai_prompt_native": "हाँ, जब वो छोटी थी। अरे देखो, हीरो आ गया! तुम्हें ये हीरो कैसा लगता है?",
+        "ai_prompt_translit": "Haan, jab woh chhoti thi. Arre dekho, hero aa gaya! Tumhe ye hero kaisa lagta hai?",
+        "ai_prompt_english": "Yes, when she was little. Oh look, here comes the hero! What do you think of him?",
+        "model_answer_native": "थोड़ा पुराने ज़माने का है, पर अच्छा है।",
+        "model_answer_translit": "Thoda puraane zamaane ka hai, par accha hai.",
+        "model_answer_english": "He's a bit old-fashioned, but he's good.",
+        "key_vocab": ["थोड़ा (thoda) — a little", "ज़माना (zamaana) — era, those days", "पर (par) — but"]
+      },
+      {
+        "turn_number": 7,
+        "ai_prompt_native": "पुराने ज़माने का! मेरी सहेलियाँ उसकी दीवानी थीं। चाय पियोगे? इंटरवल हो गया।",
+        "ai_prompt_translit": "Puraane zamaane ka! Meri saheliyaan uski deewaani thin. Chaai piyoge? Interval ho gaya.",
+        "ai_prompt_english": "Old-fashioned! My friends were crazy about him. Will you have some chai? It's the interval.",
+        "model_answer_native": "हाँ नानी, चाय और थोड़े बिस्कुट।",
+        "model_answer_translit": "Haan Nani, chaai aur thode biscuit.",
+        "model_answer_english": "Yes, {persona}, chai and a few biscuits.",
+        "key_vocab": ["चाय (chaai) — tea", "सहेली (saheli) — female friend", "बिस्कुट (biscuit) — biscuit"]
+      },
+      {
+        "turn_number": 8,
+        "ai_prompt_native": "ठीक है, ले आती हूँ। अगले रविवार कौन सी फ़िल्म देखेंगे?",
+        "ai_prompt_translit": "Theek hai, le aati hoon. Agle ravivaar kaun si film dekhenge?",
+        "ai_prompt_english": "Alright, I'll bring it. Which film shall we watch next Sunday?",
+        "model_answer_native": "अगली बार आप चुनिए, नानी। आपकी पसंद की फ़िल्म।",
+        "model_answer_translit": "Agli baar aap chuniye, Nani. Aapki pasand ki film.",
+        "model_answer_english": "Next time you choose, {persona}. A film you love.",
+        "key_vocab": ["अगली बार (agli baar) — next time", "चुनना (chunna) — to choose", "पसंद (pasand) — liking, choice"]
+      }
+    ]
+  }
+]

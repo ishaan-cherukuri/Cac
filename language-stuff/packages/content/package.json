@@ -1,0 +1,22 @@
+{
+  "name": "@shared/content",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Telugu topic content, its schema, and the gates that keep unreviewed content from shipping.",
+  "main": "src/index.ts",
+  "scripts": {
+    "validate": "node src/validate.ts",
+    "seed": "node --env-file-if-exists=../../.env src/seed.ts",
+    "test": "node --test src/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.110.9",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.9.0"
+  }
+}

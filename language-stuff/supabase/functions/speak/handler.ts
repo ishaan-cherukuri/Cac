@@ -1,0 +1,142 @@
+/**
+ * GET /functions/v1/speak?token=... — streams the grandmother's voice.
+ *
+ * This exists so audio can start playing before it has finished generating. The old
+ * design returned the whole clip base64-encoded inside the /turn JSON, which meant the
+ * user heard nothing until the last syllable had been synthesized and encoded — about
+ * 15 seconds. ElevenLabs emits its first bytes ~1s in (measured), and those bytes are
+ * playable immediately, so piping the stream straight through turns a 15s wait into
+ * roughly 1s of silence.
+ *
+ * Deliberately a GET with the credential in the query string: the phone hands this URL
+ * to its audio player, and players do not reliably attach custom headers. See
+ * _shared/speech-token.ts.
+ *
+ * Runtime-free like turn/handler.ts: index.ts passes Deno's env and fetch, tests pass fakes.
+ */
+
+import { verifySpeechToken } from "../_shared/speech-token.ts";
+import { languageProfile, type LanguageProfile } from "../../../packages/core/src/index.ts";
+
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, range",
+  "Access-Control-Allow-Methods": "GET, OPTIONS",
+};
+
+export interface SpeakDeps {
+  env(name: string): string | undefined;
+  fetch: typeof fetch;
+  now?: () => number;
+}
+
+function requireEnv(deps: SpeakDeps, name: string): string {
+  const value = deps.env(name);
+  if (!value) throw new Error(`Server misconfigured: ${name} is not set`);
+  return value;
+}
+
+/**
+ * Falls back to OpenAI TTS when ElevenLabs errors. OpenAI's response is also a stream, so
+ * the fallback keeps the same start-early behaviour rather than silently reverting to a
+ * buffered clip.
+ */
+async function openAiStream(
+  deps: SpeakDeps,
+  text: string,
+  language: LanguageProfile,
+): Promise<Response> {
+  return await deps.fetch("https://api.openai.com/v1/audio/speech", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${requireEnv(deps, "OPENAI_API_KEY")}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: deps.env("OPENAI_TTS_MODEL") ?? "gpt-4o-mini-tts",
+      voice: deps.env("OPENAI_TTS_VOICE") ?? "shimmer",
+      input: text,
+      response_format: "mp3",
+      instructions: language.ttsInstruction,
+    }),
+  });
+}
+
+async function elevenLabsStream(
+  deps: SpeakDeps,
+  text: string,
+  language: LanguageProfile,
+): Promise<Response | null> {
+  const key = deps.env("ELEVENLABS_API_KEY");
+  // Per-language env override (ELEVENLABS_VOICE_ID_HI) beats the profile, so a voice can
+  // be trialled in production without a code change. The legacy unsuffixed variable
+  // still applies to Telugu, which is what it always meant.
+  const voiceId =
+    deps.env(`ELEVENLABS_VOICE_ID_${language.code.toUpperCase()}`) ??
+    (language.code === "te" ? deps.env("ELEVENLABS_VOICE_ID") : undefined) ??
+    language.elevenLabs.voiceId;
+  if (!key || !voiceId) return null;
+
+  const response = await deps.fetch(
+    `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream`,
+    {
+      method: "POST",
+      headers: { "xi-api-key": key, "Content-Type": "application/json", Accept: "audio/mpeg" },
+      body: JSON.stringify({
+        text,
+        // Only eleven_v3 supports Telugu. It is the slowest model, but streaming makes
+        // its time-to-first-byte competitive — see scripts/bench-tts.mjs.
+        model_id: deps.env("ELEVENLABS_MODEL_ID") ?? language.elevenLabs.modelId,
+        voice_settings: { stability: 0.6, similarity_boost: 0.8, style: 0.15 },
+      }),
+    },
+  );
+
+  return response.ok ? response : null;
+}
+
+export function createSpeakHandler(deps: SpeakDeps): (request: Request) => Promise<Response> {
+  return async (request) => {
+    if (request.method === "OPTIONS") return new Response("ok", { headers: CORS_HEADERS });
+
+    try {
+      const token = new URL(request.url).searchParams.get("token");
+      if (!token) return new Response("Missing token", { status: 400, headers: CORS_HEADERS });
+
+      const verified = await verifySpeechToken(
+        requireEnv(deps, "SPEECH_SIGNING_SECRET"),
+        token,
+        (deps.now ?? Date.now)(),
+      );
+      if (!verified) {
+        // Expired or tampered. Both are 403 — distinguishing them tells an attacker which.
+        return new Response("Invalid or expired token", { status: 403, headers: CORS_HEADERS });
+      }
+
+      const language = languageProfile(verified.language);
+      const upstream =
+        (await elevenLabsStream(deps, verified.text, language)) ??
+        (await openAiStream(deps, verified.text, language));
+      if (!upstream.ok || !upstream.body) {
+        return new Response("Speech generation failed", { status: 502, headers: CORS_HEADERS });
+      }
+
+      // Pipe the body straight through — never await the full buffer, or the whole point
+      // of this endpoint is lost.
+      return new Response(upstream.body, {
+        status: 200,
+        headers: {
+          ...CORS_HEADERS,
+          "Content-Type": "audio/mpeg",
+          "Cache-Control": "no-store",
+        },
+      });
+    } catch (error) {
+      console.error("speak failed:", error);
+      return new Response("Something went wrong on our side.", {
+        status: 500,
+        headers: CORS_HEADERS,
+      });
+    }
+  };
+}

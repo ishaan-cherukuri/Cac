@@ -1,0 +1,20 @@
+{
+  "name": "spike",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "SPEC step 1: prove the Telugu tech loop before any app code.",
+  "scripts": {
+    "start": "node --env-file-if-exists=../.env src/index.ts",
+    "test": "node --test src/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@shared/core": "*",
+    "openai": "^6.49.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.9.0"
+  }
+}

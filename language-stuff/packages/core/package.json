@@ -1,0 +1,16 @@
+{
+  "name": "@shared/core",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Session state machine and persona prompt. Dependency-free so Node, Deno, and React Native all run identical logic.",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "node --test src/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.9.0"
+  }
+}
